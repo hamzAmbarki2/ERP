@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.5\
+**Version:** 0.6\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -182,6 +182,45 @@ The diagram is the same for every company.
 
 *The buttons are added area by area in the next steps.*
 
+### Step 5 --- Employee's buttons: Properties
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        P1(["View properties and units<br/><i>box: Properties - View</i>"])
+        P2(["Add a property<br/><i>box: Properties - Create</i>"])
+        P3(["Add a building or floor<br/><i>box: Properties - Create</i>"])
+        P4(["Add a unit<br/><i>box: Properties - Create</i>"])
+        P5(["Edit a property or unit<br/><i>box: Properties - Update</i>"])
+        P6(["Change a unit's status<br/><i>box: Properties - Update</i>"])
+        P7(["Attach photos or documents<br/><i>box: Properties - Update</i>"])
+        P8(["Delete a property or unit<br/><i>box: Properties - Delete</i>"])
+    end
+
+    EM --- P1
+    EM --- P2
+    EM --- P3
+    EM --- P4
+    EM --- P5
+    EM --- P6
+    EM --- P7
+    EM --- P8
+```
+
+| # | Button | Box that must be ticked |
+|---|---|---|
+| 1 | View properties and units | Properties: View |
+| 2 | Add a property (building, house, shop…) | Properties: Create |
+| 3 | Add a building or floor inside a property (only when needed) | Properties: Create |
+| 4 | Add a unit (apartment, office, parking space…) | Properties: Create |
+| 5 | Edit a property or unit | Properties: Update |
+| 6 | Change a unit's status (available, rented, for sale, under repair) | Properties: Update |
+| 7 | Attach photos or documents to a property | Properties: Update |
+| 8 | Delete a property or unit | Properties: Delete |
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -193,3 +232,4 @@ The diagram is the same for every company.
 | 0.3 | 2026-10-08 | Use case diagram, step 3: fifteen more administrator use cases; a member requests a move, the administrator approves it. |
 | 0.4 | 2026-10-08 | Question 6: Administrator and Employee are separate (generalization removed). Question 5: organizations have branches and departments; "Create or edit a branch" added. |
 | 0.5 | 2026-10-08 | Question 7: the Employee's use cases are the full list of buttons; each company decides who can press them. |
+| 0.6 | 2026-10-08 | Step 5: eight Properties buttons for the Employee. |
