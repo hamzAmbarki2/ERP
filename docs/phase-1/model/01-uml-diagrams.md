@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.1\
+**Version:** 0.2\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -41,7 +41,12 @@ flowchart LR
 
     AD --- ERP
     EM --- ERP
+    AD -->|"generalization: is a kind of"| EM
 ```
+
+The Organization Administrator is a special kind of Employee: they can
+do everything any employee can do (including a technician's work), plus
+the administration tasks.
 
 | Actor | Definition |
 |---|---|
@@ -55,3 +60,4 @@ flowchart LR
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | Document created. Use case diagram, step 1: actors (Organization Administrator, Employee). |
+| 0.2 | 2026-10-08 | Use case diagram, step 2: Organization Administrator generalizes Employee. |
