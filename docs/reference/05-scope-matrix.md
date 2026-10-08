@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** REF-05 — Scope & Roadmap Matrix\
-**Version:** 0.1\
+**Version:** 0.2\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -332,6 +332,7 @@ These move to the Open Questions Register (REF-03) when it is created.
 | Topic | Why it matters | Decide in |
 |---|---|---|
 | Seasonal / short-term rentals | Common locally; changes lease durations, billing and availability. Distinct from the "Airbnb clone" non-goal. | CdC 04 |
+| Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*; staff only, no login. | CdC 04, CdC 06 |
 | Condominium management (*syndic de copropriété*) | A separate business with its own accounting and owners' meetings. **Proposed: Out**, revisit after customer interviews. | Decision log |
 | Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | CdC 10 |
 | Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | P0-06, CdC 07 |
@@ -376,3 +377,4 @@ smaller and follows from Phase 0.
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First version: who logs in, capabilities by domain with sources, open topics, Phase 0 inconsistencies, proposals to confirm. |
+| 0.2 | 2026-10-08 | Open topic added: rental prospects. |
