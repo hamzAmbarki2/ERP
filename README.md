@@ -13,4 +13,4 @@ every planned document, the open issues found in the existing ones, and the
 order in which to write the rest.
 
 - [Phase 0 — Product Definition](docs/phase-0/01-product-definition.md)
-- [CdC 00 — Cahier des Charges Général](docs/phase-1/specs/00-cahier-des-charges-general.md)
+- [Cahier des Charges 00 — Cahier des Charges Général](docs/phase-1/specs/00-cahier-des-charges-general.md)
