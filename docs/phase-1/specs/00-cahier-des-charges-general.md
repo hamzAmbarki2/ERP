@@ -3,12 +3,13 @@
 **Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** 00 --- Cahier des Charges Général\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** Draft / Baseline\
 **Date:** 2026-10-08
 
 **Historique**
 
+-   0.3 (2026-10-08) --- MVP réservé aux utilisateurs internes (D-010).
 -   0.2 (2026-10-08) --- alignement avec la Phase 0 mise à jour :
     acteur interne Commercial, deux modèles de vendeur, vente de base
     dans le MVP (D-008, D-009), matrice d'acteurs complétée.
@@ -425,6 +426,9 @@ Le système peut notifier les acteurs lors d'événements importants :
 
 Canaux initiaux : in-app et email.
 
+Dans le MVP, les acteurs externes (locataires, propriétaires) n'ont pas
+d'accès : ils sont notifiés par email uniquement (D-010).
+
 ------------------------------------------------------------------------
 
 ## 13. Reporting
@@ -547,6 +551,11 @@ DRAFT → ISSUED → PARTIALLY_PAID → PAID
 
 Cette table constitue une orientation. Le cahier « Organisation & Accès
 » produira la matrice d'autorisation exhaustive, action par action.
+
+**MVP (D-010) :** seuls les utilisateurs internes (Admin, Manager,
+Commercial, Finance, Technicien interne) se connectent. Les colonnes
+Owner, Tenant, Vendor et Prospect/Buyer décrivent les accès prévus à
+partir de la V1.
 
 ------------------------------------------------------------------------
 
@@ -744,6 +753,13 @@ couvre les deux cas.
 
 Le MVP inclut un périmètre de vente de base (voir §8.4). Commissions,
 échéanciers, portail acheteur et vente sur plan sont progressifs.
+
+### D-010 --- MVP réservé aux utilisateurs internes
+
+Le MVP est l'ERP utilisé par le personnel de l'organisation. Locataires,
+prospects, propriétaires, fournisseurs et acheteurs n'ont pas
+d'interface avant la V1 : ils existent comme fiches gérées par le
+personnel et reçoivent emails et documents.
 
 ------------------------------------------------------------------------
 

@@ -11,6 +11,8 @@
     personas, workflows, MVP / V1 / V2 items, business rules and
     decision record (§0.29). Product renamed from "Property Management
     ERP" to "Real Estate Operations ERP".
+-   2026-10-08 --- MVP limited to internal users: tenants, owners,
+    vendors and buyers get no interface before V1 (§0.29).
 
 ------------------------------------------------------------------------
 
@@ -1105,7 +1107,9 @@ loop without trying to implement every enterprise feature.
 
 -   tenant profiles
 -   relevant documents
--   portal foundation
+
+Tenants have no login in the MVP (§0.29): staff record their requests
+and send them documents by email. The tenant portal is V1.
 
 ### Leasing
 
@@ -1129,7 +1133,7 @@ loop without trying to implement every enterprise feature.
 
 ### Maintenance
 
--   tenant maintenance requests
+-   maintenance requests reported by tenants and recorded by staff
 -   work orders
 -   assignment
 -   internal technician handling
@@ -1216,13 +1220,13 @@ Buyers have no login in the MVP.
 
 Possible V1 capabilities:
 
--   tenant mobile application
+-   tenant portal and tenant mobile application
 -   technician mobile application
 -   richer vendor interaction
 -   vendor portal
 -   SMS
 -   payment integrations
--   advanced owner portal
+-   owner portal
 -   recurring expenses
 -   late fees
 -   lease-expiration reminders
@@ -2047,6 +2051,41 @@ Both are supported with one workflow:
 
 This decision replaces the earlier non-goal "a real-estate agency CRM"
 (§0.17), which is reworded accordingly.
+
+### Decision: Only internal users log in to the MVP
+
+**Date:** 2026-10-08
+
+**Decision**
+
+The MVP is the ERP used by the organization's own staff:
+administrators, property managers, sales agents, finance staff and
+internal technicians. Tenants, rental prospects, owners, vendors and
+buyers have no interface in the MVP. They exist as records managed by
+staff and receive emails and documents.
+
+**Reason**
+
+Focus the first version on the core ERP for the companies that rent
+out and sell properties.
+
+**Consequences**
+
+-   staff record maintenance requests that tenants report by phone,
+    message or in person
+-   receipts and owner statements reach tenants and owners as documents
+    sent by email
+-   authorization in the MVP covers internal roles and organization
+    isolation
+-   the identity model must still allow external users to be added in
+    V1 without rework
+
+**Scope treatment**
+
+-   Tenant portal: **V1**
+-   Owner portal: **V1**
+-   Vendor portal: **V1** (unchanged)
+-   Buyer portal: **V1** (unchanged)
 
 ------------------------------------------------------------------------
 

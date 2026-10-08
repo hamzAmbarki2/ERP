@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** REF-05 — Scope & Roadmap Matrix\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -42,28 +42,26 @@ resolved by a decision and both are updated.
 
 This resolves finding F-05 of the documentation map.
 
+**Decision D-010 (2026-10-08): the MVP is the ERP used by the
+organization's own staff. No external actor logs in before V1.**
+
 | Actor | MVP | V1 | Source |
 |---|---|---|---|
 | Organization Administrator, Property Manager, Sales Agent, Finance Staff | **Yes** — web application | — | P0 §0.13 |
 | Internal Technician | **Yes** — responsive web, limited to assigned work orders | Mobile app | P0 §0.13, §0.14; responsive web *Proposed* |
-| Tenant | **Yes** — basic portal: own lease, invoices and balance, payments and receipts, maintenance requests, notifications | Mobile app, richer portal | P0 §0.13 ("portal foundation", "tenant maintenance requests") |
-| Owner | **Yes** — read-only: own properties and units, occupancy, owner statements, documents | Advanced owner portal, sale progress | **Proposed** — P0 §0.14 plans an *advanced* owner portal in V1 but no basic one before it |
+| Tenant | **No** — staff record the requests tenants report by phone, message or in person; tenants receive emails and documents | Tenant portal, then mobile app | D-010 (replaces P0 §0.13 "portal foundation") |
+| Owner | **No** — owners receive their statements and documents by email | Owner portal, including sale progress | D-010 |
 | Vendor | **No** — the property manager records the vendor's work | Vendor portal | P0 §0.29 |
 | Prospect / Buyer | **No** — the sales agent manages the record | Buyer portal | D-009 |
 | Platform Operator | **Yes** — minimal back office: create and suspend organizations | Support access, plans | **Proposed** (finding F-07) |
 
 **Consequence for finding F-06** (external actors working with several
-organizations):
-
-- **Vendors:** since vendors do not log in during the MVP, a vendor is
-  simply a record inside each organization. The question "one vendor
-  login across several organizations?" only arises with the V1 vendor
-  portal, and must be answered in CdC 01 before V1.
-- **Owners and tenants:** they log in from the MVP. A person who is a
-  tenant with one organization and an owner with another uses **one
-  user account with two memberships**, the same mechanism as staff
-  working for several organizations. *Proposed*, to be detailed in
-  CdC 01.
+organizations): since no external actor logs in during the MVP,
+tenants, owners, vendors and buyers are simply records inside each
+organization. How a person or vendor working with several
+organizations logs in is decided in CdC 01 before V1. The identity
+model must still be designed so these logins can be added in V1
+without rework.
 
 ------------------------------------------------------------------------
 
@@ -76,9 +74,9 @@ transfer and allocate them; handle maintenance requests through work
 orders assigned to internal technicians or vendors, through to verified
 completion and the resulting expense; sell units from listing to
 closing, with offers, reservations and buyer payments; and produce
-occupancy, arrears, maintenance, sales and owner reports. Tenants and
-owners can log in to see their own information. Everything is
-audited, isolated per organization, and available in French, Arabic
+occupancy, arrears, maintenance, sales and owner reports. Only the
+organization's staff log in; tenants and owners receive emails and
+documents. Everything is audited, isolated per organization, and available in French, Arabic
 and English.
 
 ------------------------------------------------------------------------
@@ -91,7 +89,8 @@ and English.
 |---|---|---|---|
 | Organization creation | MVP | P0 §0.13 | |
 | Users, authentication, memberships | MVP | P0 §0.13 | |
-| Predefined roles and permissions (Admin, Property Manager, Sales Agent, Finance, Technician, Tenant, Owner) | MVP | P0 §0.13, D-008 | |
+| Predefined internal roles and permissions (Admin, Property Manager, Sales Agent, Finance, Technician) | MVP | P0 §0.13, D-008 | |
+| Roles for external users (tenant, owner, vendor, buyer) | V1 | D-010 | |
 | Inviting users by email | MVP | Proposed | Needed to add users. |
 | One user in several organizations | MVP | Proposed | Built into the data model from the start. |
 | Multi-factor authentication for internal users | MVP | Proposed | Security objective, P0 §0.12. |
@@ -130,15 +129,14 @@ and English.
 | Effective-dated ownership (transfer at a date) | MVP | P0 §0.18 | Required to sell a leased unit. |
 | Organization as owner of its own stock | MVP | D-008 | |
 | Basic management mandate (dates, fee terms) | MVP | Proposed | Needed for the management fee. |
-| Owner portal — read-only basics | MVP | Proposed | See §2. |
-| Advanced owner portal | V1 | P0 §0.14 | |
+| Owner portal | V1 | D-010, P0 §0.14 | MVP: statements sent by email (§8). |
 
 ### 4.5 Tenants and leasing
 
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
 | Tenant profiles and documents | MVP | P0 §0.13 | |
-| Tenant portal — basics | MVP | P0 §0.13 | See §2. |
+| Tenant portal | V1 | D-010 | MVP: staff record requests; documents sent by email. |
 | Leases: parties, dates, rent, deposit, status | MVP | P0 §0.13 | |
 | Lease lifecycle including renewal and termination | MVP | P0 §0.13, CdC 00 §7.2 | |
 | Guarantors | MVP | Proposed | As a lease party. |
@@ -204,7 +202,8 @@ and English.
 
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
-| Maintenance requests from tenants and staff | MVP | P0 §0.13 | |
+| Maintenance requests recorded by staff (reported by tenants by phone, message or in person) | MVP | P0 §0.13, D-010 | The channel is recorded on the request. |
+| Tenants submit maintenance requests themselves | V1 | D-010 | Tenant portal. |
 | Work orders, assignment, status | MVP | P0 §0.13 | |
 | Internal technician handling | MVP | P0 §0.13 | |
 | Vendor assignment | MVP | P0 §0.13 | |
@@ -254,7 +253,7 @@ and English.
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
 | In-app notifications | MVP | P0 §0.13 | |
-| Email notifications | MVP | P0 §0.13 | |
+| Email notifications, including to tenants and owners (reminders, receipts, statements) | MVP | P0 §0.13, CdC 00 §12 | The only channel to external actors in the MVP (D-010). |
 | Reminders (rent due, rent late, reservation expiring) | MVP | P0 §0.13, CdC 00 §12 | |
 | Notification preferences per user | V1 | Proposed | |
 | SMS | V1 | P0 §0.14 | |
@@ -332,7 +331,7 @@ These move to the Open Questions Register (REF-03) when it is created.
 | Topic | Why it matters | Decide in |
 |---|---|---|
 | Seasonal / short-term rentals | Common locally; changes lease durations, billing and availability. Distinct from the "Airbnb clone" non-goal. | CdC 04 |
-| Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*; staff only, no login. | CdC 04, CdC 06 |
+| Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. No interface (D-010). Open: whether staff record them, and in which release. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*. | CdC 04, CdC 06 |
 | Condominium management (*syndic de copropriété*) | A separate business with its own accounting and owners' meetings. **Proposed: Out**, revisit after customer interviews. | Decision log |
 | Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | CdC 10 |
 | Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | P0-06, CdC 07 |
@@ -349,8 +348,8 @@ These move to the Open Questions Register (REF-03) when it is created.
 | Purchase orders | Listed in both V1 (§0.14) and V2 (§0.15). | **V2**, as the decision record §0.29 says. |
 | Vendor contracts | Listed in both V1 and V2; §0.29 says "V1 / V2". | Left as V1 / V2; to settle in CdC 09. |
 | Payment integrations | "Payment integrations" in V1 and "payment-provider integrations" in V2. | Left as V1 / V2; to settle in CdC 07. |
-| Receipts and owner statements vs. PDF | Receipts and owner statements are MVP, but PDF generation is V1, so there would be nothing to hand to a tenant or send to an owner. | **Proposed:** PDF receipt and PDF owner statement in MVP; other PDFs and templates stay in V1. |
-| Owner portal | V1 has an "advanced owner portal", but no basic one exists before it. | **Proposed:** read-only owner portal in MVP (§2). |
+| Receipts and owner statements vs. PDF | Receipts and owner statements are MVP, but PDF generation is V1, so there would be nothing to hand to a tenant or send to an owner. | **Proposed:** PDF receipt and PDF owner statement in MVP; other PDFs and templates stay in V1. Without portals (D-010), these PDFs are how tenants and owners get their documents. |
+| Owner portal | V1 has an "advanced owner portal", but no basic one exists before it. | Resolved by D-010: the owner portal comes in V1. |
 
 ------------------------------------------------------------------------
 
@@ -359,16 +358,15 @@ These move to the Open Questions Register (REF-03) when it is created.
 These change the size of the MVP. Everything else marked *Proposed* is
 smaller and follows from Phase 0.
 
-1.  **Owners can log in from the MVP**, read-only (§2).
-2.  **A minimal platform back office in the MVP**: the operator creates
+1.  **A minimal platform back office in the MVP**: the operator creates
     and suspends organizations (§2, §4.2).
-3.  **Management fee and owner remittance in the MVP**, so owner
+2.  **Management fee and owner remittance in the MVP**, so owner
     statements show the net amount due (§4.7).
-4.  **Cash, cheque and transfer, with cheque follow-up, in the MVP**
+3.  **Cash, cheque and transfer, with cheque follow-up, in the MVP**
     (§4.7).
-5.  **PDF receipt and owner statement in the MVP** (§8).
-6.  **Excel / CSV import of the main records in the MVP** (§4.14).
-7.  **Condominium management (syndic) out of scope** (§7).
+4.  **PDF receipt and owner statement in the MVP** (§8).
+5.  **Excel / CSV import of the main records in the MVP** (§4.14).
+6.  **Condominium management (syndic) out of scope** (§7).
 
 ------------------------------------------------------------------------
 
@@ -378,3 +376,4 @@ smaller and follows from Phase 0.
 |---|---|---|
 | 0.1 | 2026-10-08 | First version: who logs in, capabilities by domain with sources, open topics, Phase 0 inconsistencies, proposals to confirm. |
 | 0.2 | 2026-10-08 | Open topic added: rental prospects. |
+| 0.3 | 2026-10-08 | D-010: only internal staff log in to the MVP; tenant and owner portals moved to V1. |
