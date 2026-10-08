@@ -53,6 +53,11 @@ the administration tasks.
 | Organization Administrator | Head of a real-estate company. Every organization has one; the role cannot be modified. |
 | Employee | Any other member of an organization. The use cases they can perform depend on the privileges of their role. |
 
+There is **no generalization** between the two actors: the Organization
+Administrator is not a kind of Employee and does not inherit employee
+work. Example: the administrator does not perform a technician's
+maintenance work.
+
 ------------------------------------------------------------------------
 
 ## Change log
