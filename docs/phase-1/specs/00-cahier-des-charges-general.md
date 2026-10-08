@@ -1,0 +1,851 @@
+# Cahier des Charges Général --- Real Estate Operations ERP
+
+**Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
+**Document:** 00 --- Cahier des Charges Général\
+**Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
+**Version:** 0.1\
+**Status:** Draft / Baseline\
+**Date:** 2026-10-08
+
+------------------------------------------------------------------------
+
+## 1. Objet du document
+
+Ce document définit le cadre fonctionnel global du produit. Il sert de
+référence commune avant la rédaction des cahiers des charges spécialisés
+et du modèle de domaine.
+
+Il précise :
+
+-   la vision et les objectifs du produit ;
+-   le périmètre fonctionnel ;
+-   les acteurs ;
+-   les grands workflows ;
+-   les principes métier généraux ;
+-   les limites du périmètre ;
+-   les décisions structurantes héritées de la Phase 0 ;
+-   les sujets devant être détaillés dans les cahiers suivants.
+
+**Important :** ce document décrit ce que le système doit faire au
+niveau métier. Les choix de PostgreSQL, REST, microservices, Kubernetes,
+Terraform, CI/CD, etc. seront traités principalement en Phase 2.
+
+------------------------------------------------------------------------
+
+## 2. Vision du produit
+
+Le produit est un **ERP SaaS B2B cloud-native et multi-tenant** destiné
+aux entreprises qui gèrent des activités immobilières.
+
+Il couvre principalement deux activités :
+
+1.  **gestion locative** ;
+2.  **vente de biens immobiliers**.
+
+Ces activités utilisent une même base opérationnelle : biens, unités,
+propriétaires, clients, documents, transactions, maintenance,
+fournisseurs, paiements et reporting.
+
+Le produit doit devenir la source de vérité opérationnelle de
+l'entreprise au lieu de disperser les informations entre tableurs,
+emails, messageries, documents et outils isolés.
+
+------------------------------------------------------------------------
+
+## 3. Périmètre général
+
+### 3.1 Domaines
+
+``` text
+01  Organisation & Accès
+02  Biens & Propriétés
+03  Propriétaires
+04  Location & Gestion Locative
+05  Vente Immobilière
+06  Prospects / Acheteurs
+07  Finance & Transactions
+08  Maintenance & Techniciens
+09  Fournisseurs Externes
+10  Documents
+11  Notifications
+12  Reporting
+13  Audit
+```
+
+### 3.2 Forme du produit
+
+-   SaaS B2B
+-   multi-tenant
+-   web application
+-   API-first
+-   mobile applications prévues
+-   sécurité et audit intégrés
+-   cloud-native
+-   DevSecOps
+
+### 3.3 Localisation initiale
+
+Marché initial : Tunisie.
+
+Langues cibles : français, arabe, anglais.\
+Devise initiale : TND.\
+L'architecture fonctionnelle doit rester compatible avec l'extension à
+plusieurs devises et marchés.
+
+------------------------------------------------------------------------
+
+## 4. Acteurs
+
+### 4.1 Acteurs internes à l'organisation cliente
+
+-   Administrateur d'organisation
+-   Property Manager
+-   Finance / Administration
+-   Technicien interne
+
+### 4.2 Acteurs externes
+
+-   Propriétaire
+-   Locataire
+-   Prospect / Acheteur
+-   Fournisseur / Vendor
+
+### 4.3 Séparation importante
+
+``` text
+Entreprise cliente
+├── Admin
+├── Property Managers
+├── Finance Staff
+└── Internal Technicians
+
+Entreprises externes
+└── Vendors
+```
+
+Un fournisseur externe n'est pas un utilisateur interne de
+l'organisation cliente.
+
+------------------------------------------------------------------------
+
+## 5. Objectifs fonctionnels
+
+Le système doit permettre de :
+
+-   gérer les organisations et leurs utilisateurs ;
+-   structurer propriétés, bâtiments, étages et unités ;
+-   gérer les propriétaires et leurs droits économiques ;
+-   gérer les locataires et les baux ;
+-   générer et suivre les loyers ;
+-   gérer les factures, paiements et soldes ;
+-   traiter les demandes de maintenance ;
+-   affecter un work order à un technicien interne ou à un fournisseur
+    externe ;
+-   gérer les fournisseurs comme de vraies entités métier ;
+-   gérer les biens et unités disponibles à la vente ;
+-   gérer prospects, visites, offres, réservations et ventes ;
+-   suivre dépenses et flux financiers associés ;
+-   gérer les documents ;
+-   envoyer des notifications ;
+-   produire des rapports ;
+-   assurer la traçabilité des actions importantes.
+
+------------------------------------------------------------------------
+
+## 6. Modèle immobilier général
+
+Le bien immobilier est une donnée de référence partagée par plusieurs
+domaines.
+
+``` text
+Property
+  └── Building (si nécessaire)
+       └── Floor (si nécessaire)
+            └── Unit
+```
+
+Une maison individuelle ne doit pas être artificiellement forcée dans
+une hiérarchie complexe.
+
+Une **Unit** doit pouvoir être utilisée par plusieurs processus :
+
+``` text
+Unit
+├── Rental lifecycle
+├── Sales lifecycle
+├── Maintenance
+└── Reporting
+```
+
+Le principe est de conserver une identité centrale du bien plutôt que de
+créer des copies indépendantes pour la location et la vente.
+
+------------------------------------------------------------------------
+
+## 7. Gestion locative
+
+### 7.1 Flux de référence
+
+``` text
+Property
+  ↓
+Unit
+  ↓
+Tenant
+  ↓
+Lease
+  ↓
+Rent Charge
+  ↓
+Invoice
+  ↓
+Payment
+  ↓
+Balance
+```
+
+### 7.2 Fonctionnalités générales
+
+-   fiches locataires ;
+-   baux ;
+-   dates et échéances ;
+-   loyer ;
+-   dépôt de garantie ;
+-   génération de charges ;
+-   facturation ;
+-   paiements ;
+-   allocation des paiements ;
+-   soldes ;
+-   renouvellement ;
+-   résiliation ;
+-   documents contractuels ;
+-   historique.
+
+------------------------------------------------------------------------
+
+## 8. Vente immobilière
+
+La vente est un **domaine fonctionnel de premier niveau**, au même titre
+que la location.
+
+### 8.1 Flux de référence
+
+``` text
+Property / Unit
+  ↓
+Sales Listing
+  ↓
+Prospect / Buyer
+  ↓
+Viewing
+  ↓
+Offer
+  ↓
+Reservation
+  ↓
+Sales Transaction / Contract
+  ↓
+Payment / Settlement
+  ↓
+Closing
+```
+
+### 8.2 Capacités générales
+
+-   désigner un bien / unité comme disponible à la vente ;
+-   créer et gérer un listing ;
+-   enregistrer des prospects ;
+-   suivre les visites ;
+-   recevoir et enregistrer des offres ;
+-   gérer les réservations ;
+-   suivre la transaction ;
+-   enregistrer les paiements de vente ;
+-   enregistrer la clôture ;
+-   produire des indicateurs commerciaux.
+
+### 8.3 Limite
+
+Le système n'est pas une marketplace immobilière publique. Il sert
+d'abord à l'entreprise pour piloter ses propres opérations commerciales.
+
+------------------------------------------------------------------------
+
+## 9. Maintenance et interventions
+
+### 9.1 Flux de référence
+
+``` text
+Maintenance Request
+       ↓
+Review
+       ↓
+Work Order
+       ↓
+Assignment
+   ┌───┴──────────┐
+   ↓              ↓
+Internal       External
+Technician      Vendor
+   └──────┬───────┘
+          ↓
+      Completion
+          ↓
+      Verification
+          ↓
+      Cost / Expense
+```
+
+### 9.2 Technicien interne
+
+Le technicien interne est un salarié de l'organisation. Son accès est
+limité aux interventions et aux informations nécessaires à leur
+exécution.
+
+### 9.3 Fournisseur externe
+
+Le fournisseur est une société ou un professionnel externe. Il doit être
+représenté par une vraie entité métier et non seulement par un champ
+texte dans un work order.
+
+### 9.4 Évolution du domaine fournisseur
+
+``` text
+MVP:
+Vendor → Work Order → Completion → Expense / Invoice Reference
+
+Future:
+Vendor → Quote → Approval → Purchase Order → Work Order
+       → Vendor Invoice → Payment
+```
+
+------------------------------------------------------------------------
+
+## 10. Finance et transactions
+
+Les flux financiers sont transversaux aux domaines.
+
+### 10.1 Location
+
+``` text
+Lease → Charge → Invoice → Payment → Allocation → Balance
+```
+
+### 10.2 Maintenance / fournisseurs
+
+``` text
+Work Order → Expense
+
+Vendor → Invoice → Approval → Payment
+```
+
+### 10.3 Vente
+
+``` text
+Sale → Payment Schedule → Payments → Settlement → Closing
+```
+
+Les opérations financières importantes ne doivent pas être corrigées par
+suppression silencieuse. Le système privilégiera ajustements,
+annulations contrôlées, remboursements et écritures correctives selon
+les règles détaillées du cahier Finance.
+
+------------------------------------------------------------------------
+
+## 11. Documents
+
+Les documents doivent être rattachés au contexte métier.
+
+Exemples :
+
+``` text
+Property → titres / documents immobiliers
+Owner → documents d'identité / propriété
+Tenant → identification
+Lease → contrat
+Vendor → certificats / contrats
+Work Order → photos / justificatifs
+Sale → documents de transaction
+```
+
+Chaque document devra avoir un type, une relation métier et des règles
+d'accès appropriées.
+
+------------------------------------------------------------------------
+
+## 12. Notifications
+
+Le système peut notifier les acteurs lors d'événements importants :
+
+-   loyer dû ;
+-   loyer en retard ;
+-   bail arrivant à expiration ;
+-   intervention affectée ;
+-   intervention terminée ;
+-   facture fournisseur reçue ;
+-   offre reçue ;
+-   offre acceptée ;
+-   réservation expirant ;
+-   vente clôturée.
+
+Canaux initiaux : in-app et email.
+
+------------------------------------------------------------------------
+
+## 13. Reporting
+
+### Location
+
+-   occupation ;
+-   loyers dus ;
+-   loyers encaissés ;
+-   impayés ;
+-   échéances.
+
+### Maintenance
+
+-   demandes ouvertes ;
+-   work orders en cours ;
+-   coûts ;
+-   interventions internes / externes ;
+-   activité fournisseur.
+
+### Vente
+
+-   biens en vente ;
+-   listings actifs ;
+-   prospects ;
+-   offres ;
+-   réservations ;
+-   ventes clôturées ;
+-   montants.
+
+### Propriétaire
+
+-   revenus ;
+-   dépenses ;
+-   maintenance ;
+-   location ;
+-   ventes ;
+-   relevés.
+
+------------------------------------------------------------------------
+
+## 14. Principes métier généraux
+
+### 14.1 Appartenance organisationnelle
+
+Toute donnée métier appartient à une organisation ou à une relation
+contrôlée appartenant à une organisation.
+
+### 14.2 Isolation
+
+Une organisation ne doit jamais accéder aux données d'une autre
+organisation.
+
+### 14.3 Moindre privilège
+
+Chaque acteur reçoit uniquement les permissions nécessaires à son
+activité.
+
+### 14.4 Contexte de ressource
+
+La permission doit dépendre du rôle **et** du périmètre de la ressource.
+
+### 14.5 Historisation
+
+Les changements importants affectant la finance, les contrats, les
+droits ou les rapports historiques doivent rester reconstituables.
+
+### 14.6 Source de vérité
+
+Une information de référence, par exemple l'identité d'une Unit, doit
+avoir une source principale réutilisée par plusieurs domaines.
+
+------------------------------------------------------------------------
+
+## 15. États métier de haut niveau
+
+Les états ci-dessous sont des candidats destinés à cadrer le travail de
+Phase 1. Les transitions définitives seront spécifiées dans les cahiers
+spécialisés.
+
+### Lease
+
+``` text
+DRAFT → PENDING → ACTIVE → EXPIRED
+                         ↘ TERMINATED
+```
+
+### Work Order
+
+``` text
+OPEN → ASSIGNED → IN_PROGRESS → COMPLETED → VERIFIED → CLOSED
+```
+
+### Sales Listing
+
+``` text
+DRAFT → ACTIVE → UNDER_OFFER → RESERVED → SOLD
+                         └→ CANCELLED
+```
+
+### Invoice
+
+``` text
+DRAFT → ISSUED → PARTIALLY_PAID → PAID
+                      └──────────→ VOID
+```
+
+------------------------------------------------------------------------
+
+## 16. Matrice d'acteurs --- principe
+
+  -----------------------------------------------------------------------------------------------------------
+  Domaine        Admin   Manager   Finance   Tech.        Owner       Tenant      Vendor     Prospect/Buyer
+                                             interne                                         
+  -------------- ------- --------- --------- ------------ ----------- ----------- ---------- ----------------
+  Organisation   Gérer   Limité    Limité    Non          Non         Non         Non        Non
+
+  Propriétés     Gérer   Gérer     Voir      Voir le      Ses biens   Son unité   Contexte   Bien concerné
+                                             nécessaire                           assigné    
+
+  Location       Gérer   Gérer     Gérer     Non          Son         Son bail    Non        Non
+                                                          périmètre                          
+
+  Finance        Gérer   Selon     Gérer     Non          Son         Ses         Ses        Sa transaction
+                         rôle                             périmètre   paiements   factures   
+
+  Maintenance    Gérer   Gérer     Voir      Exécuter     Voir selon  Créer /     Exécuter   Non
+                                   coûts     assigné      droits      suivre      assigné    
+
+  Vente          Gérer   Gérer     Selon     Non          Selon       Non         Non        Parcours lié à
+                                   rôle                   mandat                             son intérêt
+  -----------------------------------------------------------------------------------------------------------
+
+Cette table constitue une orientation. Le cahier « Organisation & Accès
+» produira la matrice d'autorisation exhaustive, action par action.
+
+------------------------------------------------------------------------
+
+## 17. Cas d'utilisation majeurs
+
+-   UC-001 Créer une organisation
+-   UC-002 Ajouter un bien / une unité
+-   UC-003 Enregistrer un propriétaire
+-   UC-004 Créer un locataire et un bail
+-   UC-005 Générer une charge locative
+-   UC-006 Enregistrer et allouer un paiement
+-   UC-007 Déclarer une maintenance
+-   UC-008 Affecter une intervention à un technicien ou fournisseur
+-   UC-009 Terminer et vérifier une intervention
+-   UC-010 Enregistrer une dépense / facture fournisseur
+-   UC-011 Mettre une unité en vente
+-   UC-012 Enregistrer un prospect / acheteur
+-   UC-013 Organiser / enregistrer une visite
+-   UC-014 Enregistrer une offre
+-   UC-015 Créer une réservation
+-   UC-016 Clôturer une vente
+-   UC-017 Produire un reporting propriétaire
+-   UC-018 Consulter les événements d'audit
+
+Chaque cas d'utilisation sera détaillé ensuite avec préconditions,
+données, règles et critères d'acceptation.
+
+------------------------------------------------------------------------
+
+## 18. Exigence de traçabilité
+
+Les opérations significatives doivent produire des événements d'audit,
+notamment pour :
+
+-   création / modification de contrats ;
+-   modifications financières ;
+-   changements d'état importants ;
+-   approbations ;
+-   affectations ;
+-   opérations sensibles sur les documents ;
+-   actions de sécurité.
+
+Exemple :
+
+``` text
+User A
+→ Invoice #123 created
+
+User B
+→ Payment #77 allocated to Invoice #123
+
+User C
+→ Work Order #45 assigned to Vendor #8
+
+User D
+→ Sale #22 changed to CLOSED
+```
+
+------------------------------------------------------------------------
+
+## 19. Non-fonctionnel --- cadre général
+
+Le produit vise notamment :
+
+### Sécurité
+
+-   authentification ;
+-   RBAC / contrôle d'accès ;
+-   isolation multi-tenant ;
+-   validation des entrées ;
+-   gestion sécurisée des secrets ;
+-   audit ;
+-   sécurité des documents ;
+-   scans de sécurité en CI/CD.
+
+### Fiabilité
+
+-   health checks ;
+-   gestion des erreurs ;
+-   idempotence des opérations critiques ;
+-   sauvegardes ;
+-   restauration documentée.
+
+### Performance
+
+-   pagination ;
+-   indexation ;
+-   requêtes maîtrisées ;
+-   traitement asynchrone lorsque pertinent.
+
+### Observabilité
+
+-   logs structurés ;
+-   métriques ;
+-   traces lorsque pertinentes ;
+-   alertes ;
+-   indicateurs métier.
+
+### Internationalisation
+
+-   français ;
+-   arabe ;
+-   anglais ;
+-   RTL ;
+-   TND ;
+-   extensibilité multi-devise.
+
+------------------------------------------------------------------------
+
+## 20. Hors périmètre
+
+Le produit n'est pas :
+
+-   une marketplace immobilière publique ;
+-   un clone d'Airbnb ;
+-   un PMS hôtelier ;
+-   un ERP de construction complet ;
+-   un CRM généraliste ;
+-   une suite comptable complète de type SAP ;
+-   une plateforme bancaire ;
+-   une plateforme IA / ML ;
+-   un ensemble de microservices créés uniquement pour la complexité.
+
+Les fournisseurs externes sont **dans le périmètre**.
+
+Les fonctions de procurement avancé, contrats fournisseurs complexes,
+comptes fournisseurs complets et commissions commerciales avancées sont
+progressives et seront réparties entre MVP, V1 et V2.
+
+------------------------------------------------------------------------
+
+## 21. Critères fonctionnels de sortie
+
+Le cahier général est considéré comme suffisamment défini lorsque :
+
+-   les acteurs sont identifiés ;
+-   les domaines fonctionnels sont délimités ;
+-   location et vente sont toutes deux couvertes ;
+-   technicien interne et fournisseur externe sont distingués ;
+-   les flux métier majeurs sont connus ;
+-   les interactions inter-domaines sont identifiées ;
+-   les principales contraintes de sécurité et de traçabilité sont
+    explicites ;
+-   les limites du produit sont claires ;
+-   les questions nécessitant une spécification spécialisée sont
+    listées.
+
+------------------------------------------------------------------------
+
+## 22. Décisions structurantes
+
+### D-001 --- SaaS multi-tenant
+
+Plusieurs entreprises clientes utilisent la plateforme avec isolation
+logique stricte.
+
+### D-002 --- Pas d'IA / ML
+
+Aucun module IA / ML n'est nécessaire pour le produit.
+
+### D-003 --- Techniciens internes
+
+Les techniciens peuvent être des employés de l'entreprise cliente.
+
+### D-004 --- Fournisseurs externes
+
+Les entreprises externes sont des acteurs métier à part entière.
+
+### D-005 --- Vente immobilière
+
+La vente de biens et d'unités est officiellement incluse dans le
+produit.
+
+### D-006 --- Pas de marketplace publique
+
+La plateforme reste un ERP métier utilisé par les entreprises.
+
+### D-007 --- Une même base métier pour location et vente
+
+Property / Unit constitue une référence commune ; les workflows de
+location et de vente restent distincts et historisés.
+
+------------------------------------------------------------------------
+
+## 23. Questions à résoudre dans les cahiers détaillés
+
+### Organisation & Accès
+
+-   multi-organisation par utilisateur ;
+-   rôles ;
+-   permissions ;
+-   scopes ;
+-   accès externes ;
+-   isolation tenant.
+
+### Biens & Propriétés
+
+-   granularité Property / Building / Floor / Unit ;
+-   ownership ;
+-   copropriété / multi-propriété ;
+-   disponibilité ;
+-   historique des statuts.
+
+### Location
+
+-   structure d'un bail ;
+-   indexation / révision ;
+-   dépôts ;
+-   renouvellements ;
+-   résiliation.
+
+### Vente
+
+-   structure du listing ;
+-   prospect vs buyer ;
+-   visites ;
+-   offres multiples ;
+-   réservation ;
+-   contrat ;
+-   paiements ;
+-   closing ;
+-   commissions.
+
+### Maintenance
+
+-   catégories ;
+-   priorité ;
+-   planification ;
+-   matériaux ;
+-   coûts ;
+-   approbations ;
+-   SLA éventuels.
+
+### Vendors
+
+-   profil ;
+-   contacts ;
+-   catégories ;
+-   documents ;
+-   contrats ;
+-   devis ;
+-   factures ;
+-   portail.
+
+### Finance
+
+-   modèle de transaction ;
+-   allocation ;
+-   remboursements ;
+-   frais ;
+-   taxes ;
+-   devises ;
+-   rapprochement éventuel.
+
+------------------------------------------------------------------------
+
+## 24. Découpage Phase 1
+
+Le cahier général est complété par :
+
+``` text
+00 — Cahier des Charges Général
+01 — Organisation & Accès
+02 — Biens & Propriétés
+03 — Propriétaires
+04 — Location & Gestion Locative
+05 — Vente Immobilière
+06 — Prospects / Acheteurs
+07 — Finance & Transactions
+08 — Maintenance & Techniciens
+09 — Fournisseurs / Vendors
+10 — Documents / Notifications / Reporting / Audit
+11 — Exigences Transversales & Critères d'Acceptation
+```
+
+Les références croisées entre ces documents sont nécessaires. Ils
+constituent une seule spécification produit, pas onze applications
+indépendantes.
+
+------------------------------------------------------------------------
+
+## 25. Livrables de sortie de Phase 1
+
+La Phase 1 doit produire :
+
+-   cahiers des charges détaillés ;
+-   workflows métier ;
+-   règles métier ;
+-   use cases ;
+-   critères d'acceptation ;
+-   state machines ;
+-   matrice d'autorisation ;
+-   modèle conceptuel de domaine ;
+-   premières cardinalités ;
+-   modèle financier conceptuel ;
+-   ERD initial ;
+-   décisions structurantes documentées.
+
+------------------------------------------------------------------------
+
+## 26. Prochaine étape
+
+Le prochain document à construire est :
+
+> **Cahier des Charges 01 --- Organisation & Accès**
+
+Il devra définir précisément :
+
+``` text
+Organization
+  ↓
+Membership
+  ↓
+User
+  ↓
+Role
+  ↓
+Permission
+  ↓
+Scope
+  ↓
+Tenant Isolation
+```
+
+Ce cahier sera la fondation de tous les autres domaines.
