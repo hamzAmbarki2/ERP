@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.3\
+**Version:** 0.4\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -41,12 +41,7 @@ flowchart LR
 
     AD --- ERP
     EM --- ERP
-    AD -->|"generalization: is a kind of"| EM
 ```
-
-The Organization Administrator is a special kind of Employee: they can
-do everything any employee can do (including a technician's work), plus
-the administration tasks.
 
 | Actor | Definition |
 |---|---|
@@ -69,6 +64,7 @@ flowchart LR
         direction TB
         A1([Set up the organization])
         A2([Invite a member])
+        A8([Create or edit a branch])
         A3([Create or edit a department])
         A4([Create or edit a role])
         A5([Change a member's roles])
@@ -78,6 +74,7 @@ flowchart LR
 
     AD --- A1
     AD --- A2
+    AD --- A8
     AD --- A3
     AD --- A4
     AD --- A5
@@ -89,7 +86,8 @@ flowchart LR
 |---|---|
 | Set up the organization | Cahier des Charges 01, section 7.1 |
 | Invite a member | Cahier des Charges 01, UC-019 |
-| Create or edit a department | Cahier des Charges 01, UC-027 |
+| Create or edit a branch | Answer to question 5: the administrator names the branches on a dedicated page |
+| Create or edit a department | Cahier des Charges 01, UC-027; departments named on a dedicated page |
 | Create or edit a role | Cahier des Charges 01, UC-028 |
 | Change a member's roles | Cahier des Charges 01, UC-022 |
 | Deactivate a member | Cahier des Charges 01, UC-023 |
@@ -167,5 +165,6 @@ flowchart LR
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | Document created. Use case diagram, step 1: actors (Organization Administrator, Employee). |
-| 0.2 | 2026-10-08 | Use case diagram, step 2: Organization Administrator generalizes Employee. |
+| 0.2 | 2026-10-08 | Use case diagram, step 2: Organization Administrator's use cases. |
 | 0.3 | 2026-10-08 | Use case diagram, step 3: fifteen more administrator use cases; a member requests a move, the administrator approves it. |
+| 0.4 | 2026-10-08 | Question 6: Administrator and Employee are separate (generalization removed). Question 5: organizations have branches and departments; "Create or edit a branch" added. |
