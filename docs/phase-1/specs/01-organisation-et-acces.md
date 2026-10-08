@@ -3,7 +3,7 @@
 **Projet :** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document :** Cahier des Charges 01 --- Organisation & Accès\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 0.1\
+**Version :** 0.2\
 **Statut :** Brouillon --- les points marqués *(proposition)* sont à
 valider\
 **Date :** 2026-10-08\
@@ -51,6 +51,10 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 > plateforme), puis invite les quatre autres par email. Chacun reçoit un
 > lien, choisit son mot de passe et se connecte.
 >
+> Chaque employé arrive alors dans **sa propre interface**, conçue pour
+> son métier : menus, tableau de bord et écrans ne sont pas les mêmes
+> pour Karim, Amira, Hédi ou Ali.
+>
 > -   Karim voit tous les biens, locataires et baux, mais ne peut pas
 >     gérer les utilisateurs.
 > -   Amira voit les biens à vendre, les prospects et les ventes, mais
@@ -59,7 +63,9 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 > -   Ali ne voit que les interventions qui lui sont affectées, avec
 >     l'adresse et l'unité concernées. Il ne voit aucun montant.
 >
-> Une autre agence, l'**Agence Carthage**, utilise le même logiciel.
+> Une autre agence, l'**Agence Carthage**, utilise le même logiciel :
+> c'est une deuxième **Organisation**, avec ses propres employés et
+> leurs propres interfaces.
 > Personne à l'Agence Médina ne peut voir quoi que ce soit de l'Agence
 > Carthage, et inversement --- même en tapant une adresse web ou un
 > numéro de dossier au hasard.
@@ -283,6 +289,38 @@ action par action.
 | Toute l'organisation | Par défaut pour tous les rôles sauf Technicien | Karim voit les 300 biens |
 | Un portefeuille de biens *(proposition)* | Gestionnaire ou Commercial | Une agence avec deux gestionnaires : chacun ne voit que ses 150 biens |
 | Les interventions affectées | Technicien | Ali voit 4 interventions cette semaine |
+
+### 6.4 Une interface dédiée à chaque employé
+
+Le logiciel a trois niveaux :
+
+``` text
+Plateforme (le logiciel)
+└── Organisations (les entreprises clientes : Agence Médina, Agence Carthage…)
+    └── Employés de chaque organisation
+        └── Interface dédiée à chaque employé, selon son ou ses rôles
+```
+
+Dans une organisation, chaque employé a **sa propre interface** :
+
+| Rôle | Ce que contient son interface |
+|---|---|
+| Administrateur | Tableau de bord global, paramètres, membres et rôles, journal d'audit, tous les menus |
+| Gestionnaire | Tableau de bord locatif (occupation, impayés, interventions ouvertes), biens, propriétaires, locataires, baux, maintenance, fournisseurs |
+| Commercial | Tableau de bord des ventes (biens à vendre, visites prévues, offres, réservations qui expirent), prospects, ventes |
+| Finance | Tableau de bord financier (encaissements, impayés, dépenses), factures, paiements, relevés propriétaires |
+| Technicien interne | Ses interventions du jour et à venir, pensée pour le téléphone |
+
+Règles :
+
+-   L'interface ne montre **que** ce que le rôle permet : un menu sans
+    droit n'apparaît pas.
+-   Une personne avec plusieurs rôles a une interface qui réunit les
+    menus de ces rôles.
+-   Masquer un menu ne remplace jamais le contrôle par le serveur
+    (règle 14).
+-   Le contenu exact de chaque écran est défini dans les cahiers
+    métier et dans l'Information Architecture (Phase 2).
 
 ------------------------------------------------------------------------
 
@@ -774,3 +812,4 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | Version | Date | Changement |
 |---|---|---|
 | 0.1 | 2026-10-08 | Première version. |
+| 0.2 | 2026-10-08 | Section 6.4 : une interface dédiée à chaque employé ; exemple précisé (chaque agence est une organisation avec ses propres employés). |
