@@ -1,6 +1,6 @@
 # Scope & Roadmap Matrix
 
-**Document:** REF-05 — Scope & Roadmap Matrix\
+**Document:** Scope & Roadmap Matrix\
 **Version:** 0.4\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
@@ -195,7 +195,7 @@ and English.
 | Online payment integration | V1 / V2 | Phase 0 §0.14, §0.15 | To settle — see §8. |
 | Bank integrations | V2 | Phase 0 §0.15 | |
 | Budgets | V2 | Phase 0 §0.15 | |
-| Taxes: VAT, withholding tax, timbre fiscal, e-invoicing | Open | Problem 10 | Depends on the legal register (P0-06). |
+| Taxes: VAT, withholding tax, timbre fiscal, e-invoicing | Open | Problem 10 | Depends on the legal register (Regulatory & Legal Register). |
 | Additional currencies | Later | Phase 0 §0.1 | The money model supports it from the MVP. |
 
 ### 4.8 Maintenance
@@ -246,7 +246,7 @@ and English.
 | PDF generation for other documents; editable templates | V1 | Phase 0 §0.14 | |
 | Generated documents in French and Arabic | V1 | Proposed | With the templates. |
 | Electronic signature | Open | Problem 10 | Legal validity to check. |
-| Retention and deletion rules | Open | Problem 10 | Legal register (P0-06). |
+| Retention and deletion rules | Open | Problem 10 | Legal register (Regulatory & Legal Register). |
 
 ### 4.11 Notifications and communication
 
@@ -287,7 +287,7 @@ and English.
 | Import of properties, units, owners, tenants and leases from Excel / CSV, with an error report | MVP | Proposed | Problem 15. |
 | Manual entry of opening balances | MVP | Proposed | |
 | Import of opening balances and vendors | V1 | Proposed | |
-| Sample data for a new organization | MVP | Proposed | Same dataset as the acceptance scenarios (DM-09). |
+| Sample data for a new organization | MVP | Proposed | Same dataset as the acceptance scenarios (Acceptance Scenarios & Reference Dataset). |
 
 ### 4.15 Languages, currency and devices
 
@@ -326,7 +326,7 @@ microservices created only for complexity.
 
 ## 7. Open — needs a decision
 
-These move to the Open Questions Register (REF-03) when it is created.
+These move to the Open Questions Register (Open Questions Register) when it is created.
 
 | Topic | Why it matters | Decide in |
 |---|---|---|
@@ -334,8 +334,8 @@ These move to the Open Questions Register (REF-03) when it is created.
 | Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. No interface (D-010). Open: whether staff record them, and in which release. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*. | Cahier des Charges 04, Cahier des Charges 06 |
 | Condominium management (*syndic de copropriété*) | A separate business with its own accounting and owners' meetings. **Proposed: Out**, revisit after customer interviews. | Decision log |
 | Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | Cahier des Charges 10 |
-| Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | P0-06, Cahier des Charges 07 |
-| Electronic signature; retention periods | Legal validity and how long documents must be kept. | P0-06, Cahier des Charges 10 |
+| Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | Regulatory & Legal Register, Cahier des Charges 07 |
+| Electronic signature; retention periods | Legal validity and how long documents must be kept. | Regulatory & Legal Register, Cahier des Charges 10 |
 | How the sale price is paid (through the organization, a notary, or directly) | Decides whether sale money passes through the system. | Cahier des Charges 05, Cahier des Charges 07 |
 | One vendor login across several organizations | Needed before the V1 vendor portal. | Cahier des Charges 01 |
 
@@ -367,7 +367,7 @@ is then updated.
 | PDF receipt and owner statement in the MVP (§8) | Cahier des Charges 10 |
 | Excel / CSV import of the main records in the MVP (§4.14) | Cahier des Charges 13 |
 | Rental prospects recorded by staff (§7) | Cahier des Charges 04, Cahier des Charges 06 |
-| Condominium management (syndic) out of scope (§7) | Decision log, after customer interviews (P0-04) |
+| Condominium management (syndic) out of scope (§7) | Decision log, after customer interviews (Customer Discovery & Validation) |
 
 ------------------------------------------------------------------------
 
