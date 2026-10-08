@@ -58,6 +58,43 @@ Administrator is not a kind of Employee and does not inherit employee
 work. Example: the administrator does not perform a technician's
 maintenance work.
 
+### Step 2 --- Organization Administrator's use cases
+
+``` mermaid
+flowchart LR
+    AD["👤 Organization Administrator"]
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        A1([Set up the organization])
+        A2([Invite a member])
+        A3([Create or edit a department])
+        A4([Create or edit a role])
+        A5([Change a member's roles])
+        A6([Deactivate a member])
+        A7([View the audit log])
+    end
+
+    AD --- A1
+    AD --- A2
+    AD --- A3
+    AD --- A4
+    AD --- A5
+    AD --- A6
+    AD --- A7
+```
+
+| Use case | Source |
+|---|---|
+| Set up the organization | Cahier des Charges 01, section 7.1 |
+| Invite a member | Cahier des Charges 01, UC-019 |
+| Create or edit a department | Cahier des Charges 01, UC-027 |
+| Create or edit a role | Cahier des Charges 01, UC-028 |
+| Change a member's roles | Cahier des Charges 01, UC-022 |
+| Deactivate a member | Cahier des Charges 01, UC-023 |
+| View the audit log | Cahier des Charges 01, UC-018 |
+
 ------------------------------------------------------------------------
 
 ## Change log
