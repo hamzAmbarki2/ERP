@@ -23,7 +23,30 @@ system boundary.
 
 ## 1. Use case diagram
 
-*Not started. Each step is added only after a question is answered.*
+### Step 1 --- Actors
+
+Actors are fixed in the system, not job titles. Each organization names
+and configures its own roles (decision D-011), so job titles such as
+"Property Manager" are role templates, not actors.
+
+``` mermaid
+flowchart LR
+    AD["👤 Organization Administrator"]
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        X(( ))
+    end
+
+    AD --- ERP
+    EM --- ERP
+```
+
+| Actor | Definition |
+|---|---|
+| Organization Administrator | Head of a real-estate company. Every organization has one; the role cannot be modified. |
+| Employee | Any other member of an organization. The use cases they can perform depend on the privileges of their role. |
 
 ------------------------------------------------------------------------
 
@@ -31,4 +54,4 @@ system boundary.
 
 | Version | Date | Change |
 |---|---|---|
-| 0.1 | 2026-10-08 | Document created; diagrams not started. |
+| 0.1 | 2026-10-08 | Document created. Use case diagram, step 1: actors (Organization Administrator, Employee). |
