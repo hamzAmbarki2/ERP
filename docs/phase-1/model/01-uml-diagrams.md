@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -95,6 +95,71 @@ flowchart LR
 | Deactivate a member | Cahier des Charges 01, UC-023 |
 | View the audit log | Cahier des Charges 01, UC-018 |
 
+### Step 3 --- More Organization Administrator use cases
+
+``` mermaid
+flowchart LR
+    AD["👤 Organization Administrator"]
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        B1([Reactivate a member])
+        R0([Request a move to another department or branch])
+        B2([Approve or refuse a move request])
+        B3([Resend or cancel an invitation])
+        B4([Reset a member's double authentication])
+        B5([Configure company information])
+        B6([Choose the activities: rental, sales, or both])
+        B7([Assign properties to a branch])
+        B8([Set up reminders])
+        B9([Customize document headers])
+        B10([View the company-wide dashboard])
+        B11([View reports across branches and departments])
+        B12([Approve large expenses])
+        B13([Import data from Excel])
+        B14([Export the company's data])
+        B15([View the subscription])
+    end
+
+    EM --- R0
+    R0 -. "approved through" .-> B2
+    AD --- B1
+    AD --- B2
+    AD --- B3
+    AD --- B4
+    AD --- B5
+    AD --- B6
+    AD --- B7
+    AD --- B8
+    AD --- B9
+    AD --- B10
+    AD --- B11
+    AD --- B12
+    AD --- B13
+    AD --- B14
+    AD --- B15
+```
+
+| Use case | Meaning |
+|---|---|
+| Reactivate a member | Bring back an employee who left and came back, with their history. |
+| Request a move to another department or branch | *(Employee)* The employee asks to change department or branch. |
+| Approve or refuse a move request | The administrator accepts or refuses the employee's request; if accepted, the member is moved. |
+| Resend or cancel an invitation | The email was lost, or sent to the wrong address. |
+| Reset a member's double authentication | An employee lost their phone; the administrator unlocks their login. |
+| Configure company information | Logo, legal name, tax number, default language. |
+| Choose the activities | Rental, sales, or both; hides the unused menus. |
+| Assign properties to a branch | Decide which branch handles which properties, and so who sees them. |
+| Set up reminders | For example, rent reminder 5 days before the due date and 3 days after. |
+| Customize document headers | Logo and company details on receipts, invoices, owner statements. |
+| View the company-wide dashboard | Key numbers for the whole company on one screen. |
+| View reports across branches and departments | Compare and total results for the whole company. |
+| Approve large expenses | Expenses above an amount set by the company wait for approval. |
+| Import data from Excel | Load existing properties, owners, tenants and leases. |
+| Export the company's data | Download everything, for backup or when leaving. |
+| View the subscription | Current plan and the platform's invoices. |
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -103,3 +168,4 @@ flowchart LR
 |---|---|---|
 | 0.1 | 2026-10-08 | Document created. Use case diagram, step 1: actors (Organization Administrator, Employee). |
 | 0.2 | 2026-10-08 | Use case diagram, step 2: Organization Administrator generalizes Employee. |
+| 0.3 | 2026-10-08 | Use case diagram, step 3: fifteen more administrator use cases; a member requests a move, the administrator approves it. |
