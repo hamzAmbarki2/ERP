@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** REF-05 — Scope & Roadmap Matrix\
-**Version:** 0.3\
+**Version:** 0.4\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -33,8 +33,8 @@ resolved by a decision and both are updated.
 - `P0 §x` — already decided in Phase 0.
 - `D-0xx` — decision in CdC 00 §22.
 - `CdC 00 §x` — stated in the general cahier.
-- **Proposed** — my proposal, to confirm. The main ones are summarized
-  in §9.
+- **Proposed** — a proposal, decided later in the cahier that owns the
+  feature (see §9).
 
 ------------------------------------------------------------------------
 
@@ -353,20 +353,21 @@ These move to the Open Questions Register (REF-03) when it is created.
 
 ------------------------------------------------------------------------
 
-## 9. Main proposals to confirm
+## 9. Proposals to settle in the detailed cahiers
 
-These change the size of the MVP. Everything else marked *Proposed* is
-smaller and follows from Phase 0.
+These are feature-level choices. They stay *Proposed* in this matrix
+and are decided when the cahier that owns them is written; this matrix
+is then updated.
 
-1.  **A minimal platform back office in the MVP**: the operator creates
-    and suspends organizations (§2, §4.2).
-2.  **Management fee and owner remittance in the MVP**, so owner
-    statements show the net amount due (§4.7).
-3.  **Cash, cheque and transfer, with cheque follow-up, in the MVP**
-    (§4.7).
-4.  **PDF receipt and owner statement in the MVP** (§8).
-5.  **Excel / CSV import of the main records in the MVP** (§4.14).
-6.  **Condominium management (syndic) out of scope** (§7).
+| Proposal | Decided in |
+|---|---|
+| A minimal platform back office in the MVP: the operator creates and suspends organizations (§2, §4.2) | CdC 12 |
+| Management fee and owner remittance in the MVP, so owner statements show the net amount due (§4.7) | CdC 07, CdC 03 |
+| Cash, cheque and transfer, with cheque follow-up, in the MVP (§4.7) | CdC 07 |
+| PDF receipt and owner statement in the MVP (§8) | CdC 10 |
+| Excel / CSV import of the main records in the MVP (§4.14) | CdC 13 |
+| Rental prospects recorded by staff (§7) | CdC 04, CdC 06 |
+| Condominium management (syndic) out of scope (§7) | Decision log, after customer interviews (P0-04) |
 
 ------------------------------------------------------------------------
 
@@ -377,3 +378,4 @@ smaller and follows from Phase 0.
 | 0.1 | 2026-10-08 | First version: who logs in, capabilities by domain with sources, open topics, Phase 0 inconsistencies, proposals to confirm. |
 | 0.2 | 2026-10-08 | Open topic added: rental prospects. |
 | 0.3 | 2026-10-08 | D-010: only internal staff log in to the MVP; tenant and owner portals moved to V1. |
+| 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |
