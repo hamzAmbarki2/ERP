@@ -1,11 +1,13 @@
 # Documentation Map — Real Estate Operations ERP
 
 **Document:** DOC-MAP — Documentation Map & Plan\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** Draft\
 **Date:** 2026-10-08\
 **Changes in 0.2:** F-01 to F-03 resolved — sales included in the MVP
 with two seller models (Phase 0 §0.29, CdC 00 D-008 / D-009).\
+**Changes in 0.3:** glossary (REF-01) and scope matrix (REF-05) drafted;
+F-04 to F-06 answered by proposals to confirm.\
 **Inputs:** [Phase 0 — Product Definition](phase-0/01-product-definition.md),
 [CdC 00 — Cahier des Charges Général](phase-1/specs/00-cahier-des-charges-general.md)
 
@@ -42,19 +44,19 @@ writing CdC 01, because roles and permissions depend on them.
 | F-01 | **Sales was added without a Phase 0 decision.** CdC 00 makes real-estate sales and prospects/buyers first-level domains (D-005) and renames the product from "Property Management ERP" to "Real Estate Operations ERP". Phase 0 is rental-only: its target customer, personas, golden workflow, MVP/V1/V2, success criteria and competitor set contain no sales, and its non-goals exclude "a real-estate agency CRM" (CdC 00 §20 quietly rewords this to "un CRM généraliste"). | Phase 0 itself sets the rule (§0.29): a scope change gets a decision record. Without one, Phase 0 and Phase 1 describe two different products. | REF-02 (new decision D-008) + P0-01 update | **Resolved** — Phase 0 §0.29, CdC 00 v0.2 |
 | F-02 | **The sales business model is undefined.** CdC 00 mixes two different businesses: an *agency* selling on mandate for owners ("selon mandat", commissions) and a *developer* (promoteur) selling its own stock with payment schedules, often off-plan (*vente sur plan*), which also brushes against the "not a construction ERP" non-goal. There is also no internal sales actor: §4.1 still lists only Admin, Manager, Finance and Technician. | The two models have different actors, contracts, money flows and documents. CdC 05/06 cannot be written without picking one (or both, staged). | D-008 + P0-01 (new persona) | **Resolved** — both models, one workflow (D-008); Sales Agent persona added |
 | F-03 | **Sales has no MVP staging.** Vendors received a precise MVP/V1/V2 split (§0.29); sales did not, and UC-011 to UC-016 sit at the same level as rental. | Scope explosion is Phase 0's first listed risk. | REF-05 | **Resolved** — basic sales in MVP (D-009) |
-| F-04 | **"Tenant" means two things.** *Multi-tenant* (a customer organization of the SaaS) vs. *Tenant* (locataire). Same collision for "Owner" (property owner vs. organization owner) and "Organization" (client company vs. vendor company in §0.23). | The collision will leak into the data model (`tenant_id` on a lease?), permissions and UI. | REF-01 — e.g. reserve "Tenant" for the locataire and call the SaaS customer "Organization" | Blocking |
-| F-05 | **Which external actors log in at MVP?** The §16 matrix gives owners, tenants, vendors and buyers access, but Phase 0 puts the vendor portal and the advanced owner portal in V1 and the tenant portal as a "foundation". | Each external login changes the identity model, the attack surface and the test scope. | CdC 01 + REF-05 | Blocking |
-| F-06 | **Can an external actor span several organizations?** A vendor, owner or tenant may deal with two customer organizations on the platform. Is a vendor a record inside each organization (simple, isolated), or a platform-level account linked to several (one login, harder isolation)? | This is the hardest multi-tenancy question in the product and shapes the identity model. | CdC 01, DM-03 | Blocking |
+| F-04 | **"Tenant" means two things.** *Multi-tenant* (a customer organization of the SaaS) vs. *Tenant* (locataire). Same collision for "Owner" (property owner vs. organization owner) and "Organization" (client company vs. vendor company in §0.23). | The collision will leak into the data model (`tenant_id` on a lease?), permissions and UI. | REF-01 — e.g. reserve "Tenant" for the locataire and call the SaaS customer "Organization" | **Proposed** — [glossary](reference/01-glossary.md) N-01 to N-04, to confirm |
+| F-05 | **Which external actors log in at MVP?** The §16 matrix gives owners, tenants, vendors and buyers access, but Phase 0 puts the vendor portal and the advanced owner portal in V1 and the tenant portal as a "foundation". | Each external login changes the identity model, the attack surface and the test scope. | CdC 01 + REF-05 | **Proposed** — [scope matrix](reference/05-scope-matrix.md) §2, to confirm |
+| F-06 | **Can an external actor span several organizations?** A vendor, owner or tenant may deal with two customer organizations on the platform. Is a vendor a record inside each organization (simple, isolated), or a platform-level account linked to several (one login, harder isolation)? | This is the hardest multi-tenancy question in the product and shapes the identity model. | CdC 01, DM-03 | **Partly answered** — no vendor login in MVP, so vendors are per-organization records until V1; owners and tenants: one user, several memberships (proposed, REF-05 §2) |
 | F-07 | **Missing actor: the platform operator.** Nobody provisions organizations, suspends them, handles support access to customer data, manages plans/subscriptions, or exports and deletes an organization's data on offboarding. | Every multi-tenant SaaS needs this, and support access is a classic cross-tenant risk. | New CdC 12 | High |
 | F-08 | **The core money flow of property management is not specified:** management fees (honoraires de gestion), owner remittances (reversements), owner balances, security deposits held on behalf of tenants, income split between co-owners. | Phase 0 asks "how much is due to the owner?" but no document owns the answer, and owner statements depend on it. | CdC 07, CdC 03, DM-06 | High |
 | F-09 | **The accounting boundary is undefined.** "Not a full SAP accounting suite" says what it isn't. Is it a sub-ledger (balances computed from transactions), an internal double-entry ledger, or a system that exports to the customer's accountant? | Shapes the whole finance data model; very expensive to change later. | Decision at the start of CdC 07 | High |
 | F-10 | **Local legal and tax rules are not inventoried.** Phase 0 says not to hard-code legal conclusions, but the rules to check are not listed: VAT on commercial rents, withholding tax (retenue à la source) on rent paid by companies, timbre fiscal and invoice numbering rules, possible e-invoicing obligations (TTN), lease registration, deposit rules, personal-data law (Loi organique 2004-63, INPDP) including transfers of personal data abroad, e-signature validity, legal retention periods. | Finance depends on the tax rules; the cross-border transfer rules constrain the choice of cloud region. | P0-06, validated with an accountant / lawyer | High |
 | F-11 | **Local payment reality is missing.** Cheques (including post-dated and bounced), cash, transfers and bills of exchange (traites) behave differently: a cheque is received, deposited, then cleared or bounced. Also, TND has **3 decimal places** (millimes). | A payment model built only for bank transfers, or money stored with 2 decimals, will be wrong. | CdC 07, CdC 14 | Medium |
-| F-12 | **State machines already disagree.** Work order: Phase 0 has `WAITING` and `CANCELLED` but no `CLOSED`; CdC 00 has `CLOSED` but no `WAITING`/`CANCELLED`. Invoice: Phase 0's statuses (`RECEIVED`, `APPROVED`, `REJECTED`) describe a vendor bill (payable); CdC 00's (`ISSUED`, `PARTIALLY_PAID`, `VOID`) describe a customer invoice (receivable). Two different objects share the name "Invoice". | Inconsistent lifecycles become inconsistent code and reports. | REF-01 (e.g. *Invoice* vs. *Vendor Bill*) + DM-04 | Medium |
+| F-12 | **State machines already disagree.** Work order: Phase 0 has `WAITING` and `CANCELLED` but no `CLOSED`; CdC 00 has `CLOSED` but no `WAITING`/`CANCELLED`. Invoice: Phase 0's statuses (`RECEIVED`, `APPROVED`, `REJECTED`) describe a vendor bill (payable); CdC 00's (`ISSUED`, `PARTIALLY_PAID`, `VOID`) describe a customer invoice (receivable). Two different objects share the name "Invoice". | Inconsistent lifecycles become inconsistent code and reports. | REF-01 (e.g. *Invoice* vs. *Vendor Bill*) + DM-04 | Medium — naming proposed (REF-01 N-05, N-07); statuses still to align in DM-04 |
 | F-13 | **Phase 0 is not done by its own definition of done:** competitor research, vendor capability comparison, evidence-backed differentiation and customer validation have no documents, and there is no Phase 0 freeze. | Phase 1 is being built on unvalidated hypotheses. | P0-02 to P0-04, P0-07 — or record them as deferred with the risk accepted | Medium |
 | F-14 | **Non-functional requirements are qualitative only:** no availability target, RPO/RTO, response time, data volume or retention duration. | Architecture choices and tests need numbers. | CdC 11 | Medium |
 | F-15 | **No data onboarding.** Target customers live in spreadsheets. Without importing properties, owners, tenants, leases and opening balances, a new customer cannot start. | Adoption blocker; also the fastest way to load demo data. | New CdC 13 | Medium |
-| F-16 | **Scope edges never decided:** condominium management (*syndic de copropriété*; Phase 0 even lists "Syndic Digital" as a competitor), seasonal/short-term rentals (common locally, distinct from the Airbnb non-goal), recoverable charges and utility re-billing (charges locatives, STEG/SONEDE), and tenant ↔ company messaging vs. notifications only (Phase 0 lists "communication" as a tenant need; WhatsApp is today's channel). | Each one silently changes the size of a domain. | REF-02 + REF-05 | Medium |
+| F-16 | **Scope edges never decided:** condominium management (*syndic de copropriété*; Phase 0 even lists "Syndic Digital" as a competitor), seasonal/short-term rentals (common locally, distinct from the Airbnb non-goal), recoverable charges and utility re-billing (charges locatives, STEG/SONEDE), and tenant ↔ company messaging vs. notifications only (Phase 0 lists "communication" as a tenant need; WhatsApp is today's channel). | Each one silently changes the size of a domain. | REF-02 + REF-05 | Medium — listed in REF-05 §7; syndic proposed Out |
 | F-17 | **A unit can be sold while leased.** Ownership must be effective-dated (who owned it on which date), so rent, expenses and owner statements split correctly at the transfer date. One person can also be owner, tenant and buyer at once. | Easy to design in from day one, painful to retrofit. | CdC 02, 03, 05; DM-03 | Medium |
 
 ------------------------------------------------------------------------
@@ -104,11 +106,11 @@ writing CdC 01, because roles and permissions depend on them.
 
 | ID | Document | What it must contain | Tier |
 |---|---|---|---|
-| REF-01 | Glossary / Lexique | Every business term: definition, FR / EN / AR names, synonyms to avoid, owning domain. Resolves F-04 and F-12. Also the source for UI translations of business terms. | A |
+| REF-01 | [Glossary / Lexique](reference/01-glossary.md) — *v0.1 draft* | Every business term: definition, FR / EN / AR names, synonyms to avoid, owning domain. Resolves F-04 and F-12. Also the source for UI translations of business terms. | A |
 | REF-02 | Decision Log | All product and scope decisions (`D-xxx`): context, decision, consequences, superseded-by. Migrates Phase 0 §0.29 and CdC 00 D-001 to D-009. Technical decisions go to ADRs (ARC-03). | A |
 | REF-03 | Open Questions Register | `Q-xxx`: question, why it matters, which document it blocks, owner, due date, answer → decision link. Takes over CdC 00 §23. | A |
 | REF-04 | Risk Register | Phase 0 §0.25 risks with likelihood, impact, mitigation, owner, status. Reviewed at each phase gate. | A |
-| REF-05 | Scope & Roadmap Matrix | One table: every capability × `MVP / V1 / V2 / Out`. Scope is currently scattered over Phase 0 §0.13–0.15, §0.29 and CdC 00 §20. | A |
+| REF-05 | [Scope & Roadmap Matrix](reference/05-scope-matrix.md) — *v0.1 draft* | One table: every capability × `MVP / V1 / V2 / Out`. Scope is currently scattered over Phase 0 §0.13–0.15, §0.29 and CdC 00 §20. | A |
 | REF-06 | Requirements Traceability Matrix | `BR / NFR → UC → entity → API endpoint → test → release`. Started in Phase 1, filled during build. Proves the golden workflows are fully covered. | B |
 
 ### 4.2 Phase 0 — completion
@@ -253,7 +255,7 @@ F-01 to F-06.
 
 ``` mermaid
 flowchart TD
-  S0["Step 0 — Foundations<br/>sales decision (done) · Glossary · Scope matrix · registers"]
+  S0["Step 0 — Foundations<br/>sales decision · glossary · scope matrix (drafted) · registers"]
   P0["Step 1 — Finish Phase 0<br/>competitors · vendor comparison · interviews · legal register · freeze"]
   S2["Step 2 — CdC 01 Organisation & Accès<br/>+ CdC 12 Plateforme"]
   S3["Step 3 — CdC 02 Biens · CdC 03 Propriétaires"]
@@ -272,7 +274,7 @@ flowchart TD
 
 | Step | Documents | Why at this point |
 |---|---|---|
-| 0 | ~~Sales decision; P0-01 and CdC 00 updated~~ (done 2026-10-08); REF-01 v0.1; REF-05 v0.1; REF-02, REF-03 and REF-04 migrated from existing text | F-01 to F-03 are resolved; F-04 to F-06 remain. Small documents, a few days of work. |
+| 0 | ~~Sales decision; P0-01 and CdC 00 updated; REF-01 v0.1; REF-05 v0.1~~ (done 2026-10-08 — naming and scope proposals to confirm); REF-02, REF-03 and REF-04 migrated from existing text | F-01 to F-03 resolved; F-04 to F-06 answered by proposals in REF-01 and REF-05, to confirm. Small documents, a few days of work. |
 | 1 | P0-02, P0-03, P0-04, P0-06, then P0-07 | Runs in parallel with steps 2–8. P0-06 must exist before CdC 07; interviews should happen before the rental, sales and maintenance cahiers are frozen. |
 | 2 | CdC 01 + CdC 12 → DM-05 v1 | Identity is the foundation of every other domain; the platform operator is one more role in the same model. |
 | 3 | CdC 02, CdC 03 → DM-03 v1 | The real-estate reference data every workflow points to, including effective-dated ownership. |
