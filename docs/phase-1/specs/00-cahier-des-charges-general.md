@@ -3,9 +3,16 @@
 **Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** 00 --- Cahier des Charges Général\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.1\
+**Version:** 0.2\
 **Status:** Draft / Baseline\
 **Date:** 2026-10-08
+
+**Historique**
+
+-   0.2 (2026-10-08) --- alignement avec la Phase 0 mise à jour :
+    acteur interne Commercial, deux modèles de vendeur, vente de base
+    dans le MVP (D-008, D-009), matrice d'acteurs complétée.
+-   0.1 (2026-10-08) --- version initiale.
 
 ------------------------------------------------------------------------
 
@@ -35,7 +42,8 @@ Terraform, CI/CD, etc. seront traités principalement en Phase 2.
 ## 2. Vision du produit
 
 Le produit est un **ERP SaaS B2B cloud-native et multi-tenant** destiné
-aux entreprises qui gèrent des activités immobilières.
+aux entreprises qui gèrent des activités immobilières : sociétés de
+gestion locative, agences immobilières et promoteurs immobiliers.
 
 Il couvre principalement deux activités :
 
@@ -100,6 +108,7 @@ plusieurs devises et marchés.
 
 -   Administrateur d'organisation
 -   Property Manager
+-   Commercial (Sales Agent)
 -   Finance / Administration
 -   Technicien interne
 
@@ -116,6 +125,7 @@ plusieurs devises et marchés.
 Entreprise cliente
 ├── Admin
 ├── Property Managers
+├── Sales Agents
 ├── Finance Staff
 └── Internal Technicians
 
@@ -228,10 +238,22 @@ Balance
 La vente est un **domaine fonctionnel de premier niveau**, au même titre
 que la location.
 
+Deux modèles de vendeur sont couverts par un même workflow (D-008) :
+
+| Vendeur | Exemple | Rôle de l'organisation | Revenu de l'organisation |
+|---|---|---|---|
+| Propriétaire tiers | un propriétaire confie à une agence un mandat de vente | intermédiaire sous mandat | commission |
+| L'organisation elle-même | un promoteur vend les unités de son projet ; une agence revend une unité qu'elle a achetée | vendeur | prix de vente |
+
+Chaque vente a exactement un vendeur. L'organisation peut donc être
+propriétaire d'unités.
+
 ### 8.1 Flux de référence
 
 ``` text
 Property / Unit
+  ↓
+Sales Mandate (vendeur tiers) ou Own Stock (organisation vendeuse)
   ↓
 Sales Listing
   ↓
@@ -267,6 +289,20 @@ Closing
 
 Le système n'est pas une marketplace immobilière publique. Il sert
 d'abord à l'entreprise pour piloter ses propres opérations commerciales.
+
+### 8.4 Découpage MVP / V1 / V2 (D-009)
+
+-   **MVP** : unités à vendre, mandat de vente simple, listings,
+    prospects / acheteurs, visites, offres, réservation (acompte,
+    expiration), vente, paiements acheteur, clôture et transfert de
+    propriété. Pas d'accès acheteur.
+-   **V1** : commissions (calcul, facturation, encaissement),
+    échéanciers de paiement, portail acheteur, modèles de documents de
+    vente, suivi de la vente par le propriétaire, rapprochement
+    critères acheteur / unités (par règles).
+-   **V2** : vente sur plan avec échéances liées à l'avancement des
+    travaux, commissions avancées (plusieurs agents, inter-agences),
+    publication vers des portails d'annonces externes.
 
 ------------------------------------------------------------------------
 
@@ -500,27 +536,14 @@ DRAFT → ISSUED → PARTIALLY_PAID → PAID
 
 ## 16. Matrice d'acteurs --- principe
 
-  -----------------------------------------------------------------------------------------------------------
-  Domaine        Admin   Manager   Finance   Tech.        Owner       Tenant      Vendor     Prospect/Buyer
-                                             interne                                         
-  -------------- ------- --------- --------- ------------ ----------- ----------- ---------- ----------------
-  Organisation   Gérer   Limité    Limité    Non          Non         Non         Non        Non
-
-  Propriétés     Gérer   Gérer     Voir      Voir le      Ses biens   Son unité   Contexte   Bien concerné
-                                             nécessaire                           assigné    
-
-  Location       Gérer   Gérer     Gérer     Non          Son         Son bail    Non        Non
-                                                          périmètre                          
-
-  Finance        Gérer   Selon     Gérer     Non          Son         Ses         Ses        Sa transaction
-                         rôle                             périmètre   paiements   factures   
-
-  Maintenance    Gérer   Gérer     Voir      Exécuter     Voir selon  Créer /     Exécuter   Non
-                                   coûts     assigné      droits      suivre      assigné    
-
-  Vente          Gérer   Gérer     Selon     Non          Selon       Non         Non        Parcours lié à
-                                   rôle                   mandat                             son intérêt
-  -----------------------------------------------------------------------------------------------------------
+| Domaine | Admin | Manager | Commercial | Finance | Tech. interne | Owner | Tenant | Vendor | Prospect/Buyer |
+|---|---|---|---|---|---|---|---|---|---|
+| Organisation | Gérer | Limité | Non | Limité | Non | Non | Non | Non | Non |
+| Propriétés | Gérer | Gérer | Biens en vente | Voir | Voir le nécessaire | Ses biens | Son unité | Contexte assigné | Bien concerné |
+| Location | Gérer | Gérer | Non | Gérer | Non | Son périmètre | Son bail | Non | Non |
+| Finance | Gérer | Selon rôle | Paiements de ses ventes | Gérer | Non | Son périmètre | Ses paiements | Ses factures | Sa transaction |
+| Maintenance | Gérer | Gérer | Non | Voir coûts | Exécuter assigné | Voir selon droits | Créer / suivre | Exécuter assigné | Non |
+| Vente | Gérer | Gérer | Gérer (son périmètre) | Selon rôle | Non | Selon mandat | Non | Non | Parcours lié à son intérêt |
 
 Cette table constitue une orientation. Le cahier « Organisation & Accès
 » produira la matrice d'autorisation exhaustive, action par action.
@@ -653,6 +676,9 @@ Les fonctions de procurement avancé, contrats fournisseurs complexes,
 comptes fournisseurs complets et commissions commerciales avancées sont
 progressives et seront réparties entre MVP, V1 et V2.
 
+La vente immobilière est **dans le périmètre** ; son découpage MVP / V1
+/ V2 est fixé en §8.4.
+
 ------------------------------------------------------------------------
 
 ## 21. Critères fonctionnels de sortie
@@ -706,6 +732,19 @@ La plateforme reste un ERP métier utilisé par les entreprises.
 Property / Unit constitue une référence commune ; les workflows de
 location et de vente restent distincts et historisés.
 
+### D-008 --- Deux modèles de vendeur
+
+Le vendeur d'une vente est soit un propriétaire tiers sous mandat de
+vente (l'organisation est intermédiaire et perçoit une commission),
+soit l'organisation elle-même lorsqu'elle possède l'unité (promoteur,
+ou agence revendant une unité achetée). Un seul workflow de vente
+couvre les deux cas.
+
+### D-009 --- Vente de base dans le MVP
+
+Le MVP inclut un périmètre de vente de base (voir §8.4). Commissions,
+échéanciers, portail acheteur et vente sur plan sont progressifs.
+
 ------------------------------------------------------------------------
 
 ## 23. Questions à résoudre dans les cahiers détaillés
@@ -744,8 +783,11 @@ location et de vente restent distincts et historisés.
 -   réservation ;
 -   contrat ;
 -   paiements ;
+-   circuit de paiement du prix (organisation, notaire, direct) ;
+-   acompte de réservation (montant, restitution, expiration) ;
 -   closing ;
--   commissions.
+-   commissions ;
+-   effet d'une vente sur un bail en cours.
 
 ### Maintenance
 

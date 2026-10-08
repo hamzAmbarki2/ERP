@@ -1,9 +1,16 @@
 # Phase 0 --- Product Definition & Market Validation
 
-**Project:** Cloud-Native Multi-Tenant Property Management ERP\
+**Project:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Phase:** 0 --- Research, Product Definition, Scope & Validation\
 **Status:** Living specification during discovery\
 **Last updated:** 2026-10-08
+
+**Change log**
+
+-   2026-10-08 --- Property sales added to the product scope: new
+    personas, workflows, MVP / V1 / V2 items, business rules and
+    decision record (§0.29). Product renamed from "Property Management
+    ERP" to "Real Estate Operations ERP".
 
 ------------------------------------------------------------------------
 
@@ -11,8 +18,17 @@
 
 ### Product
 
-A **cloud-native, multi-tenant Property Management ERP** delivered as a
-SaaS platform for small and mid-sized property-management companies.
+A **cloud-native, multi-tenant Real Estate Operations ERP** delivered as
+a SaaS platform for small and mid-sized companies that manage and sell
+real estate: property-management companies, real-estate agencies and
+property developers (promoteurs immobiliers).
+
+It covers two business activities on one shared property base:
+
+1.  **rental management** --- managing rented properties on behalf of
+    owners;
+2.  **property sales** --- selling properties and units, either on
+    behalf of owners or from the company's own stock.
 
 The platform centralizes:
 
@@ -21,6 +37,10 @@ The platform centralizes:
 -   tenants and tenant records
 -   leases and lease lifecycle
 -   recurring rent and billing
+-   sales mandates and units for sale
+-   sales listings
+-   prospects and buyers
+-   viewings, offers, reservations and sales
 -   payments, allocations, balances and receipts
 -   maintenance requests and work orders
 -   **internal technicians and external maintenance vendors**
@@ -80,20 +100,32 @@ Initial supported property types may include:
 
 ## 0.2 Target Customer
 
-### Primary customer
+### Primary customers
 
-Small and mid-sized **property-management companies** managing rental
-assets on behalf of property owners.
+Small and mid-sized companies running real-estate operations:
+
+-   **property-management companies** managing rental assets on behalf
+    of property owners;
+-   **real-estate agencies** renting and / or selling properties on
+    behalf of owners (individuals or companies) under a mandate;
+-   **property developers (promoteurs immobiliers)** selling the units
+    of their own projects, and sometimes renting the unsold ones.
+
+Many companies combine these activities: an agency may manage rentals
+for some owners and sell properties for others, and may also buy units
+to resell them.
 
 Initial target profile:
 
--   approximately 20--2,000 managed units
+-   approximately 20--2,000 managed or listed units
 -   approximately 1--50 employees
 -   residential, commercial or mixed portfolios
+-   rental activity, sales activity, or both
 -   multiple owners
 -   multiple properties
 -   recurring rent collection
 -   recurring maintenance operations
+-   ongoing sales follow-up with prospects and buyers
 -   need for centralized documentation and reporting
 
 ### Customer problem profile
@@ -176,6 +208,8 @@ Needs:
 -   maintenance history
 -   statements
 -   documents
+-   when selling through the company: listing status, viewings, offers
+    and sale progress
 
 Owners must not gain visibility into unrelated owners or organizational
 data.
@@ -239,6 +273,7 @@ The platform must therefore distinguish:
 Our organization
 ├── Admin
 ├── Property Managers
+├── Sales Agents
 ├── Finance Staff
 └── Internal Technicians
 
@@ -248,6 +283,54 @@ External organizations
 
 This distinction is important for authorization, contracts, work orders,
 quotes, invoices, and auditability.
+
+### 8. Sales Agent
+
+An employee of the company responsible for selling properties and
+units.
+
+Needs:
+
+-   units for sale and their availability
+-   sales mandates
+-   sales listings
+-   prospects and buyers
+-   viewing schedule
+-   offers
+-   reservations and their expiry
+-   follow-up of each sale until closing
+-   buyer payments received
+-   sales pipeline dashboard
+
+A sales agent should **not** automatically receive access to rental
+finances, tenant data or unrelated owner information.
+
+### 9. Prospect / Buyer
+
+A person or company interested in buying a property or unit. A prospect
+becomes a buyer once an offer or reservation is made.
+
+Needs:
+
+-   information on the properties they are interested in
+-   viewing appointments
+-   status of their offer and reservation
+-   amounts paid and remaining
+-   documents of their transaction
+-   communication with the sales agent
+
+In the MVP, buyers have no login: the sales agent manages their record.
+A buyer portal is planned for V1.
+
+### Seller
+
+Every sale has one selling party. This is a role, not a new persona:
+
+-   a **third-party owner** (individual or company) who gives the
+    company a sales mandate --- the company acts as intermediary and
+    earns a commission;
+-   the **organization itself**, when it owns the unit --- a developer
+    selling its own project, or an agency reselling a unit it bought.
 
 ------------------------------------------------------------------------
 
@@ -327,6 +410,7 @@ Owners need structured answers about:
 -   income
 -   statements
 -   property activity
+-   sale progress
 
 ### Problem 6 --- Document sprawl
 
@@ -356,18 +440,37 @@ A realistic system needs different access rules for:
 -   tenants
 -   internal technicians
 -   external vendors
+-   sales agents
+-   prospects and buyers
 
 Multi-tenant isolation makes these permissions even more important.
+
+### Problem 9 --- Disconnected sales follow-up
+
+Sales are often followed in notebooks, spreadsheets, phone calls and
+WhatsApp. Companies then struggle to answer:
+
+-   Which units are still available?
+-   Who visited which unit, and when?
+-   Which offers were made, and which one was accepted?
+-   Which unit is reserved, for whom, and until when?
+-   How much has the buyer paid, and what remains?
+-   Which owner is selling, and under which mandate?
+
+Typical consequences: the same unit promised to two buyers, lost
+prospects, unclear deposits, and property information re-entered
+separately for rental and for sale.
 
 ------------------------------------------------------------------------
 
 ## 0.5 Fundamental Product Hypothesis
 
 > A centralized, secure, multi-tenant platform that connects properties,
-> leases, rent, payments, maintenance, internal technicians, external
-> vendors, expenses, documents and reporting can reduce administrative
-> fragmentation while improving financial visibility, maintenance
-> coordination, owner transparency and auditability.
+> leases, rent, sales, buyers, payments, maintenance, internal
+> technicians, external vendors, expenses, documents and reporting can
+> reduce administrative fragmentation while improving financial
+> visibility, sales follow-up, maintenance coordination, owner
+> transparency and auditability.
 
 The hypothesis should be validated against:
 
@@ -393,16 +496,18 @@ Core ERP domains:
 1.  Property management
 2.  Leasing
 3.  Tenant management
-4.  Billing
-5.  Payments
-6.  Maintenance
-7.  **Vendor management**
-8.  Expenses
-9.  Owner management
-10. Documents
-11. Notifications
-12. Reporting
-13. Audit
+4.  **Sales**
+5.  **Prospects / buyers**
+6.  Billing
+7.  Payments
+8.  Maintenance
+9.  **Vendor management**
+10. Expenses
+11. Owner management
+12. Documents
+13. Notifications
+14. Reporting
+15. Audit
 
 The important property is integration.
 
@@ -442,7 +547,30 @@ Expense / Invoice
 Owner Statement
 ```
 
-The value comes from keeping these relationships connected.
+And for sales:
+
+``` text
+Unit
+  ↓
+Sales Listing
+  ↓
+Prospect / Buyer
+  ↓
+Offer
+  ↓
+Reservation
+  ↓
+Sale
+  ↓
+Buyer Payments
+  ↓
+Closing
+  ↓
+New Owner
+```
+
+The value comes from keeping these relationships connected: the unit
+that is rented, maintained and sold is the same record.
 
 ------------------------------------------------------------------------
 
@@ -562,11 +690,55 @@ Maintenance
 Owner Statement
 ```
 
+For owners selling through the company, owner reporting also covers
+listing activity, viewings, offers and sale progress.
+
+### Workflow G --- Property sale
+
+``` text
+Seller
+(owner under a sales mandate, or the organization itself)
+   ↓
+Unit for Sale
+   ↓
+Sales Listing
+   ↓
+Prospect / Buyer
+   ↓
+Viewing
+   ↓
+Offer
+   ↓
+Reservation (deposit, expiry date)
+   ↓
+Sale Agreement
+   ↓
+Buyer Payments
+   ↓
+Closing
+   ↓
+Ownership Transfer to the Buyer
+```
+
+The same workflow serves both seller models. What changes is who sells
+and how the company earns money:
+
+| Seller | Example | Company's role | Company's revenue |
+|---|---|---|---|
+| Third-party owner | an owner gives an agency a mandate to sell their apartment | intermediary under a sales mandate | commission |
+| The organization itself | a developer sells units of its own project; an agency resells a unit it bought | seller | sale price |
+
+How the sale price is paid (through the company, through a notary, or
+directly between the parties) must be clarified in Phase 1, together
+with the legal steps of a sale in Tunisia.
+
 ------------------------------------------------------------------------
 
-## 0.8 Golden Workflow
+## 0.8 Golden Workflows
 
-The end-to-end demonstration workflow remains:
+### Golden workflow 1 --- Rental and maintenance
+
+The end-to-end rental demonstration workflow remains:
 
 ``` text
 Owner
@@ -596,8 +768,35 @@ Expense / Vendor Invoice
 Owner Statement
 ```
 
-This workflow should become one of the main acceptance scenarios for the
-project.
+### Golden workflow 2 --- Sale
+
+``` text
+Unit
+  ↓
+Sales Mandate (owner seller) or Own Stock (organization seller)
+  ↓
+Sales Listing
+  ↓
+Prospect / Buyer
+  ↓
+Viewing
+  ↓
+Offer
+  ↓
+Reservation
+  ↓
+Sale
+  ↓
+Buyer Payment
+  ↓
+Closing
+  ↓
+New Owner Recorded
+```
+
+These two workflows should become the main acceptance scenarios for the
+project. A combined scenario --- selling a unit that is currently
+leased --- should also be covered (see §0.18).
 
 ------------------------------------------------------------------------
 
@@ -625,6 +824,22 @@ Regional / smaller-market candidates to research may include:
 
 Open-source property-management projects on GitHub should also be
 reviewed.
+
+Since sales is in scope, the research must also cover sales-side tools:
+
+-   real-estate agency software and CRMs used in the French-speaking
+    and Maghreb markets (candidates to verify, e.g. Apimo, Hektor)
+-   tools used by property developers to manage unit stock,
+    reservations and buyer payments
+-   general CRMs that agencies adapt for real-estate sales
+
+### Rental + sales research question
+
+> **Which competing systems handle rental management and sales on the
+> same property records, and how well?**
+
+Many products specialize in one activity. Whether combining both is a
+genuine differentiator must be verified, not assumed.
 
 ### Vendor-management research question
 
@@ -724,6 +939,17 @@ Vendor
 **Important:** the strength of this differentiation must be validated
 through competitor research before it is presented as a proven market
 gap.
+
+### Rental and sales on one property base
+
+One unit record is shared by rental, sales, maintenance and reporting:
+
+-   no re-entering a property to sell it after renting it
+-   owners see rental and sale activity in one place
+-   a unit can be sold while leased without losing its history
+-   one tool for companies that do both activities
+
+As with vendors, this must be validated through competitor research.
 
 ### Security and authorization
 
@@ -934,6 +1160,27 @@ MVP vendor capabilities:
 -   basic notes
 -   basic invoice reference / expense linkage where applicable
 
+### Sales --- MVP baseline
+
+Sales is included in the MVP at a basic level, for both seller models.
+
+MVP sales capabilities:
+
+-   marking a unit as for sale (own stock or owner mandate)
+-   basic sales mandate: selling owner, unit, asking price, duration,
+    agreed commission (recorded for information)
+-   sales listings
+-   prospect / buyer records
+-   viewings
+-   offers (several per listing; accept / reject)
+-   reservation with deposit and expiry date
+-   sale record: seller, buyer, agreed price
+-   recording buyer payments
+-   closing and transfer of ownership to the buyer
+-   sale-related documents
+
+Buyers have no login in the MVP.
+
 ### Documents
 
 -   metadata
@@ -960,6 +1207,8 @@ MVP vendor capabilities:
 -   maintenance
 -   vendor service history
 -   owner statements
+-   units for sale and sales pipeline
+-   reservations and closed sales
 
 ------------------------------------------------------------------------
 
@@ -987,6 +1236,12 @@ Possible V1 capabilities:
 -   quote approval
 -   purchase orders
 -   vendor invoice workflow
+-   sales commissions: calculation, invoicing and collection
+-   buyer payment schedules (installments)
+-   buyer portal
+-   sale document templates (reservation, sale agreement)
+-   owner view of sale progress
+-   rule-based matching of buyer criteria to available units
 
 The vendor capability can therefore evolve from:
 
@@ -1014,6 +1269,21 @@ Vendor Invoice
 Payment
 ```
 
+Similarly, sales can evolve from:
+
+``` text
+MVP:
+Listing → Offer → Reservation → Sale → Buyer Payments → Closing
+```
+
+to:
+
+``` text
+V1:
+Listing → Matching → Offer → Reservation → Sale
+        → Payment Schedule → Buyer Payments → Commission → Closing
+```
+
 ------------------------------------------------------------------------
 
 ## 0.15 Post-MVP V2
@@ -1034,6 +1304,10 @@ Potential V2 features:
 -   richer owner reporting
 -   deeper regional localization
 -   more extensive integrations
+-   off-plan sales (vente sur plan) with installments tied to
+    construction milestones
+-   advanced commission rules (several agents, co-agency)
+-   publishing listings to external listing portals
 
 ------------------------------------------------------------------------
 
@@ -1062,8 +1336,10 @@ The project is **not**:
 -   a booking platform
 -   a hotel PMS
 -   a travel platform
--   a construction ERP
--   a real-estate agency CRM
+-   a construction ERP (off-plan sales do not include construction
+    management)
+-   a general-purpose CRM or marketing-automation tool (sales follow-up
+    is limited to properties, buyers and transactions)
 -   a full SAP-style accounting platform
 -   an AI / ML platform
 -   a giant microservice ecosystem
@@ -1075,6 +1351,14 @@ The scope decision is:
 > **External vendors are part of the product domain. Advanced
 > procurement, contract management and full accounts-payable workflows
 > are staged progressively.**
+
+Property sales are **not** a non-goal either:
+
+> **Property sales are part of the product domain, for owner sellers
+> and organization sellers. Commissions, payment schedules, the buyer
+> portal and off-plan sales are staged progressively.**
+
+Sales listings are internal working records, not a public marketplace.
 
 ------------------------------------------------------------------------
 
@@ -1118,6 +1402,34 @@ External vendors, when portal access is introduced, must see only:
 They must never see unrelated tenants, owners, vendors, properties or
 company finances.
 
+### Sales agent access
+
+Sales agents can access units for sale, mandates, listings, prospects,
+buyers and sales within their scope. They should not receive
+unrestricted access to rental finances or tenant data.
+
+### Buyer access
+
+Buyers, when portal access is introduced, see only their own offers,
+reservations, sale, payments and documents.
+
+### Seller
+
+Every sale has exactly one selling party: a third-party owner under a
+sales mandate, or the organization itself. The organization can
+therefore be the owner of units.
+
+### Unit availability for sale
+
+A unit cannot be reserved for, or sold to, two buyers at the same time.
+
+### Sale of a leased unit
+
+A unit can be sold while it is leased. Ownership must therefore be
+effective-dated, so that rent, expenses and owner statements are split
+at the transfer date. The legal effect of a sale on an existing lease
+must be validated (§0.25).
+
 ### Financial integrity
 
 Important financial records should not be destructively edited after
@@ -1160,6 +1472,7 @@ Organization
 ├── User
 │   ├── Admin
 │   ├── Property Manager
+│   ├── Sales Agent
 │   ├── Finance Staff
 │   └── Internal Technician
 │
@@ -1167,8 +1480,15 @@ Organization
 │   └── Unit
 │       ├── Owner Relationship
 │       ├── Tenant
-│       └── Lease
+│       ├── Lease
+│       └── Sales Listing
+│           ├── Offer
+│           ├── Reservation
+│           └── Sale
 │
+├── Sales Mandate
+├── Prospect / Buyer
+├── Viewing
 ├── Invoice
 ├── Payment
 ├── Expense
@@ -1199,8 +1519,8 @@ Vendor 1 ──────── N Properties     [through service history / as
 
 ## 0.20 Architecture Consequence
 
-The addition of external vendors does **not** justify prematurely
-splitting the application into microservices.
+The addition of external vendors and of property sales does **not**
+justify prematurely splitting the application into microservices.
 
 Initial recommendation:
 
@@ -1214,6 +1534,8 @@ Property
 Owner
 Tenant
 Lease
+Sales
+Prospects / Buyers
 Billing
 Payments
 Maintenance
@@ -1438,6 +1760,22 @@ Vendor workflows can grow rapidly into:
 Mitigation: include the vendor domain early, but stage advanced
 workflows.
 
+### Sales complexity
+
+Sales can grow into:
+
+-   CRM and marketing automation
+-   commission rules
+-   installment schedules
+-   off-plan sales tied to construction
+-   notary and legal procedures
+
+Supporting two seller models (owner seller and organization seller)
+could also double the work.
+
+Mitigation: one sales workflow where the seller type is a parameter;
+basic sales in the MVP; advanced features staged into V1 / V2.
+
 ### Localization
 
 French / Arabic / English and RTL requirements can affect:
@@ -1455,6 +1793,10 @@ French / Arabic / English and RTL requirements can affect:
 Do not hard-code legal conclusions without validating the relevant
 Tunisian requirements when the project reaches implementation of legal
 or tax-sensitive behavior.
+
+This includes the sale process: reservation deposits, sale agreements,
+the role of notaries, transfer of ownership, and the effect of a sale
+on an existing lease.
 
 ------------------------------------------------------------------------
 
@@ -1476,6 +1818,12 @@ The product can demonstrate:
 10. completing and verifying the work
 11. recording the resulting expense / vendor invoice reference
 12. showing the effect in owner reporting
+13. putting a unit up for sale (owner mandate or own stock)
+14. registering a prospect / buyer
+15. recording a viewing and an offer
+16. reserving the unit
+17. recording buyer payments and closing the sale
+18. showing the new owner and the sale in reporting
 
 ### Engineering success
 
@@ -1532,6 +1880,7 @@ Phase 0 must produce:
 -   golden workflow
 -   competitor research
 -   vendor capability comparison
+-   sales-side competitor research
 -   differentiation hypotheses
 -   explicit AI/ML exclusion
 -   MVP / V1 / V2 scope
@@ -1633,6 +1982,72 @@ work assignments and financial traceability.
 This decision supersedes the earlier temporary decision to exclude
 external vendors.
 
+### Decision: Property sales are included
+
+**Date:** 2026-10-08
+
+**Decision**
+
+The product covers property sales in addition to rental management.
+Sales and prospects / buyers are first-level domains, and basic sales
+is part of the MVP. The product is renamed "Real Estate Operations
+ERP".
+
+**Reason**
+
+Target companies --- agencies, developers and property managers ---
+often both rent and sell. The same properties, owners and documents are
+involved, so one shared property base avoids duplicated data and gives
+owners a single view.
+
+**Seller models**
+
+Both are supported with one workflow:
+
+-   **owner seller** --- a third-party owner gives the company a sales
+    mandate; the company is the intermediary and earns a commission;
+-   **organization seller** --- the company owns the unit (a
+    developer's own project, or a unit an agency bought) and sells it
+    directly.
+
+**Consequences**
+
+-   new internal persona: Sales Agent
+-   new external persona: Prospect / Buyer
+-   the organization itself can be the owner of units
+-   ownership must be effective-dated (a unit can be sold while leased)
+-   new modules: Sales, Prospects / Buyers
+-   new golden workflow: sale
+-   competitor research extended to sales tools
+
+**Scope treatment**
+
+-   Sales domain: **included**
+-   Units for sale, listings, prospects / buyers, viewings, offers,
+    reservations: **MVP**
+-   Basic sales mandate: **MVP**
+-   Sale record, buyer payments, closing, ownership transfer: **MVP**
+-   Commission calculation and invoicing: **V1**
+-   Payment schedules (installments): **V1**
+-   Buyer portal: **V1**
+-   Owner view of sale progress: **V1**
+-   Off-plan sales tied to construction milestones: **V2**
+-   Publishing to external listing portals: **V2 / later**
+-   Public marketplace: **never** (non-goal)
+
+**Open for Phase 1**
+
+-   how the sale price is paid: through the company, a notary, or
+    directly between the parties
+-   reservation deposit rules (amount, refund, expiry)
+-   legal steps and documents of a sale in Tunisia
+-   commission rules
+
+**Important**
+
+This decision replaces the earlier non-goal "a real-estate agency CRM"
+(§0.17), which is reworded accordingly.
+
 ------------------------------------------------------------------------
 
 ## 0.30 Phase 0 Definition of Done
@@ -1644,15 +2059,18 @@ Phase 0 is complete when:
 -   all initial personas are documented
 -   internal technicians and external vendors are explicitly
     distinguished
+-   rental and sales are both covered, including the two seller models
 -   core business problems are documented
 -   core workflows are documented
 -   the golden workflow is accepted
 -   competitor research is completed
 -   vendor-management competitor research is completed
+-   sales-side competitor research is completed
 -   differentiation hypotheses are evidence-backed
 -   AI / ML is explicitly excluded
 -   MVP / V1 / V2 are defined
 -   vendor scope is explicitly staged
+-   sales scope is explicitly staged
 -   non-goals are documented
 -   non-functional objectives are documented
 -   initial business rules are documented
