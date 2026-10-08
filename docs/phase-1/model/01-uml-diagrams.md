@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.4\
+**Version:** 0.5\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -158,6 +158,30 @@ flowchart LR
 | Export the company's data | Download everything, for backup or when leaving. |
 | View the subscription | Current plan and the platform's invoices. |
 
+### Step 4 --- Employee's use cases: the principle
+
+Every company has its own hierarchy, and real hierarchies are very
+different from one company to another. So the software does **not**
+contain any company's hierarchy. Instead:
+
+1.  **We build the buttons.** The ERP has a fixed list of actions
+    ("Create a lease", "Record a payment", "Assign a repair", "Close a
+    sale"…). Every company gets the same buttons.
+2.  **Each company decides who presses which button.** The
+    administrator ticks boxes for each role. Example: at Agence Médina,
+    the "Gestionnaire" can press "Create a lease"; at Agence Carthage,
+    the "Chargé de location" can press the same button.
+3.  **The hierarchy only decides who sees what.** The administrator
+    draws their own branches and departments. The software then checks
+    two things: did your role get this button, and is this property in
+    your branch or department?
+
+For the diagram: the **Employee** is linked to **all the buttons**. Next
+to each button, the diagram shows which box must be ticked to use it.
+The diagram is the same for every company.
+
+*The buttons are added area by area in the next steps.*
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -168,3 +192,4 @@ flowchart LR
 | 0.2 | 2026-10-08 | Use case diagram, step 2: Organization Administrator's use cases. |
 | 0.3 | 2026-10-08 | Use case diagram, step 3: fifteen more administrator use cases; a member requests a move, the administrator approves it. |
 | 0.4 | 2026-10-08 | Question 6: Administrator and Employee are separate (generalization removed). Question 5: organizations have branches and departments; "Create or edit a branch" added. |
+| 0.5 | 2026-10-08 | Question 7: the Employee's use cases are the full list of buttons; each company decides who can press them. |
