@@ -62,7 +62,7 @@ map, findings F-04 and F-12). **Status: proposed — to confirm.**
 |---|---|---|---|---|
 | Platform | Plateforme | المنصة | The SaaS product as a whole, serving many organizations. | |
 | Platform Operator | Opérateur de la plateforme | مشغّل المنصة | The company running the platform, and its staff with platform-level administration rights. | Not a member of any organization by default. |
-| Organization | Organisation | المؤسسة | A customer company using the platform: property manager, agency or developer. Every business record belongs to exactly one organization. | Avoid: tenant, client, account, company (N-01). |
+| Organization | Organisation | المؤسسة | A company that subscribes to the platform to run its real-estate business: it rents properties **out** (property manager, agency) and / or sells them (agency, developer). Every business record belongs to exactly one organization. | Not a company that rents **in**: that is a Tenant. Avoid: tenant, client, account, company (N-01). |
 | User | Utilisateur | المستخدم | A person who can log in. | A user is a login, not a business role. |
 | Membership | Appartenance | العضوية | The link between a user and an organization, carrying the user's roles there. A user may have several memberships. | |
 | Role | Rôle | الدور | A named set of permissions, e.g. Property Manager. | |
@@ -201,4 +201,4 @@ map, findings F-04 and F-12). **Status: proposed — to confirm.**
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First draft: naming decisions N-01 to N-11; terms for all domains in Phase 0 and CdC 00. |
-| 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. |
+| 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. Organization: rents out / sells, as opposed to a Tenant, who rents in. |
