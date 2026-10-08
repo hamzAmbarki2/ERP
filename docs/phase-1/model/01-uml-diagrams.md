@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.6\
+**Version:** 0.7\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -198,6 +198,14 @@ flowchart LR
         P6(["Change a unit's status<br/><i>box: Properties - Update</i>"])
         P7(["Attach photos or documents<br/><i>box: Properties - Update</i>"])
         P8(["Delete a property or unit<br/><i>box: Properties - Delete</i>"])
+        P9(["Archive a property<br/><i>box: Properties - Delete</i>"])
+        P10(["Search and filter properties<br/><i>box: Properties - View</i>"])
+        P11(["View a property's history<br/><i>box: Properties - View</i>"])
+        P12(["Add many units at once<br/><i>box: Properties - Create</i>"])
+        P13(["Copy a unit<br/><i>box: Properties - Create</i>"])
+        P14(["View properties on a map<br/><i>box: Properties - View</i>"])
+        P15(["Print a property sheet<br/><i>box: Properties - View</i>"])
+        P16(["Export properties to Excel<br/><i>box: Properties - View</i>"])
     end
 
     EM --- P1
@@ -208,6 +216,14 @@ flowchart LR
     EM --- P6
     EM --- P7
     EM --- P8
+    EM --- P9
+    EM --- P10
+    EM --- P11
+    EM --- P12
+    EM --- P13
+    EM --- P14
+    EM --- P15
+    EM --- P16
 ```
 
 | # | Button | Box that must be ticked |
@@ -220,6 +236,23 @@ flowchart LR
 | 6 | Change a unit's status (available, rented, for sale, under repair) | Properties: Update |
 | 7 | Attach photos or documents to a property | Properties: Update |
 | 8 | Delete a property or unit | Properties: Delete |
+| 9 | Archive a property: hide it from the lists, keep its history | Properties: Delete |
+| 10 | Search and filter properties (city, type, status, branch) | Properties: View |
+| 11 | View a property's history (changes, past tenants, past repairs) | Properties: View |
+| 12 | Add many units at once (example: 5 floors × 4 apartments) | Properties: Create |
+| 13 | Copy a unit: new unit pre-filled with the description of an existing one (never tenants, leases, payments or history) | Properties: Create |
+| 14 | View properties on a map | Properties: View |
+| 15 | Print a property sheet (details and photos on one page) | Properties: View |
+| 16 | Export the list of properties to Excel | Properties: View |
+
+**Delete or archive (rule agreed in question 10):**
+
+-   **Delete** works only when the property or unit has **no leases and
+    no payments**, for example one created by mistake. Then everything
+    inside it is deleted too: units, photos, documents.
+-   **Archive** is used when the property has history. It disappears
+    from the lists, but its history is kept. Money records are never
+    erased (Phase 0 §0.18).
 
 ------------------------------------------------------------------------
 
@@ -233,3 +266,4 @@ flowchart LR
 | 0.4 | 2026-10-08 | Question 6: Administrator and Employee are separate (generalization removed). Question 5: organizations have branches and departments; "Create or edit a branch" added. |
 | 0.5 | 2026-10-08 | Question 7: the Employee's use cases are the full list of buttons; each company decides who can press them. |
 | 0.6 | 2026-10-08 | Step 5: eight Properties buttons for the Employee. |
+| 0.7 | 2026-10-08 | Question 10: delete-or-archive rule; eight more Properties buttons. |
