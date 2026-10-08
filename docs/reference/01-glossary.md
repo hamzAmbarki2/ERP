@@ -1,7 +1,7 @@
 # Glossary / Lexique
 
 **Document:** REF-01 — Glossary\
-**Version:** 0.1\
+**Version:** 0.2\
 **Status:** Draft — naming decisions in §2 to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md),
@@ -42,7 +42,7 @@ map, findings F-04 and F-12). **Status: proposed — to confirm.**
 
 | # | Decision | Why |
 |---|---|---|
-| N-01 | **Tenant** means only the *locataire*. A customer company of the SaaS is an **Organization**. In code and data: `organization_id`, never `tenant_id`. "Multi-tenant" is used only as an architecture adjective, meaning "many organizations, strictly isolated". | "Tenant" was used for both; mixing them in the data model would be a permanent source of bugs. |
+| N-01 | **Tenant** means only the *locataire*. A customer company of the SaaS is an **Organization**. In code and data: `organization_id`, never `tenant_id`. "Multi-tenant" is used only as an architecture adjective, meaning "many organizations, strictly isolated". A tenant can be an individual or a company: a company renting offices is a Tenant of type *company*, not an Organization. | "Tenant" was used for both; mixing them in the data model would be a permanent source of bugs. |
 | N-02 | **Owner** means only a property owner. The person who runs an organization's account is the **Organization Administrator**. | "Owner" was ambiguous between property owner and account owner. |
 | N-03 | When the organization owns units it sells (developer, or agency reselling), it is recorded as the **Owner** of those units. | Keeps one ownership model for both seller types (D-008). |
 | N-04 | **Vendor** is the external company or independent professional. Avoid "Vendor Organization" (Phase 0 §0.23): **Organization** is reserved for customer companies. | Avoids a third meaning of "organization". |
@@ -105,7 +105,7 @@ map, findings F-04 and F-12). **Status: proposed — to confirm.**
 
 | Term | Français | العربية | Definition | Notes / avoid |
 |---|---|---|---|---|
-| Tenant | Locataire | المتسوّغ (المكتري / المستأجر) | A person or company occupying a unit under a lease. | Never an organization (N-01). |
+| Tenant | Locataire | المتسوّغ (المكتري / المستأجر) | A person or a company renting one or more units under a lease. Examples: a family renting an apartment; a company renting three offices and two parking spaces. | A company that rents is a Tenant of type *company*, not an Organization: that word is reserved for companies subscribing to the platform (N-01). |
 | Lease | Bail (contrat de location) | عقد التسويغ (عقد الكراء) | The contract giving a tenant the use of one or more units for a period, against rent. | |
 | Lease Party | Partie au bail | طرف في العقد | A tenant, guarantor or owner named in a lease. | |
 | Guarantor | Garant | الضامن (الكفيل) | A person or company guaranteeing the tenant's obligations. | Avoid in French: caution, which also means deposit. |
@@ -201,3 +201,4 @@ map, findings F-04 and F-12). **Status: proposed — to confirm.**
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First draft: naming decisions N-01 to N-11; terms for all domains in Phase 0 and CdC 00. |
+| 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. |
