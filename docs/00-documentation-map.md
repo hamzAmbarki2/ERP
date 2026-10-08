@@ -184,7 +184,7 @@ Cahier des Charges 00 §25.
 
 | Document | What it must contain | Tier |
 |---|---|---|
-| Architecture Vision & Principles | Drivers (from Cahier des Charges 11), constraints, quality-attribute priorities, modular-monolith rationale, module boundary rules. | A |
+| [Architecture Vision & Principles](phase-2/architecture/01-architecture-vision.md) — *v0.1 draft* | Drivers (from Cahier des Charges 11), constraints, quality-attribute priorities, modular-monolith rationale, module boundary rules. | A |
 | Architecture Description (C4) | Context, container and component views; deployment view; key runtime scenarios (recurring billing run, payment allocation, document download). | B |
 | Architecture Decision Record Log | One Architecture Decision Record per technical decision. Initial backlog: language and framework; tenancy model (shared schema + organization column + PostgreSQL RLS vs. schema per organization); identity provider (build vs. Keycloak / managed OIDC); API style; job scheduler; object storage; frontend stack; mobile stack; cloud provider and region (constrained by Regulatory & Legal Register); repository layout. | A (initial Architecture Decision Records) |
 | Multi-Tenancy & Isolation Design | How isolation is enforced at every layer (request context, queries, storage paths, caches, jobs, logs, exports) and how it is tested. | B |
