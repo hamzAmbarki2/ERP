@@ -3,7 +3,7 @@
 **Project:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** Architecture Vision & Principles\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** Draft --- items marked *(working assumption)* are to be
 confirmed by Cahier des Charges 11\
 **Date:** 2026-10-08\
@@ -179,7 +179,7 @@ Based on Phase 0 §0.20, updated for sales and platform administration.
 
 | Module | Owns | Main Cahier des Charges |
 |---|---|---|
-| Identity & Access | Users, memberships, roles, permissions, scopes, sessions | 01 |
+| Identity & Access | Users, memberships, departments, roles, privileges, scopes, sessions | 01 |
 | Platform Administration | Organizations, their status, later subscriptions | 12 |
 | Property | Properties, buildings, floors, units, unit status | 02 |
 | Owner | Owners, ownership shares and dates, mandates | 03 |
@@ -244,7 +244,7 @@ Based on Phase 0 §0.20, updated for sales and platform administration.
 
 | Block | Role |
 |---|---|
-| Web application | The staff interface. Shows each employee the menus of their role(s) (Cahier des Charges 01, section 6.4). Uses only the public API. |
+| Web application | The staff interface. Shows each employee the menus of their role(s) (Cahier des Charges 01, section 6.6). Uses only the public API. |
 | Operator back office | Small separate interface for the platform operator. No access to organizations' business data (Cahier des Charges 01, rule 12). |
 | Application server | All business logic and all permission checks. Exposes the REST API. |
 | Background worker | Same code base as the application server, started in a different mode. Runs scheduled and long tasks. |
@@ -284,6 +284,39 @@ database itself.**
 The same organization context applies to files (storage paths per
 organization), background jobs (each job runs for one organization),
 caches, logs and exports. Details: Multi-Tenancy & Isolation Design.
+
+### 5.3 Inside an organization: departments and roles
+
+Isolation **between** organizations (section 5.2) is fixed by the
+platform. Access **inside** an organization is configured by each
+organization (decision D-011):
+
+``` text
+Platform
+└── Organization                      ← isolation fixed by the platform
+    ├── Departments (tree)            ← defined by the organization
+    ├── Roles = grids of privileges   ← defined by the organization
+    └── Members
+          └── access = privileges of their roles
+                       applied to records of their scope
+                       (their department, or the whole organization)
+```
+
+Consequences for the design:
+
+-   The platform defines a **fixed catalog of domains** and four
+    privileges per domain: View, Create, Update, Delete. Organizations
+    combine them into roles; they cannot invent new kinds of actions.
+-   Roles, departments and memberships are **data**, not code. A change
+    takes effect immediately, without a new deployment.
+-   Every permission check answers three questions: is the member
+    active in this organization? Does one of their roles hold this
+    privilege on this domain? Is the record inside their scope
+    (department subtree or whole organization)?
+-   Records that carry visibility (properties, and the leases, work
+    orders and sales attached to them) store their department, so the
+    scope filter is applied in the database query, not after loading.
+-   These checks are tested automatically like isolation tests.
 
 ------------------------------------------------------------------------
 
@@ -383,4 +416,5 @@ Each document goes one level deeper than the previous one.
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First version. |
+| 0.3 | 2026-10-08 | Section 5.3: departments and roles defined by each organization (D-011). |
 | 0.2 | 2026-10-08 | Section 1: organizations and their users (multi-tenancy); tenants, owners, vendors and buyers shown as V1. |

@@ -3,7 +3,7 @@
 **Projet :** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document :** Cahier des Charges 01 --- Organisation & Accès\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 0.2\
+**Version :** 0.3\
 **Statut :** Brouillon --- les points marqués *(proposition)* sont à
 valider\
 **Date :** 2026-10-08\
@@ -55,6 +55,10 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 > son métier : menus, tableau de bord et écrans ne sont pas les mêmes
 > pour Karim, Amira, Hédi ou Ali.
 >
+> Avant d'inviter, Sonia décrit l'organisation de son agence : un
+> département Location, un département Vente, etc. Elle ajuste les
+> rôles avec des cases à cocher (Voir, Créer, Modifier, Supprimer).
+>
 > -   Karim voit tous les biens, locataires et baux, mais ne peut pas
 >     gérer les utilisateurs.
 > -   Amira voit les biens à vendre, les prospects et les ventes, mais
@@ -99,15 +103,16 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 | Création d'une organisation | MVP |
 | Comptes utilisateurs, connexion, mot de passe | MVP |
 | Invitation par email | MVP |
-| Rôles internes prédéfinis : Administrateur, Gestionnaire, Commercial, Finance, Technicien interne | MVP |
+| Cinq rôles modèles : Administrateur, Gestionnaire, Commercial, Finance, Technicien interne | MVP |
+| Rôles créés et modifiés par l'Administrateur (grille de privilèges à cocher) | MVP (D-011) |
+| Départements et hiérarchie définis par l'Administrateur | MVP (D-011) |
 | Plusieurs rôles pour une même personne | MVP |
-| Périmètre par portefeuille de biens | MVP *(proposition)* |
+| Périmètre par département | MVP (D-011) |
 | Une même personne dans plusieurs organisations | MVP |
 | Double authentification (code en plus du mot de passe) | MVP *(proposition)* |
 | Journal d'audit des accès | MVP |
 | Comptes pour locataires, propriétaires, fournisseurs, acheteurs | V1 (D-010) |
 | Accès du support avec accord du client | V1 |
-| Rôles personnalisés créés par l'organisation | V2 |
 | Connexion avec le compte d'entreprise du client (authentification unique) | Plus tard |
 
 ------------------------------------------------------------------------
@@ -123,14 +128,16 @@ plusieurs entreprises.
 | **Organisation** | Une entreprise cliente qui utilise le logiciel (agence, gestionnaire, promoteur). | Une entreprise locataire d'un étage. |
 | **Utilisateur** | Une personne qui peut se connecter. Une personne = un compte, identifié par son email. | Une personne avec une carte d'accès. |
 | **Appartenance** | Le lien entre un utilisateur et une organisation. C'est elle qui porte les rôles. | La carte d'accès donne accès à un étage précis. |
-| **Rôle** | Un ensemble de droits correspondant à un métier (Gestionnaire, Finance…). | Le type de carte : employé, comptable, technicien. |
-| **Permission** | Le droit de faire une action précise sur un type de fiche (exemple : « enregistrer un paiement »). | Le droit d'ouvrir une porte précise. |
-| **Périmètre** | La partie des données sur laquelle une permission s'applique (toute l'organisation, certains biens, les interventions affectées). | Les pièces de l'étage où la carte fonctionne. |
+| **Département** | Une équipe de l'organisation (Location, Vente, Tunis Nord…), définie par l'Administrateur. Les départements forment un arbre. | Un service de l'entreprise, avec ses bureaux. |
+| **Rôle** | Un ensemble de privilèges défini par l'Administrateur (cinq modèles fournis). | Le type de carte : employé, comptable, technicien. |
+| **Privilège** | Voir, Créer, Modifier ou Supprimer sur un type de fiche. Aucune case cochée = aucun accès. | Le droit d'ouvrir une porte précise. |
+| **Périmètre** | La partie des données sur laquelle un privilège s'applique (toute l'organisation, son département, les interventions affectées). | Les pièces de l'étage où la carte fonctionne. |
 | **Opérateur de la plateforme** | La société qui exploite le logiciel (vous). | Le gestionnaire de l'immeuble : il ouvre et ferme les étages, mais n'entre pas dans les bureaux. |
 
 **Règle d'or :** une personne ne fait une action que si elle a une
-appartenance active à l'organisation, un rôle qui contient la
-permission, **et** que la fiche concernée est dans son périmètre.
+appartenance active à l'organisation, un rôle qui contient le
+privilège, **et** que la fiche concernée est dans son périmètre
+(son département, ou toute l'organisation).
 
 ------------------------------------------------------------------------
 
@@ -200,7 +207,8 @@ l'opérateur.
 | Utilisateur | Karim Ben Salah |
 | Organisation | Agence Médina |
 | Rôles | Gestionnaire (une personne peut en avoir plusieurs) |
-| Périmètre | Toute l'organisation, ou une liste de biens |
+| Département | Location --- Tunis Nord |
+| Périmètre | Son département, ou toute l'organisation |
 | Statut | `ACTIVE` |
 | Date d'entrée, date de sortie | |
 | Invité par | Sonia (Administrateur) |
@@ -217,13 +225,39 @@ l'opérateur.
 | Date d'expiration | 7 jours après l'envoi *(proposition)* |
 | Statut | `PENDING` |
 
-### 5.5 Combien de quoi ? (cardinalités)
+### 5.5 Département
+
+| Information | Exemple |
+|---|---|
+| Nom | Tunis Nord |
+| Département parent | Location |
+| Responsable | Karim Ben Salah (facultatif) |
+| Membres | Karim, … |
+| Biens rattachés | 150 biens |
+| Statut | `ACTIVE` ou `ARCHIVED` |
+
+### 5.6 Rôle
+
+| Information | Exemple |
+|---|---|
+| Nom | Assistante location |
+| Description | Saisit les locataires et les demandes d'intervention |
+| Créé à partir du modèle | Gestionnaire (facultatif) |
+| Grille de privilèges | Voir / Créer / Modifier / Supprimer par domaine |
+| Périmètre | Son département, ou toute l'organisation |
+| Modifiable | Oui, sauf le rôle Administrateur |
+
+### 5.7 Combien de quoi ? (cardinalités)
 
 -   Une organisation a **un ou plusieurs** membres, dont au moins un
     Administrateur actif.
 -   Un utilisateur a **une ou plusieurs** appartenances (exemple : un
     comptable indépendant qui travaille pour deux agences).
 -   Une appartenance a **un ou plusieurs** rôles.
+-   Une organisation a **zéro ou plusieurs** départements ; un
+    département a **zéro ou plusieurs** sous-départements.
+-   Un membre appartient à **un** département *(proposition)*.
+-   Un bien est rattaché à **un** département.
 -   Une fiche métier (bien, bail, paiement…) appartient à **une seule**
     organisation, pour toujours.
 
@@ -233,19 +267,79 @@ l'opérateur.
 
 ### 6.1 Principe
 
--   Les rôles sont **prédéfinis** dans le MVP : l'organisation ne peut
-    pas en créer de nouveaux (V2).
--   Les permissions s'**additionnent** : une personne Gestionnaire **et**
-    Commercial a les droits des deux rôles.
--   Il n'existe pas de « droit d'interdire » : on ne retire pas une
-    permission, on choisit les bons rôles.
--   L'**Administrateur a tous les droits** de l'organisation
-    *(proposition)* --- dans une petite agence, c'est souvent le
-    directeur, qui doit pouvoir tout faire.
+Chaque agence est organisée différemment : une petite agence a trois
+personnes polyvalentes, une grande a des départements et des chefs
+d'équipe. Le logiciel ne peut donc pas imposer une seule organisation
+interne (décision D-011).
 
-### 6.2 Tableau des droits (première version)
+-   L'**Administrateur** de chaque organisation **définit lui-même** ses
+    départements (section 6.4) et ses rôles (sections 6.2 et 6.3).
+-   Le logiciel fournit **cinq rôles modèles** prêts à l'emploi :
+    Administrateur, Gestionnaire, Commercial, Finance, Technicien
+    interne. L'Administrateur peut les garder tels quels, les modifier
+    ou créer de nouveaux rôles (exemple : « Assistante », « Associé en
+    lecture seule »).
+-   Un rôle est une **grille de privilèges à cocher** (section 6.2).
+-   Les privilèges s'**additionnent** : une personne avec deux rôles a
+    les privilèges des deux.
+-   Il n'existe pas de « droit d'interdire » : on ne retire pas un
+    privilège, on choisit les bons rôles.
+-   Le rôle **Administrateur** a toujours tous les privilèges et ne peut
+    pas être modifié, pour qu'une organisation ne puisse jamais se
+    bloquer elle-même.
 
-Légende : **Gérer** = créer, modifier, annuler · **Voir** = consulter
+### 6.2 Les privilèges : une grille à cocher
+
+Pour chaque **domaine** (type de fiche), l'Administrateur coche les
+privilèges du rôle :
+
+| Privilège | Signification | Exemple |
+|---|---|---|
+| **Voir** | Consulter les fiches | Voir la liste des baux |
+| **Créer** | Ajouter une fiche | Créer un bail |
+| **Modifier** | Changer une fiche existante | Changer la date de fin d'un bail |
+| **Supprimer** | Retirer une fiche | Supprimer un prospect enregistré en double |
+| *Aucune case cochée* | **Aucun accès** : le domaine et son menu sont invisibles | Un technicien sans case sur « Finance » ne voit aucun revenu de l'organisation |
+
+Exemple d'écran pour le rôle Technicien interne :
+
+``` text
+Rôle : Technicien interne
+Domaine                         Voir   Créer   Modifier   Supprimer
+Biens                            [x]    [ ]      [ ]        [ ]
+Locataires et baux               [ ]    [ ]      [ ]        [ ]
+Factures, paiements, reçus       [ ]    [ ]      [ ]        [ ]    ← aucun accès
+Rapports financiers              [ ]    [ ]      [ ]        [ ]    ← aucun accès
+Ordres de travail                [x]    [ ]      [x]        [ ]
+Périmètre : interventions qui lui sont affectées
+```
+
+Règles de la grille :
+
+-   Cocher Créer, Modifier ou Supprimer coche automatiquement **Voir** :
+    on ne peut pas modifier ce qu'on ne voit pas *(proposition)*.
+-   **Finance :** « Supprimer » sur une fiche financière déjà émise
+    (facture, paiement, reçu) signifie **annuler par une écriture de
+    correction** (avoir, contre-passation). Elle n'est jamais effacée
+    (Phase 0 §0.18).
+-   Les documents suivent les privilèges de la fiche à laquelle ils sont
+    attachés.
+
+Domaines de la grille (première liste, complétée par chaque cahier) :
+Paramètres de l'organisation · Membres, départements et rôles · Journal
+d'audit · Biens · Propriétaires · Locataires et baux · Factures,
+paiements, reçus · Dépenses · Relevés propriétaires · Demandes
+d'intervention · Ordres de travail · Fournisseurs · Mandats de vente,
+annonces, offres, réservations · Prospects et visites · Paiements des
+acheteurs · Rapports de location et de maintenance · Rapports de vente ·
+Rapports financiers.
+
+### 6.3 Les cinq rôles modèles
+
+Point de départ proposé à chaque nouvelle organisation. L'Administrateur
+peut tout ajuster, sauf le rôle Administrateur.
+
+Légende : **Gérer** = Voir + Créer + Modifier + Supprimer · **Voir** = consulter
 seulement · **Non** = aucun accès · **Affecté** = seulement les
 interventions qui lui sont affectées.
 
@@ -282,15 +376,53 @@ Ce tableau est la première version de l'**Authorization Matrix**
 (matrice d'autorisation complète). Chaque cahier suivant la complétera
 action par action.
 
-### 6.3 Périmètre
+### 6.4 Départements
+
+L'Administrateur décrit l'organisation interne de son agence sous forme
+d'**arbre de départements**, avec autant de niveaux qu'il veut.
+
+``` text
+Agence Médina
+├── Direction            (responsable : Sonia)
+├── Location
+│   ├── Tunis Nord       (responsable : Karim)
+│   └── Tunis Sud
+├── Vente                (responsable : Amira)
+├── Finance              (responsable : Hédi)
+└── Maintenance          (Ali)
+```
+
+-   Chaque département a un nom, un département parent (sauf le premier
+    niveau), un responsable (facultatif) et des membres.
+-   Chaque membre appartient à **un département** *(proposition)*.
+-   Les **biens** sont rattachés à un département. Les fiches qui en
+    dépendent (baux, interventions, ventes) suivent le département de
+    leur bien.
+-   **Visibilité :**
+    -   un membre voit les fiches de **son département** ;
+    -   le **responsable** d'un département voit aussi celles de **tous
+        ses sous-départements** ;
+    -   un rôle avec le périmètre « toute l'organisation » voit tout.
+
+**Ce qu'une personne peut faire = ses privilèges (rôle) appliqués aux
+fiches de son département (périmètre).** Exemple : Karim a « Modifier »
+sur les baux et appartient à Tunis Nord. Il modifie les baux de Tunis
+Nord, pas ceux de Tunis Sud. Sonia, responsable de la Direction avec le
+périmètre « toute l'organisation », voit tout.
+
+Les cas particuliers (fiche sans département, bien partagé entre Location
+et Vente, changement de département) sont listés en questions ouvertes
+(section 17) et seront détaillés plus tard.
+
+### 6.5 Périmètre
 
 | Périmètre | Qui | Exemple |
 |---|---|---|
-| Toute l'organisation | Par défaut pour tous les rôles sauf Technicien | Karim voit les 300 biens |
-| Un portefeuille de biens *(proposition)* | Gestionnaire ou Commercial | Une agence avec deux gestionnaires : chacun ne voit que ses 150 biens |
+| Toute l'organisation | Choisi par l'Administrateur dans le rôle (par défaut : Administrateur, Finance) | Sonia voit les 300 biens |
+| Son département (et ses sous-départements pour le responsable) | Tout rôle (section 6.4) | Karim voit les 150 biens de Tunis Nord |
 | Les interventions affectées | Technicien | Ali voit 4 interventions cette semaine |
 
-### 6.4 Une interface dédiée à chaque employé
+### 6.6 Une interface dédiée à chaque employé
 
 Le logiciel a trois niveaux :
 
@@ -490,6 +622,28 @@ UC-018). Les nouveaux cas commencent à UC-019.
 | Cas particuliers | Email inconnu : le logiciel affiche le même message que pour un email connu, pour ne pas révéler qui a un compte. |
 | Événement | `PasswordReset` |
 
+### UC-027 --- Créer ou modifier un département
+
+| | |
+|---|---|
+| Acteur | Administrateur (ou rôle ayant le privilège) |
+| Version | MVP |
+| Déroulement | 1. Il crée un département : nom, département parent, responsable. 2. Il y rattache des membres et des biens. |
+| Cas particuliers | Supprimer un département qui a des membres ou des biens : refusé, l'archivage est proposé. |
+| Règles | 19, 23, 24, 25 |
+| Événements | `DepartmentCreated`, `DepartmentUpdated` |
+
+### UC-028 --- Créer ou modifier un rôle
+
+| | |
+|---|---|
+| Acteur | Administrateur (ou rôle ayant le privilège) |
+| Version | MVP |
+| Déroulement | 1. Il crée un rôle, vide ou à partir d'un modèle. 2. Il coche les privilèges domaine par domaine. 3. Il choisit le périmètre. 4. Il l'attribue à des membres. |
+| Cas particuliers | Modifier le rôle Administrateur : refusé. Supprimer un rôle encore attribué : refusé. |
+| Règles | 20, 21, 22, 25 |
+| Événements | `RoleCreated`, `RoleUpdated`, `RoleDeleted` |
+
 ### UC-018 --- Consulter les événements d'audit (partie accès)
 
 | | |
@@ -573,14 +727,16 @@ Charges 01, règle 3 ».
 
 **Invitations et rôles**
 
-6.  Seul un Administrateur invite des membres et modifie les rôles.
+6.  Seul un rôle ayant les privilèges sur « Membres, départements et
+    rôles » invite des membres, crée les départements et modifie les
+    rôles. Par défaut, c'est l'Administrateur.
 7.  Une invitation n'est utilisable **qu'une seule fois** et expire
     après 7 jours *(proposition)*.
 8.  Un changement de rôle ou de périmètre s'applique **immédiatement**,
     y compris pour une personne déjà connectée.
-9.  Une permission ne s'applique que **dans le périmètre** de la
-    personne. Exemple : un gestionnaire limité à 150 biens ne voit pas
-    les baux des 150 autres.
+9.  Un privilège ne s'applique que **dans le périmètre** de la
+    personne. Exemple : un gestionnaire du département Tunis Nord ne
+    voit pas les baux de Tunis Sud.
 
 **Départs et suspensions**
 
@@ -614,6 +770,23 @@ Charges 01, règle 3 ».
 18. Chaque connexion, échec de connexion, invitation, changement de
     rôle, désactivation et suspension produit un **événement d'audit**
     qui ne peut être ni modifié ni supprimé.
+
+**Départements et rôles (D-011)**
+
+19. Chaque organisation définit ses propres départements et rôles. Les
+    départements et rôles d'une organisation n'existent pas pour les
+    autres.
+20. Un rôle est une grille de privilèges : **Voir, Créer, Modifier,
+    Supprimer** par domaine. Aucune case cochée = aucun accès.
+21. Le rôle Administrateur garde toujours tous les privilèges et ne peut
+    être ni modifié ni supprimé.
+22. Un rôle encore attribué à des membres ne peut pas être supprimé.
+23. Un département qui a encore des membres ou des biens ne peut pas
+    être supprimé ; il peut être archivé.
+24. Le responsable d'un département voit les fiches de tous ses
+    sous-départements, dans la limite des privilèges de ses rôles.
+25. Modifier un rôle ou un département s'applique **immédiatement** à
+    tous les membres concernés (comme la règle 8).
 
 ------------------------------------------------------------------------
 
@@ -691,6 +864,8 @@ Principes déjà fixés :
 | `UserLocked` | Email à l'utilisateur | Oui |
 | `PasswordReset` | Email de confirmation à l'utilisateur | Oui |
 | `ActiveOrganizationSwitched` | --- | Oui |
+| `DepartmentCreated`, `DepartmentUpdated` | --- | Oui |
+| `RoleCreated`, `RoleUpdated`, `RoleDeleted` | --- | Oui |
 
 Chaque événement d'audit enregistre : qui, quoi, sur quelle fiche,
 quand, depuis quelle organisation, et l'adresse réseau de connexion.
@@ -701,7 +876,7 @@ quand, depuis quelle organisation, et l'adresse réseau de connexion.
 
 | Cahier | Lien |
 |---|---|
-| Tous | Chaque cahier complète le tableau des droits (section 6.2) pour ses propres actions. |
+| Tous | Chaque cahier complète la liste des domaines (section 6.2) et les rôles modèles (section 6.3) pour ses propres fiches. |
 | Cahier des Charges 02 --- Biens & Propriétés | Le périmètre « portefeuille » s'appuie sur la liste des biens. |
 | Cahier des Charges 08 --- Maintenance | Définit ce qu'est une intervention « affectée » au technicien. |
 | Cahier des Charges 10 --- Audit | Définit l'écran de consultation et la conservation des événements d'audit. |
@@ -785,11 +960,15 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 
 | N° | Question | Pourquoi c'est important |
 |---|---|---|
-| Question 1 | Le périmètre « portefeuille de biens » est-il nécessaire dès le MVP, ou toutes les agences visées sont-elles assez petites pour que chacun voie tout ? | Simplifie beaucoup le MVP si on peut l'enlever. À vérifier lors des entretiens clients. |
-| Question 2 | Le Gestionnaire doit-il pouvoir enregistrer un paiement (exemple : un locataire paie en espèces à l'agence) ou seulement le voir ? | Dans les petites agences, le gestionnaire encaisse souvent lui-même. |
+| Question 1 | ~~Le périmètre « portefeuille de biens » est-il nécessaire dès le MVP ?~~ | **Réglée par D-011 :** le périmètre se fait par département. |
+| Question 2 | ~~Le Gestionnaire doit-il pouvoir enregistrer un paiement ?~~ | **Réglée par D-011 :** chaque organisation coche le privilège si elle le souhaite. |
 | Question 3 | Le technicien doit-il voir le nom et le téléphone de l'occupant ? | Nécessaire pour accéder au logement, mais c'est une donnée personnelle. |
 | Question 4 | Le matricule fiscal de l'organisation est-il obligatoire ? | Dépend des obligations de facturation (Regulatory & Legal Register). |
-| Question 5 | Faut-il un rôle « lecture seule » (exemple : un associé qui consulte sans modifier) ? | Demande fréquente, facile à ajouter si confirmée. |
+| Question 5 | ~~Faut-il un rôle « lecture seule » ?~~ | **Réglée par D-011 :** l'Administrateur crée un rôle avec seulement « Voir ». |
+| Question 6 | Certaines actions ne sont ni créer, ni modifier, ni supprimer : valider des travaux, imputer un paiement, clôturer une vente, inviter un membre. Faut-il des privilèges supplémentaires (exemple : « Valider ») ? | Sinon, « Modifier » donne trop ou trop peu de droits. |
+| Question 7 | Une fiche peut-elle n'appartenir à aucun département ? Si oui, qui la voit ? | Exemple : un fournisseur, un prospect sans bien précis. |
+| Question 8 | Un bien géré par Location et mis en vente par Vente : à quel département appartient-il ? | Deux équipes doivent le voir. |
+| Question 9 | Un membre peut-il appartenir à plusieurs départements ? | Exemple : un employé qui travaille pour Tunis Nord et Tunis Sud. |
 
 ------------------------------------------------------------------------
 
@@ -798,12 +977,13 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | N° | Proposition | Section |
 |---|---|---|
 | 1 | L'Administrateur a tous les droits de l'organisation. | 6.1 |
-| 2 | Périmètre « portefeuille de biens » dans le MVP. | 6.3 |
+| 2 | Cocher Créer, Modifier ou Supprimer coche automatiquement Voir. | 6.2 |
 | 3 | Double authentification obligatoire pour Administrateur et Finance. | Règle 16 |
 | 4 | Blocage 15 minutes après 5 erreurs de mot de passe. | Règle 15 |
 | 5 | Session : 30 minutes d'inactivité, 12 heures maximum. | Règle 17 |
 | 6 | Invitation valable 7 jours ; lien de mot de passe oublié valable 1 heure. | Règle 7, UC-026 |
 | 7 | Mot de passe de 10 caractères minimum. | Section 15 |
+| 8 | Un membre appartient à un seul département. | 6.4 |
 
 ------------------------------------------------------------------------
 
@@ -813,3 +993,4 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 |---|---|---|
 | 0.1 | 2026-10-08 | Première version. |
 | 0.2 | 2026-10-08 | Section 6.4 : une interface dédiée à chaque employé ; exemple précisé (chaque agence est une organisation avec ses propres employés). |
+| 0.3 | 2026-10-08 | D-011 : départements et rôles définis par chaque organisation dès le MVP ; grille de privilèges Voir / Créer / Modifier / Supprimer ; sections 6 renumérotées (6.4 Départements, 6.5 Périmètre, 6.6 Interface) ; règles 19 à 25 ; UC-027 et UC-028. |

@@ -13,6 +13,8 @@
     ERP" to "Real Estate Operations ERP".
 -   2026-10-08 --- MVP limited to internal users: tenants, owners,
     vendors and buyers get no interface before V1 (§0.29).
+-   2026-10-08 --- Departments and roles defined by each
+    organization from the MVP (Cahier des Charges Général, D-011).
 
 ------------------------------------------------------------------------
 
@@ -1086,8 +1088,8 @@ loop without trying to implement every enterprise feature.
 -   users
 -   authentication
 -   organization membership
--   roles
--   permissions
+-   departments and roles defined by each organization (§0.29)
+-   privileges (view, create, update, delete) per role
 
 ### Property management
 

@@ -1,7 +1,7 @@
 # Glossary / Lexique
 
 **Document:** Glossary\
-**Version:** 0.2\
+**Version:** 0.3\
 **Status:** Draft — naming decisions in §2 to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md),
@@ -65,9 +65,10 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | Organization | Organisation | المؤسسة | A company that subscribes to the platform to run its real-estate business: it rents properties **out** (property manager, agency) and / or sells them (agency, developer). Every business record belongs to exactly one organization. | Not a company that rents **in**: that is a Tenant. Avoid: tenant, client, account, company (N-01). |
 | User | Utilisateur | المستخدم | A person who can log in. | A user is a login, not a business role. |
 | Membership | Appartenance | العضوية | The link between a user and an organization, carrying the user's roles there. A user may have several memberships. | |
-| Role | Rôle | الدور | A named set of permissions, e.g. Property Manager. | |
-| Permission | Permission | الصلاحية | The right to perform one action on one type of record. | |
-| Scope | Périmètre | النطاق | The subset of records a permission applies to: the organization, a portfolio, a property, assigned work, or the user's own records. | |
+| Department | Département | القسم | A team inside an organization (Rental, Sales, Tunis North…), defined by the Organization Administrator. Departments form a tree and limit which records members see. | Defined per organization (D-011). |
+| Role | Rôle | الدور | A named grid of privileges defined by the Organization Administrator. Five templates are provided (Administrator, Property Manager, Sales Agent, Finance, Internal Technician). | Defined per organization (D-011). |
+| Privilege | Privilège | الصلاحية | One of View, Create, Update, Delete on one domain (type of record). No privilege ticked means no access. | Also called permission. |
+| Scope | Périmètre | النطاق | The subset of records a privilege applies to: the whole organization, the member's department (and sub-departments for its head), assigned work, or the user's own records. | |
 | Organization Administrator | Administrateur d'organisation | مسؤول المؤسسة | Internal user who manages the organization's settings, users and roles. | Avoid: owner (N-02). |
 | Property Manager | Gestionnaire (Property Manager) | المسيّر العقاري | Internal user responsible for daily rental and maintenance operations. | |
 | Sales Agent | Commercial | الوكيل التجاري | Internal user responsible for selling properties and units. | |
@@ -201,4 +202,5 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First draft: naming decisions N-01 to N-11; terms for all domains in Phase 0 and Cahier des Charges 00. |
+| 0.3 | 2026-10-08 | Department and Privilege added; Role and Scope updated for D-011. |
 | 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. Organization: rents out / sells, as opposed to a Tenant, who rents in. |

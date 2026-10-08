@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.4\
+**Version:** 0.5\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -89,12 +89,13 @@ and English.
 |---|---|---|---|
 | Organization creation | MVP | Phase 0 §0.13 | |
 | Users, authentication, memberships | MVP | Phase 0 §0.13 | |
-| Predefined internal roles and permissions (Admin, Property Manager, Sales Agent, Finance, Technician) | MVP | Phase 0 §0.13, D-008 | |
+| Five role templates (Admin, Property Manager, Sales Agent, Finance, Technician) | MVP | Phase 0 §0.13, D-008 | |
+| Roles created and edited by the organization (View / Create / Update / Delete grid) | MVP | D-011 | |
+| Departments and hierarchy defined by the organization, limiting visibility | MVP | D-011 | |
 | Roles for external users (tenant, owner, vendor, buyer) | V1 | D-010 | |
 | Inviting users by email | MVP | Proposed | Needed to add users. |
 | One user in several organizations | MVP | Proposed | Built into the data model from the start. |
 | Multi-factor authentication for internal users | MVP | Proposed | Security objective, Phase 0 §0.12. |
-| Custom roles defined by the organization | V2 | Proposed | |
 | Single sign-on with the customer's identity provider | Later | Proposed | |
 
 ### 4.2 Platform administration
@@ -378,4 +379,5 @@ is then updated.
 | 0.1 | 2026-10-08 | First version: who logs in, capabilities by domain with sources, open topics, Phase 0 inconsistencies, proposals to confirm. |
 | 0.2 | 2026-10-08 | Open topic added: rental prospects. |
 | 0.3 | 2026-10-08 | D-010: only internal staff log in to the MVP; tenant and owner portals moved to V1. |
+| 0.5 | 2026-10-08 | D-011: organization-defined roles and departments moved to MVP. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |
