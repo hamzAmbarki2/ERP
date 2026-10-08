@@ -3,7 +3,7 @@
 **Project:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** Architecture Vision & Principles\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.1\
+**Version:** 0.2\
 **Status:** Draft --- items marked *(working assumption)* are to be
 confirmed by Cahier des Charges 11\
 **Date:** 2026-10-08\
@@ -42,18 +42,66 @@ A web application used by the staff of real-estate companies
 finance. Many organizations use the same running system; each sees only
 its own data.
 
+### 1.1 Organizations and their users (multi-tenancy)
+
+The system is **multi-tenant**: one running system shared by many
+customer companies, each completely separated from the others. In this
+project, each customer company is called an **Organization** (see the
+[Glossary](../../reference/01-glossary.md), naming rule N-01: the word
+"tenant" is reserved for people and companies who rent a unit).
+
+``` text
+Platform (one running system)
+│
+├── Organization: Agence Médina
+│   ├── Sonia    — Administrator
+│   ├── Karim    — Property Manager
+│   ├── Amira    — Sales Agent
+│   ├── Hédi     — Finance
+│   └── Ali      — Internal Technician
+│        (each user has an interface dedicated to their role)
+│
+├── Organization: Agence Carthage
+│   └── its own users, its own data, its own interfaces
+│
+└── … more organizations
+```
+
+-   An organization has **many users**; each user sees only the data of
+    the organization they are working in.
+-   Nothing is shared between organizations except the platform itself.
+
+### 1.2 Who uses the system, first version and V1
+
 ``` text
                      ┌─────────────────────────────────────┐
-  Staff of           │        Real Estate Operations ERP   │
-  Agence Médina ───► │                                     │ ───► Email service
-  Staff of           │   one system, many organizations,   │      (invitations, reminders,
-  Agence Carthage ─► │   each strictly separated           │       receipts, statements)
-                     │                                     │
+  FIRST VERSION      │      Real Estate Operations ERP     │
+  (MVP)              │                                     │
+  Staff of           │   one system, many organizations,   │ ───► Email service
+  Agence Médina ───► │   each strictly separated           │      (invitations, reminders,
+  Staff of           │                                     │       receipts, statements)
+  Agence Carthage ─► │                                     │
   Platform operator ►│                                     │ ───► File storage
-                     └─────────────────────────────────────┘      (documents, photos)
-
-  Later (V1): tenants, owners, vendors, buyers; SMS; online payments.
+                     │                                     │      (documents, photos)
+  VERSION 1 (V1)     │                                     │
+  Tenants ─ ─ ─ ─ ─► │                                     │ ─ ─► SMS provider (V1)
+  Owners ─ ─ ─ ─ ─ ► │                                     │
+  Vendors ─ ─ ─ ─ ─► │                                     │ ─ ─► Online payment (V1/V2)
+  Buyers ─ ─ ─ ─ ─ ► │                                     │
+                     └─────────────────────────────────────┘
+  ───►  first version          ─ ─►  version 1 and later
 ```
+
+| Who | First version (MVP) | Version 1 |
+|---|---|---|
+| Staff of each organization | Logs in, one interface per role | Same |
+| Platform operator | Logs in to the operator back office | Same, plus support access |
+| **Tenants** (people and companies renting) | **No access.** Staff record their requests; they receive emails and documents. | **Tenant portal** |
+| Owners | No access; statements by email | Owner portal |
+| Vendors | No access; staff record their work | Vendor portal |
+| Buyers | No access; the sales agent manages the record | Buyer portal |
+
+This follows decision D-010 (Cahier des Charges Général §22).
 
 ------------------------------------------------------------------------
 
@@ -335,3 +383,4 @@ Each document goes one level deeper than the previous one.
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First version. |
+| 0.2 | 2026-10-08 | Section 1: organizations and their users (multi-tenancy); tenants, owners, vendors and buyers shown as V1. |
