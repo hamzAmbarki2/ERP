@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.15\
+**Version:** 0.16\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -592,6 +592,16 @@ flowchart LR
         M11(["Verify the work<br/><i>box: Work orders - Update</i>"])
         M12(["Cancel a request or work order<br/><i>box: Work orders - Delete</i>"])
         M13(["Create the expense from a finished work order<br/><i>box: Expenses - Create</i>"])
+        M14(["Choose the type of job<br/><i>box: Work orders - Update</i>"])
+        M15(["Plan recurring jobs<br/><i>box: Work orders - Create</i>"])
+        M16(["Prepare a unit for a new tenant<br/><i>box: Work orders - Create</i>"])
+        M17(["Prepare a unit for sale or a viewing<br/><i>box: Work orders - Create</i>"])
+        M18(["Use a checklist during a job<br/><i>box: Work orders - Update</i>"])
+        M19(["Create checklist templates<br/><i>box: Work orders - Create</i>"])
+        M20(["View the maintenance calendar<br/><i>box: Work orders - View</i>"])
+        M21(["Reopen a job not well done<br/><i>box: Work orders - Update</i>"])
+        M22(["View a property's maintenance history<br/><i>box: Maintenance requests - View</i>"])
+        M23(["Export maintenance to Excel<br/><i>box: Work orders - View</i>"])
     end
 
     EM --- M1
@@ -607,6 +617,16 @@ flowchart LR
     EM --- M11
     EM --- M12
     EM --- M13
+    EM --- M14
+    EM --- M15
+    EM --- M16
+    EM --- M17
+    EM --- M18
+    EM --- M19
+    EM --- M20
+    EM --- M21
+    EM --- M22
+    EM --- M23
 ```
 
 | # | Button | What it does | Box that must be ticked |
@@ -624,6 +644,16 @@ flowchart LR
 | 11 | Verify the work | A manager checks the job is well done before closing it | Work orders: Update |
 | 12 | Cancel a request or work order | Duplicate, or no longer needed | Work orders: Delete |
 | 13 | Create the expense from a finished work order | The job cost goes to Finance in one click | Expenses: Create |
+| 14 | Choose the type of job | Repair, cleaning, deep cleaning or detailing, painting, gardening, pest control, inspection | Work orders: Update |
+| 15 | Plan recurring jobs | Example: clean the building stairs every Monday, garden every 2 weeks, elevator check every month; the ERP creates the jobs automatically | Work orders: Create |
+| 16 | Prepare a unit for a new tenant | When a tenant leaves, one click creates the usual jobs (deep cleaning, painting, small repairs, final check); when all are done, the unit becomes "ready to rent" | Work orders: Create |
+| 17 | Prepare a unit for sale or a viewing | Detailing before photos or visits: deep cleaning, windows, small touch-ups | Work orders: Create |
+| 18 | Use a checklist during a job | The cleaner ticks each item on their phone: kitchen, bathroom, windows, floors | Work orders: Update |
+| 19 | Create checklist templates | Write a checklist once and reuse it (example: "standard cleaning", "deep cleaning before a new tenant") | Work orders: Create |
+| 20 | View the maintenance calendar | All planned jobs by day or week, and who does what | Work orders: View |
+| 21 | Reopen a job not well done | The job goes back to the person who did it, with a comment | Work orders: Update |
+| 22 | View a property's maintenance history | Everything done on a unit: repairs, cleanings, dates, costs | Maintenance requests: View |
+| 23 | Export maintenance to Excel | Download the list of jobs | Work orders: View |
 
 ------------------------------------------------------------------------
 
@@ -646,3 +676,4 @@ flowchart LR
 | 0.13 | 2026-10-09 | Step 8: Finance with three boxes and thirteen buttons. |
 | 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, agency income, accountant export). |
 | 0.15 | 2026-10-09 | Step 9: Maintenance with two boxes and thirteen buttons; maintenance includes repairs, cleaning and detailing. |
+| 0.16 | 2026-10-09 | Ten more Maintenance buttons (job types, recurring jobs, unit preparation for a new tenant or a sale, checklists, calendar, reopen, history, export). |
