@@ -3,18 +3,16 @@
 **Project:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** Architecture Vision & Principles\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.5\
+**Version:** 0.4\
 **Status:** Draft --- items marked *(working assumption)* are to be
 confirmed by Cahier des Charges 11\
-**Date:** 2026-10-09\
+**Date:** 2026-10-08\
 **Depends on:** [Phase 0](../../phase-0/01-product-definition.md),
 [Cahier des Charges Général](../../phase-1/specs/00-cahier-des-charges-general.md),
 [Cahier des Charges 01 --- Organisation & Accès](../../phase-1/specs/01-organisation-et-acces.md),
 [Scope & Roadmap Matrix](../../reference/05-scope-matrix.md)
 
 ------------------------------------------------------------------------
-
-> **Update 2026-10-09 --- partly superseded.** The isolation choice in sections 5.1 and 5.2, and every mention of one database shared by all organizations, are superseded by the decision in [Architecture Diagrams](02-architecture-diagrams.md): every organization has its own database. These sections will be rewritten in the Multi-Tenancy & Isolation Design.
 
 ## In short
 
@@ -423,4 +421,3 @@ Each document goes one level deeper than the previous one.
 | 0.3 | 2026-10-08 | Section 5.3: departments and roles defined by each organization (D-011). |
 | 0.2 | 2026-10-08 | Section 1: organizations and their users (multi-tenancy); tenants, owners, vendors and buyers shown as V1. |
 | 0.4 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). |
-| 0.5 | 2026-10-09 | Note added: section 5 and the shared-database wording are superseded by the isolation decision (own database per organization) in Architecture Diagrams. |
