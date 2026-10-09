@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.18\
+**Version:** 0.19\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -675,6 +675,42 @@ flowchart LR
 | 23 | Export maintenance to Excel | Download the list of jobs | Work orders: View |
 | 24 | Report a found item | During a job (example: cleaning), the worker reports something the former tenant left; it is added to the same list as "Record items left by a tenant" | Work orders: Update |
 
+### Step 10 --- Employee's buttons: Building security
+
+Building security covers incidents, visitors, guards and keys. A guard
+is either an **employee** of the company (with a role that gives only
+the Security buttons) or comes from a **security company** (a vendor).
+
+Security uses **one box**: **Security**.
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        S1(["Record a security incident<br/><i>box: Security - Create</i>"])
+        S2(["View incidents<br/><i>box: Security - View</i>"])
+        S3(["Record a visitor<br/><i>box: Security - Create</i>"])
+        S4(["Plan the guards' shifts<br/><i>box: Security - Update</i>"])
+        S5(["Record who holds the keys<br/><i>box: Security - Update</i>"])
+    end
+
+    EM --- S1
+    EM --- S2
+    EM --- S3
+    EM --- S4
+    EM --- S5
+```
+
+| # | Button | What it does | Box that must be ticked |
+|---|---|---|---|
+| 1 | Record a security incident | Example: "broken entrance lock, 2:00 am", with photos | Security: Create |
+| 2 | View incidents | All incidents per building and date | Security: View |
+| 3 | Record a visitor | Name, which unit they visit, time in and out | Security: Create |
+| 4 | Plan the guards' shifts | Who guards which building, day or night | Security: Update |
+| 5 | Record who holds the keys | Example: "key to A1 given to the plumber on 10 March, returned on 11 March" | Security: Update |
+
 ### Note --- Syndic (managing the shared parts of a building)
 
 When the company sells several units of a building, the building has
@@ -718,3 +754,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.16 | 2026-10-09 | Ten more Maintenance buttons (job types, recurring jobs, unit preparation for a new tenant or a sale, checklists, calendar, reopen, history, export). |
 | 0.17 | 2026-10-09 | Items left by a former tenant: "Record items left by a tenant" (Tenants and leases) and "Report a found item" (Maintenance). |
 | 0.18 | 2026-10-09 | Syndic: four buttons in existing areas (shared parts, owner share, building fees, building money); dedicated syndic interface after the MVP. |
+| 0.19 | 2026-10-09 | Step 10: Building security with one box and five buttons (incidents, visitors, guard shifts, keys). |
