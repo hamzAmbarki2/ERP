@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.26\
+**Version:** 0.27\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1079,6 +1079,52 @@ Notes:
 -   Ownership has **dates**, so the ERP knows who owned a unit on any
     day (needed when a unit is sold).
 
+### Step 4 --- Tenants and leases
+
+| Class | What it is |
+|---|---|
+| Tenant | A person or company who rents |
+| Lease | The rental contract: dates, rent, status |
+| Guarantor | A person who guarantees the tenant will pay |
+| RentChange | Each change of rent, with the date it starts (history kept) |
+| Inspection | The move-in or move-out check, with photos |
+| Deposit | The deposit paid, kept, and returned (fully or partly, with reasons) |
+| LeftItem | Things a tenant left behind, and what happened to them |
+| RentRequest | Someone who wants to rent, with what they are looking for |
+| Viewing | A visit of a unit; used by rent requests now, reused by Sales later |
+
+``` mermaid
+classDiagram
+    class Tenant
+    class Lease
+    class Guarantor
+    class RentChange
+    class Inspection
+    class Deposit
+    class LeftItem
+    class RentRequest
+    class Viewing
+    class Unit
+
+    Lease "*" --> "*" Tenant : rented by
+    Lease "*" --> "*" Unit : covers
+    Lease "1" --> "*" Guarantor : guaranteed by
+    Lease "1" --> "*" RentChange : rent history
+    Lease "1" --> "0..2" Inspection : move-in and move-out
+    Lease "1" --> "0..1" Deposit : has
+    Lease "1" --> "*" LeftItem : items left
+    RentRequest "1" --> "*" Viewing : has
+    Viewing "*" --> "1" Unit : of
+    RentRequest "0..1" --> "0..1" Tenant : becomes
+```
+
+Notes:
+
+-   One lease can have **several tenants** (flatmates) and cover
+    **several units** (a company renting 3 offices).
+-   A rent request **becomes** a tenant when the lease is signed;
+    nothing is retyped.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1111,3 +1157,4 @@ Notes:
 | 0.24 | 2026-10-09 | Class diagram (MVP), step 1: the company and its people. |
 | 0.25 | 2026-10-09 | Class diagram (MVP), step 2: the properties. |
 | 0.26 | 2026-10-09 | Class diagram (MVP), step 3: the owners. |
+| 0.27 | 2026-10-09 | Class diagram (MVP), step 4: tenants and leases. |
