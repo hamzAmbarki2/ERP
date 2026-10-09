@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.8\
+**Version:** 0.9\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -150,6 +150,7 @@ and English.
 | Structured move-in / move-out inspection | V1 | Proposed | MVP: attach the signed document. |
 | Tenant mobile app | V1 | Phase 0 §0.14 | |
 | Seasonal / short-term rentals | Open | Problem 16 | See §7. |
+| Rent requests: record people who want to rent, their needs and viewings, match them to free units, turn them into tenants | MVP | Decision 2026-10-09 (UML diagrams, Tenants and leases 27–31) | No interface for the person (D-010). |
 
 ### 4.6 Sales
 
@@ -271,6 +272,7 @@ and English.
 | Units for sale, sales pipeline, reservations, closed sales | MVP | Phase 0 §0.13 | |
 | Export of reports to Excel / CSV | V1 | Proposed | |
 | Advanced reporting | V1 | Phase 0 §0.14 | |
+| Employees' reports and dashboards | V1 | Decision 2026-10-09 | After the administrator's dashboard. |
 | Richer owner reporting | V2 | Phase 0 §0.15 | |
 
 ### 4.13 Audit
@@ -339,7 +341,6 @@ These move to the Open Questions Register (Open Questions Register) when it is c
 | Topic | Why it matters | Decide in |
 |---|---|---|
 | Seasonal / short-term rentals | Common locally; changes lease durations, billing and availability. Distinct from the "Airbnb clone" non-goal. | Cahier des Charges 04 |
-| Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. No interface (D-010). Open: whether staff record them, and in which release. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*. | Cahier des Charges 04, Cahier des Charges 06 |
 | Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | Cahier des Charges 10 |
 | Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | Regulatory & Legal Register, Cahier des Charges 07 |
 | Electronic signature; retention periods | Legal validity and how long documents must be kept. | Regulatory & Legal Register, Cahier des Charges 10 |
@@ -373,7 +374,6 @@ is then updated.
 | Cash, cheque and transfer, with cheque follow-up, in the MVP (§4.7) | Cahier des Charges 07 |
 | PDF receipt and owner statement in the MVP (§8) | Cahier des Charges 10 |
 | Excel / CSV import of the main records in the MVP (§4.14) | Cahier des Charges 13 |
-| Rental prospects recorded by staff (§7) | Cahier des Charges 04, Cahier des Charges 06 |
 
 ------------------------------------------------------------------------
 
@@ -388,4 +388,5 @@ is then updated.
 | 0.6 | 2026-10-09 | Syndic included: basic syndic work in the MVP through existing areas; dedicated syndic interface in V1. |
 | 0.7 | 2026-10-09 | Vendor quotes, documents with expiry and contract terms moved to the MVP. |
 | 0.8 | 2026-10-09 | Sales commission, payment schedules and buyer matching moved to the MVP. |
+| 0.9 | 2026-10-09 | Rent requests in the MVP (open topic closed); employees' reports and dashboards in V1. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |

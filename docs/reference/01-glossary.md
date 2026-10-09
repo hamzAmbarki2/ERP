@@ -1,7 +1,7 @@
 # Glossary / Lexique
 
 **Document:** Glossary\
-**Version:** 0.3\
+**Version:** 0.4\
 **Status:** Draft — naming decisions in §2 to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md),
@@ -107,6 +107,7 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | Term | Français | العربية | Definition | Notes / avoid |
 |---|---|---|---|---|
 | Tenant | Locataire | المتسوّغ (المكتري / المستأجر) | A person or a company renting one or more units under a lease. Examples: a family renting an apartment; a company renting three offices and two parking spaces. | A company that rents is a Tenant of type *company*, not an Organization: that word is reserved for companies subscribing to the platform (N-01). |
+| Rent Request | Demande de location | طلب كراء | A person or company who wants to rent but has no lease yet, with what they are looking for (budget, rooms, area). Becomes a tenant when a lease is signed. | Avoid: "rental prospect". |
 | Lease | Bail (contrat de location) | عقد التسويغ (عقد الكراء) | The contract giving a tenant the use of one or more units for a period, against rent. | |
 | Lease Party | Partie au bail | طرف في العقد | A tenant, guarantor or owner named in a lease. | |
 | Guarantor | Garant | الضامن (الكفيل) | A person or company guaranteeing the tenant's obligations. | Avoid in French: caution, which also means deposit. |
@@ -202,5 +203,6 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-10-08 | First draft: naming decisions N-01 to N-11; terms for all domains in Phase 0 and Cahier des Charges 00. |
+| 0.4 | 2026-10-09 | Rent Request added. |
 | 0.3 | 2026-10-08 | Department and Privilege added; Role and Scope updated for D-011. |
 | 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. Organization: rents out / sells, as opposed to a Tenant, who rents in. |

@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.22\
+**Version:** 0.23\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -404,6 +404,11 @@ flowchart LR
         L24(["Merge two tenants<br/><i>box: Tenants and leases - Update</i>"])
         L25(["Export tenants and leases to Excel<br/><i>box: Tenants and leases - View</i>"])
         L26(["Record items left by a tenant<br/><i>box: Tenants and leases - Update</i>"])
+        L27(["Record a rent request<br/><i>box: Tenants and leases - Create</i>"])
+        L28(["Record what they are looking for<br/><i>box: Tenants and leases - Update</i>"])
+        L29(["Plan or record a viewing for a rent request<br/><i>box: Tenants and leases - Create</i>"])
+        L30(["Find rent requests that match a free unit<br/><i>box: Tenants and leases - View</i>"])
+        L31(["Turn a rent request into a tenant and a lease<br/><i>box: Tenants and leases - Create</i>"])
     end
 
     EM --- L1
@@ -432,6 +437,11 @@ flowchart LR
     EM --- L24
     EM --- L25
     EM --- L26
+    EM --- L27
+    EM --- L28
+    EM --- L29
+    EM --- L30
+    EM --- L31
 ```
 
 | # | Button | Box that must be ticked |
@@ -462,6 +472,16 @@ flowchart LR
 | 24 | Merge two tenants: the same tenant entered twice is joined into one | Tenants and leases: Update |
 | 25 | Export tenants and leases to Excel | Tenants and leases: View |
 | 26 | Record items left by a tenant: what was left (with photos), where it is kept, when the tenant was contacted and the deadline to collect it, and the outcome (returned with date and signature, or given away or thrown out after the deadline). How long items must be kept may depend on the law (to check with the accountant or lawyer) | Tenants and leases: Update |
+| 27 | Record a rent request: Someone asks to rent (example: Ines calls: "2-room apartment near Lac 2, maximum 900 TND a month"); the request is recorded with their contact details | Tenants and leases: Create |
+| 28 | Record what they are looking for: Budget, number of rooms, area, move-in date | Tenants and leases: Update |
+| 29 | Plan or record a viewing for a rent request: Example: "Ines visits A3 on Wednesday at 17:00" | Tenants and leases: Create |
+| 30 | Find rent requests that match a free unit: When a unit becomes free, the ERP lists the requests that fit it (simple rules, no AI) | Tenants and leases: View |
+| 31 | Turn a rent request into a tenant and a lease: When the lease is signed, the person becomes a tenant; nothing is retyped | Tenants and leases: Create |
+
+**Rent requests** (buttons 27 to 31): a rent request is a person or
+company who wants to rent but has no lease yet. The staff record it, so
+nobody interested is forgotten and free units are filled faster. The
+person has no interface (decision D-010).
 
 Rent invoices and payments belong to the Finance area.
 
@@ -928,10 +948,10 @@ flowchart LR
 Buttons 16 (matching), 20 (payment schedule) and 22 (commission) were
 planned for V1 in Phase 0 (D-009); they are now part of the MVP.
 
-### Pending --- Employees' reports and dashboards
+### V1 --- Employees' reports and dashboards
 
-Reports and dashboards for employees are added **after the
-administrator's dashboard is developed** (decision 2026-10-09).
+Reports and dashboards for employees come **after the administrator's
+dashboard**: they are planned for **V1** (decision 2026-10-09).
 
 ### Note --- Syndic (managing the shared parts of a building)
 
@@ -980,3 +1000,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.20 | 2026-10-09 | Step 11: Vendors with 24 buttons (documents with validity dates and alerts, contract terms, ratings, comparison, quotes, vendor bills and payments) and rule 7d. |
 | 0.21 | 2026-10-09 | Step 12: Sales with three boxes and thirteen buttons. |
 | 0.22 | 2026-10-09 | Sixteen more Sales buttons (search, needs and matching, counter-offers, reservation alerts, payment schedules, commission, pipeline, documents, notes, merge, sale of a rented unit, buyer identity check, export). |
+| 0.23 | 2026-10-09 | Rent requests: five buttons in Tenants and leases (MVP). Employees' reports and dashboards planned for V1. |
