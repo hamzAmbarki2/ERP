@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.14\
+**Version:** 0.15\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -561,6 +561,70 @@ flowchart LR
 Taxes (VAT, withholding tax, electronic invoicing) are left for the
 accountant's review (see the legal points discussed on 2026-10-09).
 
+### Step 9 --- Employee's buttons: Maintenance
+
+The Maintenance area handles all work done on the properties, from the
+moment it is reported or planned until it is checked. This is **not
+only repairs** (water leak, broken door): it also covers **cleaning**
+and **detailing** (preparing a property so it looks its best). Each job
+is done by an internal technician or an outside vendor.
+
+Maintenance uses **two boxes**: **Maintenance requests** (the problem
+or need reported) and **Work orders** (the job). A technician can get
+only *Work orders*, limited to the jobs given to them.
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        M1(["View maintenance requests<br/><i>box: Maintenance requests - View</i>"])
+        M2(["Record a maintenance request<br/><i>box: Maintenance requests - Create</i>"])
+        M3(["Edit a request<br/><i>box: Maintenance requests - Update</i>"])
+        M4(["Turn a request into a work order<br/><i>box: Work orders - Create</i>"])
+        M5(["Assign a work order<br/><i>box: Work orders - Update</i>"])
+        M6(["Plan the date of the work<br/><i>box: Work orders - Update</i>"])
+        M7(["View work orders<br/><i>box: Work orders - View</i>"])
+        M8(["Update the progress<br/><i>box: Work orders - Update</i>"])
+        M9(["Add notes and photos<br/><i>box: Work orders - Update</i>"])
+        M10(["Record materials and hours<br/><i>box: Work orders - Update</i>"])
+        M11(["Verify the work<br/><i>box: Work orders - Update</i>"])
+        M12(["Cancel a request or work order<br/><i>box: Work orders - Delete</i>"])
+        M13(["Create the expense from a finished work order<br/><i>box: Expenses - Create</i>"])
+    end
+
+    EM --- M1
+    EM --- M2
+    EM --- M3
+    EM --- M4
+    EM --- M5
+    EM --- M6
+    EM --- M7
+    EM --- M8
+    EM --- M9
+    EM --- M10
+    EM --- M11
+    EM --- M12
+    EM --- M13
+```
+
+| # | Button | What it does | Box that must be ticked |
+|---|---|---|---|
+| 1 | View maintenance requests | All reported problems and needs, with their status | Maintenance requests: View |
+| 2 | Record a maintenance request | Example: a tenant calls, "water leak in the kitchen of A1" | Maintenance requests: Create |
+| 3 | Edit a request | Change the description or the priority (urgent, normal, low) | Maintenance requests: Update |
+| 4 | Turn a request into a work order | The request becomes a job | Work orders: Create |
+| 5 | Assign a work order | Give the job to an internal technician or a vendor | Work orders: Update |
+| 6 | Plan the date of the work | Example: Thursday 10:00 | Work orders: Update |
+| 7 | View work orders | A technician sees only the jobs given to them | Work orders: View |
+| 8 | Update the progress | Started, waiting for parts, finished | Work orders: Update |
+| 9 | Add notes and photos | Before and after photos, comments | Work orders: Update |
+| 10 | Record materials and hours | Example: 1 pipe and 2 hours of work | Work orders: Update |
+| 11 | Verify the work | A manager checks the job is well done before closing it | Work orders: Update |
+| 12 | Cancel a request or work order | Duplicate, or no longer needed | Work orders: Delete |
+| 13 | Create the expense from a finished work order | The job cost goes to Finance in one click | Expenses: Create |
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -581,3 +645,4 @@ accountant's review (see the legal points discussed on 2026-10-09).
 | 0.12 | 2026-10-09 | Fourteen more Tenants and leases buttons (move-in and move-out checks, deposit return, several tenants or units per lease, lease registration, notes, email, print, history, merge, export). |
 | 0.13 | 2026-10-09 | Step 8: Finance with three boxes and thirteen buttons. |
 | 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, agency income, accountant export). |
+| 0.15 | 2026-10-09 | Step 9: Maintenance with two boxes and thirteen buttons; maintenance includes repairs, cleaning and detailing. |
