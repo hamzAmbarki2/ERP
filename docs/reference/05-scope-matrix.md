@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.6\
+**Version:** 0.7\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -227,10 +227,10 @@ and English.
 | Work-order assignment and service history | MVP | Phase 0 §0.29 | |
 | Notes; vendor bill reference linked to an expense | MVP | Phase 0 §0.13 | |
 | Vendor portal | V1 | Phase 0 §0.29 | |
-| Quotes and quote approval | V1 | Phase 0 §0.29 | |
+| Quotes and choosing a quote | MVP | Decision 2026-10-09 (UML diagrams, Vendors 15) | Was V1 in Phase 0. |
 | Vendor bill workflow (received → approved → paid) | V1 | Phase 0 §0.14 | |
-| Compliance documents with expiry | V1 | Phase 0 §0.14 | |
-| Vendor contracts | V1 / V2 | Phase 0 §0.29 | To settle — see §8. |
+| Documents with validity dates, expiry alerts and status | MVP | Decision 2026-10-09 (UML diagrams, Vendors 7a–7e) | Was V1 in Phase 0. |
+| Vendor contract terms | MVP | Decision 2026-10-09 (UML diagrams, Vendors 7f) | Was V1 / V2 in Phase 0. |
 | Vendor performance tracking | V2 | Phase 0 §0.15 | |
 | Purchase orders | V2 | Phase 0 §0.29 | See §8. |
 | Advanced procurement | V2 | Phase 0 §0.29 | |
@@ -386,4 +386,5 @@ is then updated.
 | 0.3 | 2026-10-08 | D-010: only internal staff log in to the MVP; tenant and owner portals moved to V1. |
 | 0.5 | 2026-10-08 | D-011: organization-defined roles and departments moved to MVP. |
 | 0.6 | 2026-10-09 | Syndic included: basic syndic work in the MVP through existing areas; dedicated syndic interface in V1. |
+| 0.7 | 2026-10-09 | Vendor quotes, documents with expiry and contract terms moved to the MVP. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |

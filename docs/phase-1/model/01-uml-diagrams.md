@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.19\
+**Version:** 0.20\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -711,6 +711,109 @@ flowchart LR
 | 4 | Plan the guards' shifts | Who guards which building, day or night | Security: Update |
 | 5 | Record who holds the keys | Example: "key to A1 given to the plumber on 10 March, returned on 11 March" | Security: Update |
 
+### Step 11 --- Employee's buttons: Vendors
+
+The Vendors area keeps the outside companies and independent workers who
+do jobs for the company (plumbers, electricians, cleaning companies,
+elevator maintenance, security companies…): who they are, what they do,
+their documents and contracts, and every job they did.
+
+Vendors uses **one box**: **Vendors** (bills and payments use the
+Finance box **Expenses**).
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        V1(["View vendors<br/><i>box: Vendors - View</i>"])
+        V2(["Add a vendor<br/><i>box: Vendors - Create</i>"])
+        V3(["Edit a vendor<br/><i>box: Vendors - Update</i>"])
+        V4(["Add contact people<br/><i>box: Vendors - Update</i>"])
+        V5(["Choose service types<br/><i>box: Vendors - Update</i>"])
+        V6(["Activate or deactivate a vendor<br/><i>box: Vendors - Update</i>"])
+        V7A(["Attach a document with its type and dates<br/><i>box: Vendors - Update</i>"])
+        V7B(["Get warned before a document expires<br/><i>box: Vendors - View</i>"])
+        V7C(["See each vendor's document status<br/><i>box: Vendors - View</i>"])
+        V7E(["Ask the vendor for a new document<br/><i>box: Vendors - View</i>"])
+        V7F(["Record the contract terms<br/><i>box: Vendors - Update</i>"])
+        V8(["View a vendor's job history<br/><i>box: Vendors - View</i>"])
+        V9(["Add a note<br/><i>box: Vendors - Update</i>"])
+        V10(["Record a vendor's bill<br/><i>box: Expenses - Create</i>"])
+        V11(["Delete or archive a vendor<br/><i>box: Vendors - Delete</i>"])
+        V12(["Search and filter vendors<br/><i>box: Vendors - View</i>"])
+        V13(["Rate a vendor after a job<br/><i>box: Vendors - Update</i>"])
+        V14(["Compare vendors for one service type<br/><i>box: Vendors - View</i>"])
+        V15(["Ask vendors for quotes and choose one<br/><i>box: Vendors - Create</i>"])
+        V16(["View what is owed to each vendor<br/><i>box: Expenses - View</i>"])
+        V17(["Record a payment to a vendor<br/><i>box: Expenses - Update</i>"])
+        V18(["Mark a preferred vendor<br/><i>box: Vendors - Update</i>"])
+        V19(["Merge two vendors<br/><i>box: Vendors - Update</i>"])
+        V20(["Export vendors to Excel<br/><i>box: Vendors - View</i>"])
+    end
+
+    EM --- V1
+    EM --- V2
+    EM --- V3
+    EM --- V4
+    EM --- V5
+    EM --- V6
+    EM --- V7A
+    EM --- V7B
+    EM --- V7C
+    EM --- V7E
+    EM --- V7F
+    EM --- V8
+    EM --- V9
+    EM --- V10
+    EM --- V11
+    EM --- V12
+    EM --- V13
+    EM --- V14
+    EM --- V15
+    EM --- V16
+    EM --- V17
+    EM --- V18
+    EM --- V19
+    EM --- V20
+```
+
+| # | Button | What it does | Box that must be ticked |
+|---|---|---|---|
+| 1 | View vendors | The list of all vendors | Vendors: View |
+| 2 | Add a vendor | A company or an individual (example: "Plomberie Ben Salah") | Vendors: Create |
+| 3 | Edit a vendor | Address, phone, bank account, tax number | Vendors: Update |
+| 4 | Add contact people | The boss, the secretary, the worker who comes on site | Vendors: Update |
+| 5 | Choose service types | Plumbing, electricity, cleaning, elevator, painting, security… | Vendors: Update |
+| 6 | Activate or deactivate a vendor | Stop working with a vendor without losing their history | Vendors: Update |
+| 7a | Attach a document with its type and dates | Contract, insurance certificate, professional license, tax certificate, social-security (CNSS) certificate, each with its validity dates; old versions are kept | Vendors: Update |
+| 7b | Get warned before a document expires | Example: "Plomberie Ben Salah's insurance ends in 30 days" | Vendors: View |
+| 7c | See each vendor's document status | Green: all valid; orange: one expires soon; red: expired or missing | Vendors: View |
+| 7e | Ask the vendor for a new document | The ERP emails the vendor to send an updated document | Vendors: View |
+| 7f | Record the contract terms | Services, price, duration, renewal (example: elevator check, 300 TND/month, 1 year, renews automatically) | Vendors: Update |
+| 8 | View a vendor's job history | All jobs done: where, when, how much, how well | Vendors: View |
+| 9 | Add a note | Example: "always late", "good price for big jobs" | Vendors: Update |
+| 10 | Record a vendor's bill | The bill for a job, linked to that job and turned into an expense | Expenses: Create |
+| 11 | Delete or archive a vendor | Same rule as properties | Vendors: Delete |
+| 12 | Search and filter vendors | By service type, city, status (example: all active electricians in Tunis) | Vendors: View |
+| 13 | Rate a vendor after a job | Quality, punctuality and price, from 1 to 5 stars | Vendors: Update |
+| 14 | Compare vendors for one service type | Average rating, average price, number of jobs | Vendors: View |
+| 15 | Ask vendors for quotes and choose one | Ask several vendors for a price, record their quotes, pick one | Vendors: Create |
+| 16 | View what is owed to each vendor | Unpaid vendor bills | Expenses: View |
+| 17 | Record a payment to a vendor | Pay a vendor's bill | Expenses: Update |
+| 18 | Mark a preferred vendor | Example: "for elevators in Résidence Yasmine, always call X first" | Vendors: Update |
+| 19 | Merge two vendors | The same vendor entered twice is joined into one | Vendors: Update |
+| 20 | Export vendors to Excel | Download the list | Vendors: View |
+
+**Rule 7d:** before a job is given to a vendor whose document status is
+red (expired or missing), the ERP warns: "This vendor's insurance has
+expired. Assign anyway?"
+
+Assigning a job to a vendor is done in Maintenance (button 5).
+Contracts, compliance documents and quotes were planned for V1 in
+Phase 0; they are now part of the MVP.
+
 ### Note --- Syndic (managing the shared parts of a building)
 
 When the company sells several units of a building, the building has
@@ -755,3 +858,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.17 | 2026-10-09 | Items left by a former tenant: "Record items left by a tenant" (Tenants and leases) and "Report a found item" (Maintenance). |
 | 0.18 | 2026-10-09 | Syndic: four buttons in existing areas (shared parts, owner share, building fees, building money); dedicated syndic interface after the MVP. |
 | 0.19 | 2026-10-09 | Step 10: Building security with one box and five buttons (incidents, visitors, guard shifts, keys). |
+| 0.20 | 2026-10-09 | Step 11: Vendors with 24 buttons (documents with validity dates and alerts, contract terms, ratings, comparison, quotes, vendor bills and payments) and rule 7d. |
