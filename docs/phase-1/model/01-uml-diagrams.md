@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.11\
+**Version:** 0.12\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -382,6 +382,20 @@ flowchart LR
         L9(["End a lease<br/><i>box: Tenants and leases - Update</i>"])
         L10(["Attach documents<br/><i>box: Tenants and leases - Update</i>"])
         L11(["Delete or archive a tenant or lease<br/><i>box: Tenants and leases - Delete</i>"])
+        L12(["Search and filter tenants and leases<br/><i>box: Tenants and leases - View</i>"])
+        L13(["View leases ending soon<br/><i>box: Tenants and leases - View</i>"])
+        L14(["Record the move-in check<br/><i>box: Tenants and leases - Update</i>"])
+        L15(["Record the move-out check<br/><i>box: Tenants and leases - Update</i>"])
+        L16(["Return the deposit<br/><i>box: Tenants and leases - Update</i>"])
+        L17(["Put several tenants on one lease<br/><i>box: Tenants and leases - Update</i>"])
+        L18(["One lease for several units<br/><i>box: Tenants and leases - Create</i>"])
+        L19(["Track the lease registration<br/><i>box: Tenants and leases - Update</i>"])
+        L20(["Add a note<br/><i>box: Tenants and leases - Update</i>"])
+        L21(["Send an email to a tenant<br/><i>box: Tenants and leases - View</i>"])
+        L22(["Print a lease<br/><i>box: Tenants and leases - View</i>"])
+        L23(["View a tenant's history<br/><i>box: Tenants and leases - View</i>"])
+        L24(["Merge two tenants<br/><i>box: Tenants and leases - Update</i>"])
+        L25(["Export tenants and leases to Excel<br/><i>box: Tenants and leases - View</i>"])
     end
 
     EM --- L1
@@ -395,6 +409,20 @@ flowchart LR
     EM --- L9
     EM --- L10
     EM --- L11
+    EM --- L12
+    EM --- L13
+    EM --- L14
+    EM --- L15
+    EM --- L16
+    EM --- L17
+    EM --- L18
+    EM --- L19
+    EM --- L20
+    EM --- L21
+    EM --- L22
+    EM --- L23
+    EM --- L24
+    EM --- L25
 ```
 
 | # | Button | Box that must be ticked |
@@ -410,6 +438,20 @@ flowchart LR
 | 9 | End a lease when the tenant leaves: the unit becomes "available" | Tenants and leases: Update |
 | 10 | Attach documents (signed lease, ID card) | Tenants and leases: Update |
 | 11 | Delete or archive a tenant or lease (same rule as properties) | Tenants and leases: Delete |
+| 12 | Search and filter tenants and leases (example: all leases in Tunis Nord ending this year) | Tenants and leases: View |
+| 13 | View leases ending soon (next 60 days), to renew them or find a new tenant in time | Tenants and leases: View |
+| 14 | Record the move-in check (état des lieux d'entrée): condition of each room, with photos | Tenants and leases: Update |
+| 15 | Record the move-out check and compare it with the move-in check | Tenants and leases: Update |
+| 16 | Return the deposit fully or partly, with the reason (example: 2,000 TND deposit, 200 TND kept for a broken window). The deposit is money paid by the tenant at the start of the lease as a guarantee against damage or unpaid rent | Tenants and leases: Update |
+| 17 | Put several tenants on one lease (couple, flatmates) | Tenants and leases: Update |
+| 18 | One lease for several units (example: a company rents 3 offices and 2 parking spaces) | Tenants and leases: Create |
+| 19 | Track the lease registration at the tax office (date, receipt), with a warning before the 60-day limit | Tenants and leases: Update |
+| 20 | Add a note (call, complaint, request from the tenant) | Tenants and leases: Update |
+| 21 | Send an email to a tenant from the ERP, keeping a copy | Tenants and leases: View |
+| 22 | Print a lease, filled with the tenant's and unit's details, ready to sign | Tenants and leases: View |
+| 23 | View a tenant's history (past leases and units, payment punctuality) | Tenants and leases: View |
+| 24 | Merge two tenants: the same tenant entered twice is joined into one | Tenants and leases: Update |
+| 25 | Export tenants and leases to Excel | Tenants and leases: View |
 
 Rent invoices and payments belong to the Finance area.
 
@@ -430,3 +472,4 @@ Rent invoices and payments belong to the Finance area.
 | 0.9 | 2026-10-09 | Nine more Owners buttons (search, history, agreements, notes, email, merge, print, export). |
 | 0.10 | 2026-10-09 | Nine advanced Owners buttons (summary, co-owner groups, ownership by date, repair approval limit and approvals, fee per property, bulk transfer, missing information, group message). |
 | 0.11 | 2026-10-09 | Step 7: eleven Tenants and leases buttons for the Employee. |
+| 0.12 | 2026-10-09 | Fourteen more Tenants and leases buttons (move-in and move-out checks, deposit return, several tenants or units per lease, lease registration, notes, email, print, history, merge, export). |
