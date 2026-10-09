@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.33\
+**Version:** 0.34\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -15,7 +15,8 @@ Diagrams in this document:
 5.  Sequence diagrams
 6.  State diagrams
 
-Diagrams are written in Mermaid so GitHub displays them. Mermaid has no
+Diagrams are written in Mermaid so GitHub displays them. A French
+version is in [Diagrammes UML (version française)](02-diagrammes-uml-fr.md). Mermaid has no
 dedicated use case notation, so the use case diagram uses the usual
 convention: actors on the sides, use cases as rounded shapes inside the
 system boundary.
@@ -1124,6 +1125,12 @@ Notes:
     **several units** (a company renting 3 offices).
 -   A rent request **becomes** a tenant when the lease is signed;
     nothing is retyped.
+-   **Naming warning --- "Tenant":** the system is multi-tenant, and in
+    multi-tenancy the word "tenant" usually means the **organization**
+    (the real estate company using the ERP). Here, **Tenant** means the
+    person or company who **rents** a unit. The two meanings will
+    clash later in the database. The name **Tenant** is kept for now;
+    it will be reviewed before the database design.
 
 ### Step 5 --- Finance
 
@@ -1432,6 +1439,192 @@ notes and audit events can be attached to any record.
 
 Attributes (the details of each class) are added in a later step.
 
+### Full MVP class diagram
+
+All 74 classes and their links in one view.
+
+``` mermaid
+classDiagram
+    class Organization
+    class Branch
+    class Department
+    class Role
+    class Privilege
+    class User
+    class Membership
+    class Property
+    class Building
+    class Floor
+    class Unit
+    class SharedPart
+    class Owner
+    class Ownership
+    class ManagementAgreement
+    class Lease
+    class Tenant
+    class Guarantor
+    class RentChange
+    class Inspection
+    class Deposit
+    class LeftItem
+    class RentRequest
+    class Viewing
+    class Invoice
+    class InvoiceLine
+    class CreditNote
+    class Payment
+    class Allocation
+    class PaymentPlan
+    class Refund
+    class Expense
+    class OwnerStatement
+    class OwnerPayout
+    class PeriodClosing
+    class MaintenanceRequest
+    class WorkOrder
+    class Vendor
+    class WorkLog
+    class MaterialUse
+    class ChecklistTemplate
+    class RecurringJob
+    class PreparationPlan
+    class OwnerApproval
+    class VendorContact
+    class ServiceType
+    class VendorDocument
+    class VendorContract
+    class Quote
+    class VendorBill
+    class VendorPayment
+    class VendorRating
+    class PreferredVendor
+    class Listing
+    class SalesMandate
+    class Prospect
+    class Offer
+    class Reservation
+    class Sale
+    class PaymentSchedule
+    class BuyerPayment
+    class Commission
+    class IdentityCheck
+    class SecurityIncident
+    class VisitorEntry
+    class GuardShift
+    class KeyHandover
+    class Document
+    class AnyRecord
+    class Note
+    class AuditEvent
+    class Notification
+    class Invitation
+    class MoveRequest
+    class CostShare
+
+    Organization "1" --> "*" Branch : has
+    Branch "1" --> "*" Department : has
+    Organization "1" --> "*" Role : defines
+    Role "1" --> "*" Privilege : grants
+    User "1" --> "*" Membership : has
+    Organization "1" --> "*" Membership : has
+    Membership "*" --> "*" Role : holds
+    Membership "*" --> "1" Department : works in
+    Branch "1" --> "*" Property : manages
+    Property "1" --> "0..*" Building : contains
+    Building "1" --> "0..*" Floor : contains
+    Property "1" --> "1..*" Unit : contains
+    Floor "0..1" --> "*" Unit : contains
+    Property "1" --> "0..*" SharedPart : has
+    Owner "1" --> "*" Ownership : holds
+    Ownership "*" --> "1" Unit : on
+    Owner "1" --> "*" ManagementAgreement : signs
+    ManagementAgreement "*" --> "*" Unit : covers
+    Organization "0..1" --> "0..1" Owner : is owner of its own stock
+    Lease "*" --> "*" Tenant : rented by
+    Lease "*" --> "*" Unit : covers
+    Lease "1" --> "*" Guarantor : guaranteed by
+    Lease "1" --> "*" RentChange : rent history
+    Lease "1" --> "0..2" Inspection : move-in and move-out
+    Lease "1" --> "0..1" Deposit : has
+    Lease "1" --> "*" LeftItem : items left
+    RentRequest "1" --> "*" Viewing : has
+    Viewing "*" --> "1" Unit : of
+    RentRequest "0..1" --> "0..1" Tenant : becomes
+    Lease "1" --> "*" Invoice : generates
+    Invoice "*" --> "0..1" Tenant : billed to
+    Invoice "*" --> "0..1" Owner : billed to
+    Invoice "1" --> "*" InvoiceLine : contains
+    Invoice "1" --> "*" CreditNote : cancelled by
+    Payment "1" --> "*" Allocation : split into
+    Allocation "*" --> "1" Invoice : pays
+    Tenant "1" --> "*" PaymentPlan : agrees
+    Tenant "1" --> "*" Refund : receives
+    Unit "1" --> "*" Expense : costs
+    Owner "1" --> "*" OwnerStatement : receives
+    OwnerStatement "1" --> "0..1" OwnerPayout : paid by
+    Organization "1" --> "*" PeriodClosing : closes
+    MaintenanceRequest "*" --> "0..1" Unit : about
+    MaintenanceRequest "*" --> "0..1" SharedPart : about
+    MaintenanceRequest "1" --> "*" WorkOrder : turned into
+    WorkOrder "*" --> "0..1" Unit : on
+    WorkOrder "*" --> "0..1" SharedPart : on
+    WorkOrder "*" --> "0..1" Membership : done by internal technician
+    WorkOrder "*" --> "0..1" Vendor : done by vendor
+    WorkOrder "1" --> "*" WorkLog : progress
+    WorkOrder "1" --> "*" MaterialUse : uses
+    WorkOrder "*" --> "0..1" ChecklistTemplate : follows
+    RecurringJob "1" --> "*" WorkOrder : creates
+    PreparationPlan "1" --> "*" WorkOrder : groups
+    WorkOrder "1" --> "0..1" OwnerApproval : approved by owner
+    WorkOrder "1" --> "0..1" Expense : costs
+    WorkOrder "1" --> "*" LeftItem : items found
+    Vendor "1" --> "*" VendorContact : has
+    Vendor "*" --> "*" ServiceType : offers
+    Vendor "1" --> "*" VendorDocument : provides
+    Vendor "1" --> "*" VendorContract : bound by
+    WorkOrder "1" --> "*" Quote : receives
+    Quote "*" --> "1" Vendor : from
+    Vendor "1" --> "*" VendorBill : sends
+    VendorBill "*" --> "0..1" WorkOrder : for
+    VendorBill "1" --> "1" Expense : becomes
+    VendorBill "1" --> "*" VendorPayment : paid by
+    WorkOrder "1" --> "0..1" VendorRating : rated
+    VendorRating "*" --> "1" Vendor : about
+    PreferredVendor "*" --> "1" Vendor : prefers
+    PreferredVendor "*" --> "1" ServiceType : for service
+    PreferredVendor "*" --> "1" Property : in
+    Unit "1" --> "*" Listing : put up for sale
+    Listing "*" --> "0..1" SalesMandate : under
+    SalesMandate "*" --> "1" Owner : given by
+    Prospect "1" --> "*" Viewing : makes
+    Listing "1" --> "*" Offer : receives
+    Offer "*" --> "1" Prospect : made by
+    Offer "0..1" --> "0..1" Offer : answers
+    Offer "1" --> "0..1" Reservation : leads to
+    Reservation "1" --> "0..1" Sale : leads to
+    Sale "1" --> "0..1" PaymentSchedule : paid by
+    Sale "1" --> "*" BuyerPayment : receives
+    Sale "1" --> "0..1" Commission : earns
+    Prospect "1" --> "*" IdentityCheck : checked by
+    Sale "1" --> "1" Ownership : creates
+    Property "1" --> "*" SecurityIncident : records
+    Property "1" --> "*" VisitorEntry : records
+    VisitorEntry "*" --> "0..1" Unit : visits
+    GuardShift "*" --> "1" Property : guards
+    GuardShift "*" --> "0..1" Membership : guard employed by the company
+    GuardShift "*" --> "0..1" Vendor : guard from a security company
+    KeyHandover "*" --> "1" Unit : key of
+    Document "*" --> "1" AnyRecord : attached to
+    Note "*" --> "1" AnyRecord : attached to
+    AuditEvent "*" --> "1" AnyRecord : about
+    AuditEvent "*" --> "1" Membership : done by
+    Notification "*" --> "0..1" Membership : sent to employee
+    Organization "1" --> "*" Invitation : sends
+    Membership "1" --> "*" MoveRequest : asks
+    Owner "1" --> "*" CostShare : pays
+    CostShare "*" --> "1" Property : of building
+```
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1471,3 +1664,4 @@ Attributes (the details of each class) are added in a later step.
 | 0.31 | 2026-10-09 | Class diagram (MVP), step 8: sales. |
 | 0.32 | 2026-10-09 | Class diagram (MVP), step 9: building security. |
 | 0.33 | 2026-10-09 | Class diagram (MVP), step 10: shared records; summary (74 classes). |
+| 0.34 | 2026-10-09 | Full MVP class diagram (all classes in one view); French version in [Diagrammes UML (version française)](02-diagrammes-uml-fr.md). |

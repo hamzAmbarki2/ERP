@@ -1,9 +1,9 @@
 # Glossary / Lexique
 
 **Document:** Glossary\
-**Version:** 0.4\
+**Version:** 0.5\
 **Status:** Draft — naming decisions in §2 to be confirmed\
-**Date:** 2026-10-08\
+**Date:** 2026-10-09\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md),
 [Cahier des Charges 00](../phase-1/specs/00-cahier-des-charges-general.md)\
 **Used by:** every other document, the UI translations and the code
@@ -42,7 +42,7 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 
 | # | Decision | Why |
 |---|---|---|
-| N-01 | **Tenant** means only the *locataire*. A customer company of the SaaS is an **Organization**. In code and data: `organization_id`, never `tenant_id`. "Multi-tenant" is used only as an architecture adjective, meaning "many organizations, strictly isolated". A tenant can be an individual or a company: a company renting offices is a Tenant of type *company*, not an Organization. | "Tenant" was used for both; mixing them in the data model would be a permanent source of bugs. |
+| N-01 | **Tenant** means only the *locataire*. A customer company of the SaaS is an **Organization**. In code and data: `organization_id`, never `tenant_id`. "Multi-tenant" is used only as an architecture adjective, meaning "many organizations, strictly isolated". **Open point:** in multi-tenancy, "tenant" usually means the organization, so the class name **Tenant** (the person or company who rents) will clash later in the database. The name is kept for now and will be reviewed before the database design. A tenant can be an individual or a company: a company renting offices is a Tenant of type *company*, not an Organization. | "Tenant" was used for both; mixing them in the data model would be a permanent source of bugs. |
 | N-02 | **Owner** means only a property owner. The person who runs an organization's account is the **Organization Administrator**. | "Owner" was ambiguous between property owner and account owner. |
 | N-03 | When the organization owns units it sells (units it owns, for example a developer's own project), it is recorded as the **Owner** of those units. | Keeps one ownership model for both seller types (D-008). |
 | N-04 | **Vendor** is the external company or independent professional. Avoid "Vendor Organization" (Phase 0 §0.23): **Organization** is reserved for customer companies. | Avoids a third meaning of "organization". |
@@ -204,5 +204,6 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 |---|---|---|
 | 0.1 | 2026-10-08 | First draft: naming decisions N-01 to N-11; terms for all domains in Phase 0 and Cahier des Charges 00. |
 | 0.4 | 2026-10-09 | Rent Request added. |
+| 0.5 | 2026-10-09 | N-01: open point on the "Tenant" name clashing with multi-tenancy in the database; name kept for now. |
 | 0.3 | 2026-10-08 | Department and Privilege added; Role and Scope updated for D-011. |
 | 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. Organization: rents out / sells, as opposed to a Tenant, who rents in. |
