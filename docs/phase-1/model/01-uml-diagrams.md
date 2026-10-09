@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.24\
+**Version:** 0.25\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1016,6 +1016,39 @@ How to read it: `"1" --> "*"` means "one … has many …". Example: one
 organization has many branches; one user can have several memberships
 (one per company they work for).
 
+### Step 2 --- The properties
+
+| Class | What it is |
+|---|---|
+| Property | A building, a house or a plot, at one address |
+| Building | A building inside a property, only when needed |
+| Floor | A floor of a building, only when needed |
+| Unit | An apartment, office, shop or parking space: what is rented or sold |
+| SharedPart | The stairs, elevator, entrance or parking of a building (syndic work) |
+
+``` mermaid
+classDiagram
+    class Branch
+    class Property
+    class Building
+    class Floor
+    class Unit
+    class SharedPart
+
+    Branch "1" --> "*" Property : manages
+    Property "1" --> "0..*" Building : contains
+    Building "1" --> "0..*" Floor : contains
+    Property "1" --> "1..*" Unit : contains
+    Floor "0..1" --> "*" Unit : contains
+    Property "1" --> "0..*" SharedPart : has
+```
+
+Notes:
+
+-   Building and Floor are **optional**: a house is a property with one
+    unit and no building or floor.
+-   `"0..*"` means "zero or many"; `"0..1"` means "zero or one".
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1046,3 +1079,4 @@ organization has many branches; one user can have several memberships
 | 0.22 | 2026-10-09 | Sixteen more Sales buttons (search, needs and matching, counter-offers, reservation alerts, payment schedules, commission, pipeline, documents, notes, merge, sale of a rented unit, buyer identity check, export). |
 | 0.23 | 2026-10-09 | Rent requests: five buttons in Tenants and leases (MVP). Employees' reports and dashboards planned for V1. |
 | 0.24 | 2026-10-09 | Class diagram (MVP), step 1: the company and its people. |
+| 0.25 | 2026-10-09 | Class diagram (MVP), step 2: the properties. |
