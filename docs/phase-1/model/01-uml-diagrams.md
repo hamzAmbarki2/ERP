@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.17\
+**Version:** 0.18\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -206,6 +206,7 @@ flowchart LR
         P14(["View properties on a map<br/><i>box: Properties - View</i>"])
         P15(["Print a property sheet<br/><i>box: Properties - View</i>"])
         P16(["Export properties to Excel<br/><i>box: Properties - View</i>"])
+        P17(["Record the shared parts of a building<br/><i>box: Properties - Create</i>"])
     end
 
     EM --- P1
@@ -224,6 +225,7 @@ flowchart LR
     EM --- P14
     EM --- P15
     EM --- P16
+    EM --- P17
 ```
 
 | # | Button | Box that must be ticked |
@@ -244,6 +246,7 @@ flowchart LR
 | 14 | View properties on a map | Properties: View |
 | 15 | Print a property sheet (details and photos on one page) | Properties: View |
 | 16 | Export the list of properties to Excel | Properties: View |
+| 17 | Record the shared parts of a building (stairs, elevator, entrance, parking), so jobs can be done on them *(syndic)* | Properties: Create |
 
 **Delete or archive (rule agreed in question 10):**
 
@@ -295,6 +298,7 @@ flowchart LR
         O25(["Transfer all of an owner's properties in one action<br/><i>box: Owners - Update</i>"])
         O26(["List owners with missing information<br/><i>box: Owners - View</i>"])
         O27(["Send a message to several owners at once<br/><i>box: Owners - View</i>"])
+        O28(["Record each owner's share of the building's costs<br/><i>box: Owners - Update</i>"])
     end
 
     EM --- O1
@@ -324,6 +328,7 @@ flowchart LR
     EM --- O25
     EM --- O26
     EM --- O27
+    EM --- O28
 ```
 
 | # | Button | Box that must be ticked |
@@ -355,6 +360,7 @@ flowchart LR
 | 25 | Transfer all of an owner's properties in one action (example: heirs take over 6 apartments at once) | Owners: Update |
 | 26 | List owners with missing information (no bank account, ID card or signed agreement) | Owners: View |
 | 27 | Send a message to several owners at once (example: new office address) | Owners: View |
+| 28 | Record each owner's share of the building's costs (example: A1 = 8%, A2 = 5%; a big apartment pays more) *(syndic)* | Owners: Update |
 
 Owner statements (what the company owes each owner) belong to the
 Finance area.
@@ -503,6 +509,8 @@ flowchart LR
         F24(["Check payments against the bank statement<br/><i>box: Invoices and payments - Update</i>"])
         F25(["View the company's own income<br/><i>box: Invoices and payments - View</i>"])
         F26(["Export for the accountant<br/><i>box: Invoices and payments - View</i>"])
+        F27(["Ask owners for the building fees<br/><i>box: Invoices and payments - Create</i>"])
+        F28(["View the building's money<br/><i>box: Invoices and payments - View</i>"])
     end
 
     EM --- F1
@@ -531,6 +539,8 @@ flowchart LR
     EM --- F24
     EM --- F25
     EM --- F26
+    EM --- F27
+    EM --- F28
 ```
 
 | # | Button | What it does | Box that must be ticked |
@@ -561,6 +571,8 @@ flowchart LR
 | 24 | Check payments against the bank statement | Compare the bank statement with recorded payments and find what is missing | Invoices and payments: Update |
 | 25 | View the company's own income | Management fees and sales commissions earned by the company | Invoices and payments: View |
 | 26 | Export for the accountant | Download invoices, payments and expenses of a period to Excel | Invoices and payments: View |
+| 27 | Ask owners for the building fees | Every month or quarter, each owner receives their part of the building's costs; their payments are followed like rent *(syndic)* | Invoices and payments: Create |
+| 28 | View the building's money | Fees collected minus costs paid (cleaner, guard, elevator) = what is left for the building *(syndic)* | Invoices and payments: View |
 
 Taxes (VAT, withholding tax, electronic invoicing) are left for the
 accountant's review (see the legal points discussed on 2026-10-09).
@@ -663,6 +675,25 @@ flowchart LR
 | 23 | Export maintenance to Excel | Download the list of jobs | Work orders: View |
 | 24 | Report a found item | During a job (example: cleaning), the worker reports something the former tenant left; it is added to the same list as "Record items left by a tenant" | Work orders: Update |
 
+### Note --- Syndic (managing the shared parts of a building)
+
+When the company sells several units of a building, the building has
+many owners, and its shared parts (stairs, elevator, entrance, guard,
+cleaning) must be managed and paid for by all owners together. This is
+the **syndic** work.
+
+The syndic is **not a separate activity**: the ERP already covers most
+of it (Maintenance for cleaning and repairs, Vendors for the companies
+involved, Finance for paying costs). Four buttons, marked *(syndic)*,
+were added to the existing areas:
+
+-   Properties 17 --- Record the shared parts of a building
+-   Owners 28 --- Record each owner's share of the building's costs
+-   Finance 27 --- Ask owners for the building fees
+-   Finance 28 --- View the building's money
+
+A **dedicated syndic interface** comes **after the MVP**.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -686,3 +717,4 @@ flowchart LR
 | 0.15 | 2026-10-09 | Step 9: Maintenance with two boxes and thirteen buttons; maintenance includes repairs, cleaning and detailing. |
 | 0.16 | 2026-10-09 | Ten more Maintenance buttons (job types, recurring jobs, unit preparation for a new tenant or a sale, checklists, calendar, reopen, history, export). |
 | 0.17 | 2026-10-09 | Items left by a former tenant: "Record items left by a tenant" (Tenants and leases) and "Report a found item" (Maintenance). |
+| 0.18 | 2026-10-09 | Syndic: four buttons in existing areas (shared parts, owner share, building fees, building money); dedicated syndic interface after the MVP. |

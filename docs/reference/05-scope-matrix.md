@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.5\
+**Version:** 0.6\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -281,6 +281,13 @@ and English.
 | Security audit events | MVP | Phase 0 §0.13 | |
 | Audit log viewer for administrators | MVP | Cahier des Charges 00 UC-018 | |
 
+### 4.13b Syndic (shared parts of a building)
+
+| Capability | Tier | Source | Notes |
+|---|---|---|---|
+| Shared parts of a building, owner shares, building fees, building money | MVP | Decision 2026-10-09 | Done through the existing areas (UML diagrams, syndic note). |
+| Dedicated syndic interface | V1 | Decision 2026-10-09 | After the MVP. |
+
 ### 4.14 Data import and onboarding
 
 | Capability | Tier | Source | Notes |
@@ -333,7 +340,6 @@ These move to the Open Questions Register (Open Questions Register) when it is c
 |---|---|---|
 | Seasonal / short-term rentals | Common locally; changes lease durations, billing and availability. Distinct from the "Airbnb clone" non-goal. | Cahier des Charges 04 |
 | Rental prospects (people who want to rent but have no lease yet) | Phase 0's rental workflow starts with an existing tenant, so inquiries, rental viewings and applications have no record. No interface (D-010). Open: whether staff record them, and in which release. **Proposed:** reuse Prospect and Viewing from sales, with an interest of type *rent* or *buy*. | Cahier des Charges 04, Cahier des Charges 06 |
-| Condominium management (*syndic de copropriété*) | A separate business with its own accounting and owners' meetings. **Proposed: Out**, revisit after customer interviews. | Decision log |
 | Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | Cahier des Charges 10 |
 | Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | Regulatory & Legal Register, Cahier des Charges 07 |
 | Electronic signature; retention periods | Legal validity and how long documents must be kept. | Regulatory & Legal Register, Cahier des Charges 10 |
@@ -368,7 +374,6 @@ is then updated.
 | PDF receipt and owner statement in the MVP (§8) | Cahier des Charges 10 |
 | Excel / CSV import of the main records in the MVP (§4.14) | Cahier des Charges 13 |
 | Rental prospects recorded by staff (§7) | Cahier des Charges 04, Cahier des Charges 06 |
-| Condominium management (syndic) out of scope (§7) | Decision log, after customer interviews (Customer Discovery & Validation) |
 
 ------------------------------------------------------------------------
 
@@ -380,4 +385,5 @@ is then updated.
 | 0.2 | 2026-10-08 | Open topic added: rental prospects. |
 | 0.3 | 2026-10-08 | D-010: only internal staff log in to the MVP; tenant and owner portals moved to V1. |
 | 0.5 | 2026-10-08 | D-011: organization-defined roles and departments moved to MVP. |
+| 0.6 | 2026-10-09 | Syndic included: basic syndic work in the MVP through existing areas; dedicated syndic interface in V1. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |
