@@ -3,7 +3,7 @@
 **Projet :** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document :** Cahier des Charges 01 --- Organisation & Accès\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 0.5\
+**Version :** 0.6\
 **Statut :** Brouillon --- les points marqués *(proposition)* sont à
 valider\
 **Date :** 2026-10-09\
@@ -525,7 +525,7 @@ UC-018). Les nouveaux cas commencent à UC-019.
 | Version | MVP |
 | Avant | Le client a signé ; son nom et l'email de son responsable sont connus. |
 | Déroulement | 1. L'opérateur saisit le nom, la raison sociale, l'adresse, la langue, les activités. 2. Il saisit l'email du premier Administrateur. 3. Le logiciel crée l'organisation au statut `ACTIVE` et envoie l'invitation. |
-| Cas particuliers | L'email appartient déjà à un compte d'une autre organisation : le logiciel le refuse ; la personne doit utiliser un autre email (question 10). |
+| Cas particuliers | L'email appartient déjà à un compte d'une autre organisation : le logiciel le refuse ; la personne doit utiliser un autre email. |
 | Après | L'organisation existe, vide, avec une invitation Administrateur en attente. |
 | Règles | 1, 5 |
 | Événement | `OrganizationCreated` |
@@ -562,7 +562,7 @@ UC-018). Les nouveaux cas commencent à UC-019.
 |---|---|
 | Acteur | Tout utilisateur |
 | Version | MVP |
-| Déroulement | 1. Email et mot de passe. 2. Code de double authentification si nécessaire. 3. Choix de l'organisation si plusieurs. |
+| Déroulement | 1. Email et mot de passe. 2. Code de double authentification si nécessaire. |
 | Cas particuliers | 5 erreurs de mot de passe de suite : compte bloqué 15 minutes *(proposition)*. Organisation suspendue : message « Accès suspendu, contactez votre administrateur ». |
 | Règles | 3, 14, 15, 16 |
 | Événements | `UserLoggedIn`, `LoginFailed`, `UserLocked` |
@@ -712,7 +712,7 @@ Charges 01, règle 3 ».
 3.  À un instant donné, un utilisateur travaille dans **une seule
     organisation**. Aucun écran, rapport, recherche ou export ne mélange
     les données de deux organisations.
-4.  Un compte appartient à **une seule organisation** et est identifié par son email, unique sur toute la plateforme *(proposition, voir question 10)*. Une personne qui travaille pour deux sociétés a deux comptes séparés, avec deux emails.
+4.  Un compte appartient à **une seule organisation** et est identifié par son email, unique sur toute la plateforme. Une personne qui travaille pour deux sociétés a deux comptes séparés, avec deux emails.
 5.  Une organisation a **toujours au moins un Administrateur actif**.
     Le logiciel refuse de retirer ou désactiver le dernier.
 
@@ -952,7 +952,7 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | Question 7 | Une fiche peut-elle n'appartenir à aucun département ? Si oui, qui la voit ? | Exemple : un fournisseur, un prospect sans bien précis. |
 | Question 8 | Un bien géré par Location et mis en vente par Vente : à quel département appartient-il ? | Deux équipes doivent le voir. |
 | Question 9 | Un membre peut-il appartenir à plusieurs départements ? | Exemple : un employé qui travaille pour Tunis Nord et Tunis Sud. |
-| Question 10 | Comment la connexion trouve-t-elle l'organisation du compte ? Email unique sur toute la plateforme (une personne qui travaille pour deux sociétés utilise deux emails), ou code d'organisation à saisir à la connexion ? | Sans partage entre organisations, un compte n'existe que dans une organisation. |
+| Question 10 | ~~Comment la connexion trouve-t-elle l'organisation du compte ?~~ | **Réglée le 2026-10-09 :** l'email est unique sur toute la plateforme ; la connexion se fait avec l'email et le mot de passe. Une personne qui travaille pour deux sociétés utilise deux emails. |
 
 ------------------------------------------------------------------------
 
@@ -980,3 +980,4 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | 0.3 | 2026-10-08 | D-011 : départements et rôles définis par chaque organisation dès le MVP ; grille de privilèges Voir / Créer / Modifier / Supprimer ; sections 6 renumérotées (6.4 Départements, 6.5 Périmètre, 6.6 Interface) ; règles 19 à 25 ; UC-027 et UC-028. |
 | 0.4 | 2026-10-09 | D-012 : exemples renommés (Médina Immobilier, Carthage Immobilier) ; le client est une société immobilière qui possède des biens. |
 | 0.5 | 2026-10-09 | Rien n'est partagé entre organisations : un compte appartient à une seule organisation (règle 4, section 11.2, UC-025 supprimé, critère 11, question 10). |
+| 0.6 | 2026-10-09 | Question 10 réglée : l'email est unique sur toute la plateforme ; la connexion se fait avec l'email et le mot de passe. |
