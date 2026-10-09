@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.7\
+**Version:** 0.8\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -254,6 +254,56 @@ flowchart LR
     from the lists, but its history is kept. Money records are never
     erased (Phase 0 §0.18).
 
+### Step 6 --- Employee's buttons: Owners
+
+The Owners area keeps the people and companies who own the properties
+the agency manages or sells, which properties each one owns (and what
+share, when several people own one property), and the agreement between
+the owner and the agency.
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        O1(["View owners<br/><i>box: Owners - View</i>"])
+        O2(["Add an owner<br/><i>box: Owners - Create</i>"])
+        O3(["Edit an owner<br/><i>box: Owners - Update</i>"])
+        O4(["Link an owner to a property or unit, with their share<br/><i>box: Owners - Update</i>"])
+        O5(["Record a change of owner with its date<br/><i>box: Owners - Update</i>"])
+        O6(["Add a management agreement<br/><i>box: Owners - Create</i>"])
+        O7(["Attach documents<br/><i>box: Owners - Update</i>"])
+        O8(["View an owner's properties<br/><i>box: Owners - View</i>"])
+        O9(["Delete or archive an owner<br/><i>box: Owners - Delete</i>"])
+    end
+
+    EM --- O1
+    EM --- O2
+    EM --- O3
+    EM --- O4
+    EM --- O5
+    EM --- O6
+    EM --- O7
+    EM --- O8
+    EM --- O9
+```
+
+| # | Button | Box that must be ticked |
+|---|---|---|
+| 1 | View owners | Owners: View |
+| 2 | Add an owner (person or company) | Owners: Create |
+| 3 | Edit an owner (contact details, bank account) | Owners: Update |
+| 4 | Link an owner to a property or unit, with their share (example: 50%) | Owners: Update |
+| 5 | Record a change of owner with its date (sold, inherited) | Owners: Update |
+| 6 | Add a management agreement (what the agency manages, dates, fee) | Owners: Create |
+| 7 | Attach documents (ID card, ownership title, signed agreement) | Owners: Update |
+| 8 | View an owner's properties | Owners: View |
+| 9 | Delete or archive an owner (same rule as properties) | Owners: Delete |
+
+Owner statements (what the agency owes each owner) belong to the
+Finance area.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -267,3 +317,4 @@ flowchart LR
 | 0.5 | 2026-10-08 | Question 7: the Employee's use cases are the full list of buttons; each company decides who can press them. |
 | 0.6 | 2026-10-08 | Step 5: eight Properties buttons for the Employee. |
 | 0.7 | 2026-10-08 | Question 10: delete-or-archive rule; eight more Properties buttons. |
+| 0.8 | 2026-10-09 | Step 6: nine Owners buttons for the Employee. |
