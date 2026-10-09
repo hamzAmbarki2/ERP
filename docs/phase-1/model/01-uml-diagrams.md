@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.12\
+**Version:** 0.13\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -455,6 +455,73 @@ flowchart LR
 
 Rent invoices and payments belong to the Finance area.
 
+### Step 8 --- Employee's buttons: Finance
+
+The Finance area follows all the money: rent the tenants must pay,
+payments they make (cash, cheque, transfer), who still owes money, and
+costs paid for properties. It also calculates what the agency owes each
+owner, after taking its fee, and records when the owner is paid.
+
+Finance uses **three boxes**, so that money access can be given
+precisely (example: a technician gets none of them; an accountant gets
+all three): **Invoices and payments**, **Expenses**, **Owner
+statements**.
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        F1(["View invoices, payments and balances<br/><i>box: Invoices and payments - View</i>"])
+        F2(["Generate the monthly rent invoices<br/><i>box: Invoices and payments - Create</i>"])
+        F3(["Create an invoice by hand<br/><i>box: Invoices and payments - Create</i>"])
+        F4(["Record a payment<br/><i>box: Invoices and payments - Create</i>"])
+        F5(["Link a payment to invoices<br/><i>box: Invoices and payments - Update</i>"])
+        F6(["Print or send a receipt<br/><i>box: Invoices and payments - View</i>"])
+        F7(["Cancel an invoice with a credit note<br/><i>box: Invoices and payments - Delete</i>"])
+        F8(["View unpaid rent<br/><i>box: Invoices and payments - View</i>"])
+        F9(["Record an expense for a property<br/><i>box: Expenses - Create</i>"])
+        F10(["View expenses<br/><i>box: Expenses - View</i>"])
+        F11(["Prepare an owner statement<br/><i>box: Owner statements - Create</i>"])
+        F12(["Send an owner statement<br/><i>box: Owner statements - View</i>"])
+        F13(["Record a payment to an owner<br/><i>box: Owner statements - Update</i>"])
+    end
+
+    EM --- F1
+    EM --- F2
+    EM --- F3
+    EM --- F4
+    EM --- F5
+    EM --- F6
+    EM --- F7
+    EM --- F8
+    EM --- F9
+    EM --- F10
+    EM --- F11
+    EM --- F12
+    EM --- F13
+```
+
+| # | Button | What it does | Box that must be ticked |
+|---|---|---|---|
+| 1 | View invoices, payments and balances | See what each tenant was asked to pay and what they paid | Invoices and payments: View |
+| 2 | Generate the monthly rent invoices | Create all rent invoices of the month in one go, from the active leases | Invoices and payments: Create |
+| 3 | Create an invoice by hand | Example: charge a tenant 150 TND for a lost key | Invoices and payments: Create |
+| 4 | Record a payment | Cash, cheque or bank transfer, with the date | Invoices and payments: Create |
+| 5 | Link a payment to invoices | Example: one payment of 2,000 TND pays January and February | Invoices and payments: Update |
+| 6 | Print or send a receipt | Proof of payment for the tenant | Invoices and payments: View |
+| 7 | Cancel an invoice with a credit note | Mistakes are corrected with a new record, never erased | Invoices and payments: Delete |
+| 8 | View unpaid rent | List of tenants who are late, and by how much | Invoices and payments: View |
+| 9 | Record an expense for a property | Example: 300 TND plumber repair in apartment A1 | Expenses: Create |
+| 10 | View expenses | All costs per property, owner or period | Expenses: View |
+| 11 | Prepare an owner statement | Rent collected, minus expenses, minus agency fee, gives the amount due to the owner | Owner statements: Create |
+| 12 | Send an owner statement | By email, as a PDF, to the owner (each co-owner gets a copy) | Owner statements: View |
+| 13 | Record a payment to an owner | The agency transfers the amount due to the owner | Owner statements: Update |
+
+Taxes (VAT, withholding tax, electronic invoicing) are left for the
+accountant's review (see the legal points discussed on 2026-10-09).
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -473,3 +540,4 @@ Rent invoices and payments belong to the Finance area.
 | 0.10 | 2026-10-09 | Nine advanced Owners buttons (summary, co-owner groups, ownership by date, repair approval limit and approvals, fee per property, bulk transfer, missing information, group message). |
 | 0.11 | 2026-10-09 | Step 7: eleven Tenants and leases buttons for the Employee. |
 | 0.12 | 2026-10-09 | Fourteen more Tenants and leases buttons (move-in and move-out checks, deposit return, several tenants or units per lease, lease registration, notes, email, print, history, merge, export). |
+| 0.13 | 2026-10-09 | Step 8: Finance with three boxes and thirteen buttons. |
