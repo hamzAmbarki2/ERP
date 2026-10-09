@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.9\
+**Version:** 0.10\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -285,6 +285,15 @@ flowchart LR
         O16(["Merge two owners<br/><i>box: Owners - Update</i>"])
         O17(["Print an owner sheet<br/><i>box: Owners - View</i>"])
         O18(["Export owners to Excel<br/><i>box: Owners - View</i>"])
+        O19(["View an owner's summary<br/><i>box: Owners - View</i>"])
+        O20(["Manage a group of co-owners<br/><i>box: Owners - Update</i>"])
+        O21(["See who owned a unit on a given date<br/><i>box: Owners - View</i>"])
+        O22(["Set an owner's repair approval limit<br/><i>box: Owners - Update</i>"])
+        O23(["Record an owner's approval<br/><i>box: Owners - Update</i>"])
+        O24(["Set the management fee per property<br/><i>box: Owners - Update</i>"])
+        O25(["Transfer all of an owner's properties in one action<br/><i>box: Owners - Update</i>"])
+        O26(["List owners with missing information<br/><i>box: Owners - View</i>"])
+        O27(["Send a message to several owners at once<br/><i>box: Owners - View</i>"])
     end
 
     EM --- O1
@@ -305,6 +314,15 @@ flowchart LR
     EM --- O16
     EM --- O17
     EM --- O18
+    EM --- O19
+    EM --- O20
+    EM --- O21
+    EM --- O22
+    EM --- O23
+    EM --- O24
+    EM --- O25
+    EM --- O26
+    EM --- O27
 ```
 
 | # | Button | Box that must be ticked |
@@ -327,6 +345,15 @@ flowchart LR
 | 16 | Merge two owners: the same person entered twice is joined into one owner, with all properties, documents, notes and history | Owners: Update |
 | 17 | Print an owner sheet (details and properties on one page) | Owners: View |
 | 18 | Export owners to Excel | Owners: View |
+| 19 | View an owner's summary: properties, rented or empty units, repairs in progress, money due to them | Owners: View (money figures also need Finance: View) |
+| 20 | Manage a group of co-owners (example: 3 brothers who inherit an apartment): shares must add up to 100%, and **each co-owner receives their own copy** of every letter and document | Owners: Update |
+| 21 | See who owned a unit on a given date (example: sold on 15 March, so March rent is split between the old and the new owner) | Owners: View |
+| 22 | Set an owner's repair approval limit (example: above 500 TND, the owner must agree before work starts) | Owners: Update |
+| 23 | Record an owner's approval given by phone or in person, with the date, as proof | Owners: Update |
+| 24 | Set the management fee per property (example: 8% on apartments, 10% on a shop) | Owners: Update |
+| 25 | Transfer all of an owner's properties in one action (example: heirs take over 6 apartments at once) | Owners: Update |
+| 26 | List owners with missing information (no bank account, ID card or signed agreement) | Owners: View |
+| 27 | Send a message to several owners at once (example: new office address) | Owners: View |
 
 Owner statements (what the agency owes each owner) belong to the
 Finance area.
@@ -346,3 +373,4 @@ Finance area.
 | 0.7 | 2026-10-08 | Question 10: delete-or-archive rule; eight more Properties buttons. |
 | 0.8 | 2026-10-09 | Step 6: nine Owners buttons for the Employee. |
 | 0.9 | 2026-10-09 | Nine more Owners buttons (search, history, agreements, notes, email, merge, print, export). |
+| 0.10 | 2026-10-09 | Nine advanced Owners buttons (summary, co-owner groups, ownership by date, repair approval limit and approvals, fee per property, bulk transfer, missing information, group message). |
