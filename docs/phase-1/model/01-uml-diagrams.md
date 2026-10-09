@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.21\
+**Version:** 0.22\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -844,6 +844,22 @@ flowchart LR
         SA11(["Close the sale<br/><i>box: Sales - Update</i>"])
         SA12(["Cancel a reservation or sale<br/><i>box: Sales - Delete</i>"])
         SA13(["Attach documents<br/><i>box: Sales - Update</i>"])
+        SA14(["Search and filter listings<br/><i>box: Sales - View</i>"])
+        SA15(["Record a prospect's needs<br/><i>box: Prospects and buyers - Update</i>"])
+        SA16(["Find units that match a prospect<br/><i>box: Prospects and buyers - View</i>"])
+        SA17(["Send a listing to a prospect<br/><i>box: Sales - View</i>"])
+        SA18(["Record a counter-offer<br/><i>box: Sales - Update</i>"])
+        SA19(["Get warned before a reservation expires<br/><i>box: Sales - View</i>"])
+        SA20(["Set up a payment schedule<br/><i>box: Buyer payments - Create</i>"])
+        SA21(["Follow buyer payments<br/><i>box: Buyer payments - View</i>"])
+        SA22(["Record the commission on a mandate sale<br/><i>box: Sales - Update</i>"])
+        SA23(["View the sales pipeline<br/><i>box: Sales - View</i>"])
+        SA24(["Print sale documents<br/><i>box: Sales - View</i>"])
+        SA25(["Add a note on a prospect<br/><i>box: Prospects and buyers - Update</i>"])
+        SA26(["Merge two prospects<br/><i>box: Prospects and buyers - Update</i>"])
+        SA27(["Sell a unit that has a tenant<br/><i>box: Sales - Update</i>"])
+        SA28(["Check the buyer's identity<br/><i>box: Prospects and buyers - Update</i>"])
+        SA29(["Export sales to Excel<br/><i>box: Sales - View</i>"])
     end
 
     EM --- SA1
@@ -859,6 +875,22 @@ flowchart LR
     EM --- SA11
     EM --- SA12
     EM --- SA13
+    EM --- SA14
+    EM --- SA15
+    EM --- SA16
+    EM --- SA17
+    EM --- SA18
+    EM --- SA19
+    EM --- SA20
+    EM --- SA21
+    EM --- SA22
+    EM --- SA23
+    EM --- SA24
+    EM --- SA25
+    EM --- SA26
+    EM --- SA27
+    EM --- SA28
+    EM --- SA29
 ```
 
 | # | Button | What it does | Box that must be ticked |
@@ -876,6 +908,25 @@ flowchart LR
 | 11 | Close the sale | Final deed signed: the buyer becomes the owner in the Owners area | Sales: Update |
 | 12 | Cancel a reservation or sale | Record the reason and what happens to the deposit | Sales: Delete |
 | 13 | Attach documents | Sale agreement, buyer's ID, final deed | Sales: Update |
+| 14 | Search and filter listings | Example: all 3-room apartments under 350,000 TND in La Marsa | Sales: View |
+| 15 | Record a prospect's needs | Budget, type, area, number of rooms | Prospects and buyers: Update |
+| 16 | Find units that match a prospect | The ERP lists the units that fit the prospect's needs (simple rules, no AI) | Prospects and buyers: View |
+| 17 | Send a listing to a prospect | Email with photos, price and plan | Sales: View |
+| 18 | Record a counter-offer | Example: the company answers 310,000 TND to an offer of 300,000 TND | Sales: Update |
+| 19 | Get warned before a reservation expires | Example: "the reservation of B4 ends in 3 days, final payment not received" | Sales: View |
+| 20 | Set up a payment schedule | Example: 30% at signing, 40% in 6 months, 30% at delivery | Buyer payments: Create |
+| 21 | Follow buyer payments | What each buyer paid and what is left | Buyer payments: View |
+| 22 | Record the commission on a mandate sale | The company's fee when it resells a unit for an owner | Sales: Update |
+| 23 | View the sales pipeline | Example this month: 40 prospects, 25 viewings, 8 offers, 3 reservations, 2 sales | Sales: View |
+| 24 | Print sale documents | Reservation form and sale agreement, filled with the buyer's and unit's details | Sales: View |
+| 25 | Add a note on a prospect | Example: "called back, wants a second visit" | Prospects and buyers: Update |
+| 26 | Merge two prospects | The same person entered twice is joined into one | Prospects and buyers: Update |
+| 27 | Sell a unit that has a tenant | The lease continues; from the sale date, rent goes to the new owner | Sales: Update |
+| 28 | Check the buyer's identity | Required by the January 2026 anti-money-laundering rule for property sales (to confirm with the accountant) | Prospects and buyers: Update |
+| 29 | Export sales to Excel | Download listings, offers and sales | Sales: View |
+
+Buttons 16 (matching), 20 (payment schedule) and 22 (commission) were
+planned for V1 in Phase 0 (D-009); they are now part of the MVP.
 
 ### Note --- Syndic (managing the shared parts of a building)
 
@@ -923,3 +974,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.19 | 2026-10-09 | Step 10: Building security with one box and five buttons (incidents, visitors, guard shifts, keys). |
 | 0.20 | 2026-10-09 | Step 11: Vendors with 24 buttons (documents with validity dates and alerts, contract terms, ratings, comparison, quotes, vendor bills and payments) and rule 7d. |
 | 0.21 | 2026-10-09 | Step 12: Sales with three boxes and thirteen buttons. |
+| 0.22 | 2026-10-09 | Sixteen more Sales buttons (search, needs and matching, counter-offers, reservation alerts, payment schedules, commission, pipeline, documents, notes, merge, sale of a rented unit, buyer identity check, export). |

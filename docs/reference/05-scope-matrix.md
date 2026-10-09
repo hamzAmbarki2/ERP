@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.7\
+**Version:** 0.8\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -164,12 +164,12 @@ and English.
 | Reservation with deposit and expiry | MVP | D-009 | |
 | Sale record, buyer payments, closing, ownership transfer | MVP | D-009 | |
 | Selling a leased unit | MVP | Phase 0 §0.18 | |
-| Commission calculation, invoicing and collection | V1 | D-009 | |
-| Buyer payment schedules (installments) | V1 | D-009 | |
+| Commission on mandate sales | MVP | Decision 2026-10-09 (UML diagrams, Sales 22) | Was V1 in D-009. |
+| Buyer payment schedules (installments) | MVP | Decision 2026-10-09 (UML diagrams, Sales 20) | Was V1 in D-009. |
 | Buyer portal | V1 | D-009 | |
 | Sale document templates | V1 | D-009 | |
 | Owner view of sale progress | V1 | D-009 | |
-| Rule-based matching of buyer criteria to units | V1 | Phase 0 §0.14 | |
+| Rule-based matching of buyer criteria to units | MVP | Decision 2026-10-09 (UML diagrams, Sales 16) | Was V1 in Phase 0. |
 | Off-plan sales tied to construction milestones | V2 | D-009 | |
 | Advanced commission rules (several sales agents) | V2 | Phase 0 §0.15 | |
 | Publishing listings to external portals | V2 | D-009 | |
@@ -387,4 +387,5 @@ is then updated.
 | 0.5 | 2026-10-08 | D-011: organization-defined roles and departments moved to MVP. |
 | 0.6 | 2026-10-09 | Syndic included: basic syndic work in the MVP through existing areas; dedicated syndic interface in V1. |
 | 0.7 | 2026-10-09 | Vendor quotes, documents with expiry and contract terms moved to the MVP. |
+| 0.8 | 2026-10-09 | Sales commission, payment schedules and buyer matching moved to the MVP. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |
