@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.28\
+**Version:** 0.29\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1182,6 +1182,60 @@ Notes:
 -   Buyer payments come with the Sales group; vendor bills with the
     Vendors group.
 
+### Step 6 --- Maintenance
+
+| Class | What it is |
+|---|---|
+| MaintenanceRequest | A problem or need reported (leak, cleaning…), with how it came in (phone, visit) and its priority |
+| WorkOrder | The job: type (repair, cleaning, detailing…), planned date, status |
+| WorkLog | Progress, notes and before/after photos of a job |
+| MaterialUse | Materials and hours used on a job |
+| ChecklistTemplate | A reusable checklist (example: "deep cleaning before a new tenant") with its items |
+| RecurringJob | A job that comes back regularly (example: "clean the stairs every Monday"); it creates its work orders |
+| PreparationPlan | A set of jobs to make a unit ready for a new tenant or a sale |
+| OwnerApproval | An owner's agreement for an expensive job, with the date |
+
+``` mermaid
+classDiagram
+    class Unit
+    class SharedPart
+    class Membership
+    class Vendor
+    class Expense
+    class LeftItem
+    class MaintenanceRequest
+    class WorkOrder
+    class WorkLog
+    class MaterialUse
+    class ChecklistTemplate
+    class RecurringJob
+    class PreparationPlan
+    class OwnerApproval
+
+    MaintenanceRequest "*" --> "0..1" Unit : about
+    MaintenanceRequest "*" --> "0..1" SharedPart : about
+    MaintenanceRequest "1" --> "*" WorkOrder : turned into
+    WorkOrder "*" --> "0..1" Unit : on
+    WorkOrder "*" --> "0..1" SharedPart : on
+    WorkOrder "*" --> "0..1" Membership : done by internal technician
+    WorkOrder "*" --> "0..1" Vendor : done by vendor
+    WorkOrder "1" --> "*" WorkLog : progress
+    WorkOrder "1" --> "*" MaterialUse : uses
+    WorkOrder "*" --> "0..1" ChecklistTemplate : follows
+    RecurringJob "1" --> "*" WorkOrder : creates
+    PreparationPlan "1" --> "*" WorkOrder : groups
+    WorkOrder "1" --> "0..1" OwnerApproval : approved by owner
+    WorkOrder "1" --> "0..1" Expense : costs
+    WorkOrder "1" --> "*" LeftItem : items found
+```
+
+Notes:
+
+-   A request or a work order is about **either** a unit **or** a shared
+    part of a building.
+-   A work order is done by **either** an internal technician **or** a
+    vendor, never both.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1216,3 +1270,4 @@ Notes:
 | 0.26 | 2026-10-09 | Class diagram (MVP), step 3: the owners. |
 | 0.27 | 2026-10-09 | Class diagram (MVP), step 4: tenants and leases. |
 | 0.28 | 2026-10-09 | Class diagram (MVP), step 5: finance. |
+| 0.29 | 2026-10-09 | Class diagram (MVP), step 6: maintenance. |
