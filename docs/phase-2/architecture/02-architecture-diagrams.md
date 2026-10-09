@@ -2,7 +2,7 @@
 
 **Document:** Architecture Diagrams\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.3\
+**Version:** 0.4\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-09\
 **Depends on:** [Architecture Vision & Principles](01-architecture-vision.md),
@@ -13,7 +13,7 @@ Diagrams in this document:
 
 1.  Big picture --- *step 1 done*
 2.  Building blocks inside the platform --- *step 2 done*
-3.  How organizations are kept apart (the two walls)
+3.  How organizations are kept apart --- *step 3 done*
 4.  What is shared and what belongs to one organization
 5.  Where it runs (no cloud provider named)
 6.  Keeping it running: releases, backups, monitoring
@@ -128,6 +128,50 @@ Notes:
 
 ------------------------------------------------------------------------
 
+## 3. How organizations are kept apart
+
+### Step 3 --- Different organization IDs
+
+Every organization gets its own ID when it is created. Every record
+carries the ID of its organization. The application server uses the ID
+of the logged-in user's organization for every request.
+
+``` mermaid
+flowchart LR
+    U1["👤 Karim<br/>Médina Immobilier"]
+    U2["👤 Leila<br/>Carthage Immobilier"]
+
+    SRV["Application server<br/>takes the organization ID from the login<br/>and uses it for every request"]
+
+    subgraph DB["Database: one table of leases (example)"]
+        R1["Lease A1<br/>organization ID 1"]
+        R2["Lease A2<br/>organization ID 1"]
+        R3["Lease B7<br/>organization ID 2"]
+    end
+
+    U1 -- "logs in" --> SRV
+    U2 -- "logs in" --> SRV
+    SRV -- "for Karim: ID 1 only" --> R1
+    SRV -- "for Karim: ID 1 only" --> R2
+    SRV -- "for Leila: ID 2 only" --> R3
+```
+
+| Element | What it is | Source |
+|---|---|---|
+| Organization ID | A unique number given to each organization when the operator creates it. | Cahier des Charges 01, UC-001 |
+| ID on every record | Every business record carries its organization's ID, set when the record is created and never changed. | Cahier des Charges 01, rule 1 |
+| ID from the login | The server takes the ID from the user's login, never from anything the user types. One organization at a time. | Cahier des Charges 01, rule 3 |
+
+Notes:
+
+-   If Karim asks for Lease B7 by its number, the server answers "not
+    found", not "access denied" (Cahier des Charges 01, section 11.1).
+-   The Architecture Vision (§5.2) also adds a second check inside the
+    database itself (row-level security). It is not drawn here, to keep
+    the first version simple.
+
+------------------------------------------------------------------------
+
 ## Change log
 
 | Version | Date | Change |
@@ -135,3 +179,4 @@ Notes:
 | 0.1 | 2026-10-09 | Document created with step 1 (the big picture) and an isolation decision: own database per organization. |
 | 0.2 | 2026-10-09 | Isolation decision withdrawn: the first version uses one database for all organizations (Architecture Vision §5). New customers and payment provider removed from step 1; self-service sign-up stays "Later" in the scope matrix. |
 | 0.3 | 2026-10-09 | Step 2: the building blocks inside the platform. |
+| 0.4 | 2026-10-09 | Step 3: how organizations are kept apart (organization IDs). |
