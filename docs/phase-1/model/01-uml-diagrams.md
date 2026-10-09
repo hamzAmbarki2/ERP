@@ -2,14 +2,14 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.32\
+**Version:** 0.33\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
 Diagrams in this document:
 
 1.  Use case diagram --- *done for the MVP*
-2.  Class diagram, MVP --- *in progress*
+2.  Class diagram, MVP --- *classes and links done; attributes to come*
 3.  Class diagram, V1
 4.  Activity diagrams
 5.  Sequence diagrams
@@ -1372,6 +1372,66 @@ classDiagram
 Note: a guard shift is covered by **either** an employee of the company
 **or** a security company (vendor).
 
+### Step 10 --- Shared records
+
+| Class | What it is |
+|---|---|
+| Document | A file (PDF, photo) with its type, attached to any record: a lease, a vendor, a unit… |
+| Note | A comment attached to any record (example: "tenant called about the heater") |
+| Notification | A message to an employee in the ERP, or an email to a tenant, owner or vendor |
+| AuditEvent | Who did what, on which record, and when; it can never be changed |
+| Invitation | An invitation for someone to join the company in the ERP |
+| MoveRequest | An employee's request to change department or branch, and the administrator's answer |
+| CostShare | Each owner's share of a building's costs, for the syndic work (example: A1 = 8%, A2 = 5%) |
+
+``` mermaid
+classDiagram
+    class AnyRecord
+    class Organization
+    class Membership
+    class Owner
+    class Property
+    class Document
+    class Note
+    class Notification
+    class AuditEvent
+    class Invitation
+    class MoveRequest
+    class CostShare
+
+    Document "*" --> "1" AnyRecord : attached to
+    Note "*" --> "1" AnyRecord : attached to
+    AuditEvent "*" --> "1" AnyRecord : about
+    AuditEvent "*" --> "1" Membership : done by
+    Notification "*" --> "0..1" Membership : sent to employee
+    Organization "1" --> "*" Invitation : sends
+    Membership "1" --> "*" MoveRequest : asks
+    Owner "1" --> "*" CostShare : pays
+    CostShare "*" --> "1" Property : of building
+```
+
+Note: **AnyRecord** stands for any business record (lease, unit, vendor,
+work order, sale…). It is not a real class; it shows that documents,
+notes and audit events can be attached to any record.
+
+### Summary --- MVP class diagram
+
+| Group | Classes |
+|---|---|
+| 1. The company and its people | 7 |
+| 2. The properties | 5 |
+| 3. The owners | 3 |
+| 4. Tenants and leases | 9 |
+| 5. Finance | 11 |
+| 6. Maintenance | 8 |
+| 7. Vendors | 10 |
+| 8. Sales | 10 |
+| 9. Building security | 4 |
+| 10. Shared records | 7 |
+| **Total** | **74** |
+
+Attributes (the details of each class) are added in a later step.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1410,3 +1470,4 @@ Note: a guard shift is covered by **either** an employee of the company
 | 0.30 | 2026-10-09 | Class diagram (MVP), step 7: vendors. |
 | 0.31 | 2026-10-09 | Class diagram (MVP), step 8: sales. |
 | 0.32 | 2026-10-09 | Class diagram (MVP), step 9: building security. |
+| 0.33 | 2026-10-09 | Class diagram (MVP), step 10: shared records; summary (74 classes). |
