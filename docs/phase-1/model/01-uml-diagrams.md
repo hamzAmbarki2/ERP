@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.8\
+**Version:** 0.9\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -276,6 +276,15 @@ flowchart LR
         O7(["Attach documents<br/><i>box: Owners - Update</i>"])
         O8(["View an owner's properties<br/><i>box: Owners - View</i>"])
         O9(["Delete or archive an owner<br/><i>box: Owners - Delete</i>"])
+        O10(["Search and filter owners<br/><i>box: Owners - View</i>"])
+        O11(["View an owner's history<br/><i>box: Owners - View</i>"])
+        O12(["Renew or end a management agreement<br/><i>box: Owners - Update</i>"])
+        O13(["View agreements ending soon<br/><i>box: Owners - View</i>"])
+        O14(["Add a note<br/><i>box: Owners - Update</i>"])
+        O15(["Send an email to an owner<br/><i>box: Owners - View</i>"])
+        O16(["Merge two owners<br/><i>box: Owners - Update</i>"])
+        O17(["Print an owner sheet<br/><i>box: Owners - View</i>"])
+        O18(["Export owners to Excel<br/><i>box: Owners - View</i>"])
     end
 
     EM --- O1
@@ -287,6 +296,15 @@ flowchart LR
     EM --- O7
     EM --- O8
     EM --- O9
+    EM --- O10
+    EM --- O11
+    EM --- O12
+    EM --- O13
+    EM --- O14
+    EM --- O15
+    EM --- O16
+    EM --- O17
+    EM --- O18
 ```
 
 | # | Button | Box that must be ticked |
@@ -300,6 +318,15 @@ flowchart LR
 | 7 | Attach documents (ID card, ownership title, signed agreement) | Owners: Update |
 | 8 | View an owner's properties | Owners: View |
 | 9 | Delete or archive an owner (same rule as properties) | Owners: Delete |
+| 10 | Search and filter owners (name, city, person or company, branch) | Owners: View |
+| 11 | View an owner's history (past properties, past agreements, changes) | Owners: View |
+| 12 | Renew or end a management agreement | Owners: Update |
+| 13 | View agreements ending soon, to renew them in time | Owners: View |
+| 14 | Add a note (call, meeting, request from the owner) | Owners: Update |
+| 15 | Send an email to an owner from the ERP, keeping a copy | Owners: View |
+| 16 | Merge two owners: the same person entered twice is joined into one owner, with all properties, documents, notes and history | Owners: Update |
+| 17 | Print an owner sheet (details and properties on one page) | Owners: View |
+| 18 | Export owners to Excel | Owners: View |
 
 Owner statements (what the agency owes each owner) belong to the
 Finance area.
@@ -318,3 +345,4 @@ Finance area.
 | 0.6 | 2026-10-08 | Step 5: eight Properties buttons for the Employee. |
 | 0.7 | 2026-10-08 | Question 10: delete-or-archive rule; eight more Properties buttons. |
 | 0.8 | 2026-10-09 | Step 6: nine Owners buttons for the Employee. |
+| 0.9 | 2026-10-09 | Nine more Owners buttons (search, history, agreements, notes, email, merge, print, export). |
