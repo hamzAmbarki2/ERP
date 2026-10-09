@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.27\
+**Version:** 0.28\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1125,6 +1125,63 @@ Notes:
 -   A rent request **becomes** a tenant when the lease is signed;
     nothing is retyped.
 
+### Step 5 --- Finance
+
+| Class | What it is |
+|---|---|
+| Invoice | What someone is asked to pay: rent to a tenant, or building fees to an owner |
+| InvoiceLine | One line of an invoice (rent, charges, lost key…) |
+| CreditNote | Cancels all or part of an invoice; nothing is ever erased |
+| Payment | Money received: cash, cheque or transfer; a cheque keeps its status (received, deposited, cleared, bounced) |
+| Allocation | Which part of a payment pays which invoice |
+| PaymentPlan | An agreement for a tenant to pay their debt in parts |
+| Refund | Money given back to a tenant |
+| Expense | A cost paid for a property or unit, and who pays it (owner, tenant or company) |
+| OwnerStatement | For one owner and one period: rent collected, minus expenses, minus fee = amount due |
+| OwnerPayout | The money transferred to the owner |
+| PeriodClosing | A closed month that can no longer be changed |
+
+``` mermaid
+classDiagram
+    class Organization
+    class Lease
+    class Tenant
+    class Owner
+    class Unit
+    class Invoice
+    class InvoiceLine
+    class CreditNote
+    class Payment
+    class Allocation
+    class PaymentPlan
+    class Refund
+    class Expense
+    class OwnerStatement
+    class OwnerPayout
+    class PeriodClosing
+
+    Lease "1" --> "*" Invoice : generates
+    Invoice "*" --> "0..1" Tenant : billed to
+    Invoice "*" --> "0..1" Owner : billed to
+    Invoice "1" --> "*" InvoiceLine : contains
+    Invoice "1" --> "*" CreditNote : cancelled by
+    Payment "1" --> "*" Allocation : split into
+    Allocation "*" --> "1" Invoice : pays
+    Tenant "1" --> "*" PaymentPlan : agrees
+    Tenant "1" --> "*" Refund : receives
+    Unit "1" --> "*" Expense : costs
+    Owner "1" --> "*" OwnerStatement : receives
+    OwnerStatement "1" --> "0..1" OwnerPayout : paid by
+    Organization "1" --> "*" PeriodClosing : closes
+```
+
+Notes:
+
+-   An invoice is billed to **either** a tenant (rent) **or** an owner
+    (building fees), never both.
+-   Buyer payments come with the Sales group; vendor bills with the
+    Vendors group.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1158,3 +1215,4 @@ Notes:
 | 0.25 | 2026-10-09 | Class diagram (MVP), step 2: the properties. |
 | 0.26 | 2026-10-09 | Class diagram (MVP), step 3: the owners. |
 | 0.27 | 2026-10-09 | Class diagram (MVP), step 4: tenants and leases. |
+| 0.28 | 2026-10-09 | Class diagram (MVP), step 5: finance. |
