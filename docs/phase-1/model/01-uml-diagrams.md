@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.16\
+**Version:** 0.17\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -396,6 +396,7 @@ flowchart LR
         L23(["View a tenant's history<br/><i>box: Tenants and leases - View</i>"])
         L24(["Merge two tenants<br/><i>box: Tenants and leases - Update</i>"])
         L25(["Export tenants and leases to Excel<br/><i>box: Tenants and leases - View</i>"])
+        L26(["Record items left by a tenant<br/><i>box: Tenants and leases - Update</i>"])
     end
 
     EM --- L1
@@ -423,6 +424,7 @@ flowchart LR
     EM --- L23
     EM --- L24
     EM --- L25
+    EM --- L26
 ```
 
 | # | Button | Box that must be ticked |
@@ -452,6 +454,7 @@ flowchart LR
 | 23 | View a tenant's history (past leases and units, payment punctuality) | Tenants and leases: View |
 | 24 | Merge two tenants: the same tenant entered twice is joined into one | Tenants and leases: Update |
 | 25 | Export tenants and leases to Excel | Tenants and leases: View |
+| 26 | Record items left by a tenant: what was left (with photos), where it is kept, when the tenant was contacted and the deadline to collect it, and the outcome (returned with date and signature, or given away or thrown out after the deadline). How long items must be kept may depend on the law (to check with the accountant or lawyer) | Tenants and leases: Update |
 
 Rent invoices and payments belong to the Finance area.
 
@@ -602,6 +605,7 @@ flowchart LR
         M21(["Reopen a job not well done<br/><i>box: Work orders - Update</i>"])
         M22(["View a property's maintenance history<br/><i>box: Maintenance requests - View</i>"])
         M23(["Export maintenance to Excel<br/><i>box: Work orders - View</i>"])
+        M24(["Report a found item<br/><i>box: Work orders - Update</i>"])
     end
 
     EM --- M1
@@ -627,6 +631,8 @@ flowchart LR
     EM --- M21
     EM --- M22
     EM --- M23
+    EM --- M24
+    M24 -. "added to the list of" .-> L26REF(["Record items left by a tenant<br/><i>(Tenants and leases)</i>"])
 ```
 
 | # | Button | What it does | Box that must be ticked |
@@ -654,6 +660,7 @@ flowchart LR
 | 21 | Reopen a job not well done | The job goes back to the person who did it, with a comment | Work orders: Update |
 | 22 | View a property's maintenance history | Everything done on a unit: repairs, cleanings, dates, costs | Maintenance requests: View |
 | 23 | Export maintenance to Excel | Download the list of jobs | Work orders: View |
+| 24 | Report a found item | During a job (example: cleaning), the worker reports something the former tenant left; it is added to the same list as "Record items left by a tenant" | Work orders: Update |
 
 ------------------------------------------------------------------------
 
@@ -677,3 +684,4 @@ flowchart LR
 | 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, agency income, accountant export). |
 | 0.15 | 2026-10-09 | Step 9: Maintenance with two boxes and thirteen buttons; maintenance includes repairs, cleaning and detailing. |
 | 0.16 | 2026-10-09 | Ten more Maintenance buttons (job types, recurring jobs, unit preparation for a new tenant or a sale, checklists, calendar, reopen, history, export). |
+| 0.17 | 2026-10-09 | Items left by a former tenant: "Record items left by a tenant" (Tenants and leases) and "Report a found item" (Maintenance). |
