@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.29\
+**Version:** 0.30\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1236,6 +1236,54 @@ Notes:
 -   A work order is done by **either** an internal technician **or** a
     vendor, never both.
 
+### Step 7 --- Vendors
+
+| Class | What it is |
+|---|---|
+| Vendor | An outside company or independent worker |
+| VendorContact | A person at the vendor (boss, secretary, worker on site) |
+| ServiceType | A kind of work: plumbing, electricity, cleaning, elevator, security… |
+| VendorDocument | A document with its type and validity dates (insurance, license…); old versions are kept |
+| VendorContract | The contract terms: services, price, duration, renewal |
+| Quote | A vendor's price for a job, chosen or not |
+| VendorBill | The vendor's bill for a job; it becomes an expense |
+| VendorPayment | A payment of a vendor's bill |
+| VendorRating | Stars given after a job: quality, punctuality, price |
+| PreferredVendor | "For this service in this property, call this vendor first" |
+
+``` mermaid
+classDiagram
+    class Vendor
+    class VendorContact
+    class ServiceType
+    class VendorDocument
+    class VendorContract
+    class Quote
+    class VendorBill
+    class VendorPayment
+    class VendorRating
+    class PreferredVendor
+    class WorkOrder
+    class Expense
+    class Property
+
+    Vendor "1" --> "*" VendorContact : has
+    Vendor "*" --> "*" ServiceType : offers
+    Vendor "1" --> "*" VendorDocument : provides
+    Vendor "1" --> "*" VendorContract : bound by
+    WorkOrder "1" --> "*" Quote : receives
+    Quote "*" --> "1" Vendor : from
+    Vendor "1" --> "*" VendorBill : sends
+    VendorBill "*" --> "0..1" WorkOrder : for
+    VendorBill "1" --> "1" Expense : becomes
+    VendorBill "1" --> "*" VendorPayment : paid by
+    WorkOrder "1" --> "0..1" VendorRating : rated
+    VendorRating "*" --> "1" Vendor : about
+    PreferredVendor "*" --> "1" Vendor : prefers
+    PreferredVendor "*" --> "1" ServiceType : for service
+    PreferredVendor "*" --> "1" Property : in
+```
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1271,3 +1319,4 @@ Notes:
 | 0.27 | 2026-10-09 | Class diagram (MVP), step 4: tenants and leases. |
 | 0.28 | 2026-10-09 | Class diagram (MVP), step 5: finance. |
 | 0.29 | 2026-10-09 | Class diagram (MVP), step 6: maintenance. |
+| 0.30 | 2026-10-09 | Class diagram (MVP), step 7: vendors. |
