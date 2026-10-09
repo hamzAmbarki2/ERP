@@ -3,7 +3,7 @@
 **Project:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** Architecture Vision & Principles\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.3\
+**Version:** 0.4\
 **Status:** Draft --- items marked *(working assumption)* are to be
 confirmed by Cahier des Charges 11\
 **Date:** 2026-10-08\
@@ -47,9 +47,10 @@ its own data.
 
 The system is **multi-tenant**: one running system shared by many
 customer companies, each completely separated from the others. In this
-project, each customer company is called an **Organization** (see the
-[Glossary](../../reference/01-glossary.md), naming rule N-01: the word
-"tenant" is reserved for people and companies who rent a unit).
+project, each customer company is called an **Organization**; in
+multi-tenancy terms, an organization is a **tenant**. A person or
+company who rents a unit is a **renter** (see the
+[Glossary](../../reference/01-glossary.md), naming rule N-01).
 
 ``` text
 Platform (one running system)
@@ -85,7 +86,7 @@ Platform (one running system)
   Platform operator ►│                                     │ ───► File storage
                      │                                     │      (documents, photos)
   VERSION 1 (V1)     │                                     │
-  Tenants ─ ─ ─ ─ ─► │                                     │ ─ ─► SMS provider (V1)
+  Renters ─ ─ ─ ─ ─► │                                     │ ─ ─► SMS provider (V1)
   Owners ─ ─ ─ ─ ─ ► │                                     │
   Vendors ─ ─ ─ ─ ─► │                                     │ ─ ─► Online payment (V1/V2)
   Buyers ─ ─ ─ ─ ─ ► │                                     │
@@ -97,7 +98,7 @@ Platform (one running system)
 |---|---|---|
 | Staff of each organization | Logs in, one interface per role | Same |
 | Platform operator | Logs in to the operator back office | Same, plus support access |
-| **Tenants** (people and companies renting) | **No access.** Staff record their requests; they receive emails and documents. | **Tenant portal** |
+| **Renters** (people and companies renting) | **No access.** Staff record their requests; they receive emails and documents. | **Renter portal** |
 | Owners | No access; statements by email | Owner portal |
 | Vendors | No access; staff record their work | Vendor portal |
 | Buyers | No access; the sales agent manages the record | Buyer portal |
@@ -184,7 +185,7 @@ Based on Phase 0 §0.20, updated for sales and platform administration.
 | Platform Administration | Organizations, their status, later subscriptions | 12 |
 | Property | Properties, buildings, floors, units, unit status | 02 |
 | Owner | Owners, ownership shares and dates, mandates | 03 |
-| Leasing | Tenants, leases, rent schedules, deposits | 04 |
+| Leasing | Renters, leases, rent schedules, deposits | 04 |
 | Sales | Sales mandates, listings, offers, reservations, sales | 05 |
 | Prospects | Prospects and buyers, viewings | 06 |
 | Finance | Charges, invoices, payments, allocations, balances, expenses, owner statements | 07 |
@@ -253,7 +254,7 @@ Based on Phase 0 §0.20, updated for sales and platform administration.
 | File storage | Stores files. Files are never public; they are downloaded through short-lived links issued after a permission check. |
 | Email service | External provider for sending emails. |
 
-The V1 portals (tenants, owners, vendors, buyers) and mobile apps will
+The V1 portals (renters, owners, vendors, buyers) and mobile apps will
 be additional clients of the **same API**. No second back end.
 
 ------------------------------------------------------------------------
@@ -419,3 +420,4 @@ Each document goes one level deeper than the previous one.
 | 0.1 | 2026-10-08 | First version. |
 | 0.3 | 2026-10-08 | Section 5.3: departments and roles defined by each organization (D-011). |
 | 0.2 | 2026-10-08 | Section 1: organizations and their users (multi-tenancy); tenants, owners, vendors and buyers shown as V1. |
+| 0.4 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). |

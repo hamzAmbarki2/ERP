@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.34\
+**Version:** 0.35\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -156,7 +156,7 @@ flowchart LR
 | View the company-wide dashboard | Key numbers for the whole company on one screen. |
 | View reports across branches and departments | Compare and total results for the whole company. |
 | Approve large expenses | Expenses above an amount set by the company wait for approval. |
-| Import data from Excel | Load existing properties, owners, tenants and leases. |
+| Import data from Excel | Load existing properties, owners, renters and leases. |
 | Export the company's data | Download everything, for backup or when leaving. |
 | View the subscription | Current plan and the platform's invoices. |
 
@@ -242,9 +242,9 @@ flowchart LR
 | 8 | Delete a property or unit | Properties: Delete |
 | 9 | Archive a property: hide it from the lists, keep its history | Properties: Delete |
 | 10 | Search and filter properties (city, type, status, branch) | Properties: View |
-| 11 | View a property's history (changes, past tenants, past repairs) | Properties: View |
+| 11 | View a property's history (changes, past renters, past repairs) | Properties: View |
 | 12 | Add many units at once (example: 5 floors × 4 apartments) | Properties: Create |
-| 13 | Copy a unit: new unit pre-filled with the description of an existing one (never tenants, leases, payments or history) | Properties: Create |
+| 13 | Copy a unit: new unit pre-filled with the description of an existing one (never renters, leases, payments or history) | Properties: Create |
 | 14 | View properties on a map | Properties: View |
 | 15 | Print a property sheet (details and photos on one page) | Properties: View |
 | 16 | Export the list of properties to Excel | Properties: View |
@@ -367,9 +367,9 @@ flowchart LR
 Owner statements (what the company owes each owner) belong to the
 Finance area.
 
-### Step 7 --- Employee's buttons: Tenants and leases
+### Step 7 --- Employee's buttons: Renters and leases
 
-The Tenants and leases area keeps the people and companies who rent
+The Renters and leases area keeps the people and companies who rent
 units, and their lease contracts: who rents which unit, from when to
 when, for how much rent, and with what deposit. It also follows each
 lease through its life: signed, renewed, ended.
@@ -380,37 +380,37 @@ flowchart LR
 
     subgraph ERP["Real Estate Operations ERP"]
         direction TB
-        L1(["View tenants and leases<br/><i>box: Tenants and leases - View</i>"])
-        L2(["Add a tenant<br/><i>box: Tenants and leases - Create</i>"])
-        L3(["Edit a tenant<br/><i>box: Tenants and leases - Update</i>"])
-        L4(["Create a lease<br/><i>box: Tenants and leases - Create</i>"])
-        L5(["Add a guarantor to a lease<br/><i>box: Tenants and leases - Update</i>"])
-        L6(["Activate a lease<br/><i>box: Tenants and leases - Update</i>"])
-        L7(["Change the rent<br/><i>box: Tenants and leases - Update</i>"])
-        L8(["Renew a lease<br/><i>box: Tenants and leases - Update</i>"])
-        L9(["End a lease<br/><i>box: Tenants and leases - Update</i>"])
-        L10(["Attach documents<br/><i>box: Tenants and leases - Update</i>"])
-        L11(["Delete or archive a tenant or lease<br/><i>box: Tenants and leases - Delete</i>"])
-        L12(["Search and filter tenants and leases<br/><i>box: Tenants and leases - View</i>"])
-        L13(["View leases ending soon<br/><i>box: Tenants and leases - View</i>"])
-        L14(["Record the move-in check<br/><i>box: Tenants and leases - Update</i>"])
-        L15(["Record the move-out check<br/><i>box: Tenants and leases - Update</i>"])
-        L16(["Return the deposit<br/><i>box: Tenants and leases - Update</i>"])
-        L17(["Put several tenants on one lease<br/><i>box: Tenants and leases - Update</i>"])
-        L18(["One lease for several units<br/><i>box: Tenants and leases - Create</i>"])
-        L19(["Track the lease registration<br/><i>box: Tenants and leases - Update</i>"])
-        L20(["Add a note<br/><i>box: Tenants and leases - Update</i>"])
-        L21(["Send an email to a tenant<br/><i>box: Tenants and leases - View</i>"])
-        L22(["Print a lease<br/><i>box: Tenants and leases - View</i>"])
-        L23(["View a tenant's history<br/><i>box: Tenants and leases - View</i>"])
-        L24(["Merge two tenants<br/><i>box: Tenants and leases - Update</i>"])
-        L25(["Export tenants and leases to Excel<br/><i>box: Tenants and leases - View</i>"])
-        L26(["Record items left by a tenant<br/><i>box: Tenants and leases - Update</i>"])
-        L27(["Record a rent request<br/><i>box: Tenants and leases - Create</i>"])
-        L28(["Record what they are looking for<br/><i>box: Tenants and leases - Update</i>"])
-        L29(["Plan or record a viewing for a rent request<br/><i>box: Tenants and leases - Create</i>"])
-        L30(["Find rent requests that match a free unit<br/><i>box: Tenants and leases - View</i>"])
-        L31(["Turn a rent request into a tenant and a lease<br/><i>box: Tenants and leases - Create</i>"])
+        L1(["View renters and leases<br/><i>box: Renters and leases - View</i>"])
+        L2(["Add a renter<br/><i>box: Renters and leases - Create</i>"])
+        L3(["Edit a renter<br/><i>box: Renters and leases - Update</i>"])
+        L4(["Create a lease<br/><i>box: Renters and leases - Create</i>"])
+        L5(["Add a guarantor to a lease<br/><i>box: Renters and leases - Update</i>"])
+        L6(["Activate a lease<br/><i>box: Renters and leases - Update</i>"])
+        L7(["Change the rent<br/><i>box: Renters and leases - Update</i>"])
+        L8(["Renew a lease<br/><i>box: Renters and leases - Update</i>"])
+        L9(["End a lease<br/><i>box: Renters and leases - Update</i>"])
+        L10(["Attach documents<br/><i>box: Renters and leases - Update</i>"])
+        L11(["Delete or archive a renter or lease<br/><i>box: Renters and leases - Delete</i>"])
+        L12(["Search and filter renters and leases<br/><i>box: Renters and leases - View</i>"])
+        L13(["View leases ending soon<br/><i>box: Renters and leases - View</i>"])
+        L14(["Record the move-in check<br/><i>box: Renters and leases - Update</i>"])
+        L15(["Record the move-out check<br/><i>box: Renters and leases - Update</i>"])
+        L16(["Return the deposit<br/><i>box: Renters and leases - Update</i>"])
+        L17(["Put several renters on one lease<br/><i>box: Renters and leases - Update</i>"])
+        L18(["One lease for several units<br/><i>box: Renters and leases - Create</i>"])
+        L19(["Track the lease registration<br/><i>box: Renters and leases - Update</i>"])
+        L20(["Add a note<br/><i>box: Renters and leases - Update</i>"])
+        L21(["Send an email to a renter<br/><i>box: Renters and leases - View</i>"])
+        L22(["Print a lease<br/><i>box: Renters and leases - View</i>"])
+        L23(["View a renter's history<br/><i>box: Renters and leases - View</i>"])
+        L24(["Merge two renters<br/><i>box: Renters and leases - Update</i>"])
+        L25(["Export renters and leases to Excel<br/><i>box: Renters and leases - View</i>"])
+        L26(["Record items left by a renter<br/><i>box: Renters and leases - Update</i>"])
+        L27(["Record a rent request<br/><i>box: Renters and leases - Create</i>"])
+        L28(["Record what they are looking for<br/><i>box: Renters and leases - Update</i>"])
+        L29(["Plan or record a viewing for a rent request<br/><i>box: Renters and leases - Create</i>"])
+        L30(["Find rent requests that match a free unit<br/><i>box: Renters and leases - View</i>"])
+        L31(["Turn a rent request into a renter and a lease<br/><i>box: Renters and leases - Create</i>"])
     end
 
     EM --- L1
@@ -448,37 +448,37 @@ flowchart LR
 
 | # | Button | Box that must be ticked |
 |---|---|---|
-| 1 | View tenants and leases | Tenants and leases: View |
-| 2 | Add a tenant (person or company) | Tenants and leases: Create |
-| 3 | Edit a tenant (contact details, ID) | Tenants and leases: Update |
-| 4 | Create a lease (tenant, unit, dates, rent, deposit) | Tenants and leases: Create |
-| 5 | Add a guarantor to a lease | Tenants and leases: Update |
-| 6 | Activate a lease once signed: the unit becomes "rented" | Tenants and leases: Update |
-| 7 | Change the rent, with the date it starts | Tenants and leases: Update |
-| 8 | Renew a lease | Tenants and leases: Update |
-| 9 | End a lease when the tenant leaves: the unit becomes "available" | Tenants and leases: Update |
-| 10 | Attach documents (signed lease, ID card) | Tenants and leases: Update |
-| 11 | Delete or archive a tenant or lease (same rule as properties) | Tenants and leases: Delete |
-| 12 | Search and filter tenants and leases (example: all leases in Tunis Nord ending this year) | Tenants and leases: View |
-| 13 | View leases ending soon (next 60 days), to renew them or find a new tenant in time | Tenants and leases: View |
-| 14 | Record the move-in check (état des lieux d'entrée): condition of each room, with photos | Tenants and leases: Update |
-| 15 | Record the move-out check and compare it with the move-in check | Tenants and leases: Update |
-| 16 | Return the deposit fully or partly, with the reason (example: 2,000 TND deposit, 200 TND kept for a broken window). The deposit is money paid by the tenant at the start of the lease as a guarantee against damage or unpaid rent | Tenants and leases: Update |
-| 17 | Put several tenants on one lease (couple, flatmates) | Tenants and leases: Update |
-| 18 | One lease for several units (example: a company rents 3 offices and 2 parking spaces) | Tenants and leases: Create |
-| 19 | Track the lease registration at the tax office (date, receipt), with a warning before the 60-day limit | Tenants and leases: Update |
-| 20 | Add a note (call, complaint, request from the tenant) | Tenants and leases: Update |
-| 21 | Send an email to a tenant from the ERP, keeping a copy | Tenants and leases: View |
-| 22 | Print a lease, filled with the tenant's and unit's details, ready to sign | Tenants and leases: View |
-| 23 | View a tenant's history (past leases and units, payment punctuality) | Tenants and leases: View |
-| 24 | Merge two tenants: the same tenant entered twice is joined into one | Tenants and leases: Update |
-| 25 | Export tenants and leases to Excel | Tenants and leases: View |
-| 26 | Record items left by a tenant: what was left (with photos), where it is kept, when the tenant was contacted and the deadline to collect it, and the outcome (returned with date and signature, or given away or thrown out after the deadline). How long items must be kept may depend on the law (to check with the accountant or lawyer) | Tenants and leases: Update |
-| 27 | Record a rent request: Someone asks to rent (example: Ines calls: "2-room apartment near Lac 2, maximum 900 TND a month"); the request is recorded with their contact details | Tenants and leases: Create |
-| 28 | Record what they are looking for: Budget, number of rooms, area, move-in date | Tenants and leases: Update |
-| 29 | Plan or record a viewing for a rent request: Example: "Ines visits A3 on Wednesday at 17:00" | Tenants and leases: Create |
-| 30 | Find rent requests that match a free unit: When a unit becomes free, the ERP lists the requests that fit it (simple rules, no AI) | Tenants and leases: View |
-| 31 | Turn a rent request into a tenant and a lease: When the lease is signed, the person becomes a tenant; nothing is retyped | Tenants and leases: Create |
+| 1 | View renters and leases | Renters and leases: View |
+| 2 | Add a renter (person or company) | Renters and leases: Create |
+| 3 | Edit a renter (contact details, ID) | Renters and leases: Update |
+| 4 | Create a lease (renter, unit, dates, rent, deposit) | Renters and leases: Create |
+| 5 | Add a guarantor to a lease | Renters and leases: Update |
+| 6 | Activate a lease once signed: the unit becomes "rented" | Renters and leases: Update |
+| 7 | Change the rent, with the date it starts | Renters and leases: Update |
+| 8 | Renew a lease | Renters and leases: Update |
+| 9 | End a lease when the renter leaves: the unit becomes "available" | Renters and leases: Update |
+| 10 | Attach documents (signed lease, ID card) | Renters and leases: Update |
+| 11 | Delete or archive a renter or lease (same rule as properties) | Renters and leases: Delete |
+| 12 | Search and filter renters and leases (example: all leases in Tunis Nord ending this year) | Renters and leases: View |
+| 13 | View leases ending soon (next 60 days), to renew them or find a new renter in time | Renters and leases: View |
+| 14 | Record the move-in check (état des lieux d'entrée): condition of each room, with photos | Renters and leases: Update |
+| 15 | Record the move-out check and compare it with the move-in check | Renters and leases: Update |
+| 16 | Return the deposit fully or partly, with the reason (example: 2,000 TND deposit, 200 TND kept for a broken window). The deposit is money paid by the renter at the start of the lease as a guarantee against damage or unpaid rent | Renters and leases: Update |
+| 17 | Put several renters on one lease (couple, flatmates) | Renters and leases: Update |
+| 18 | One lease for several units (example: a company rents 3 offices and 2 parking spaces) | Renters and leases: Create |
+| 19 | Track the lease registration at the tax office (date, receipt), with a warning before the 60-day limit | Renters and leases: Update |
+| 20 | Add a note (call, complaint, request from the renter) | Renters and leases: Update |
+| 21 | Send an email to a renter from the ERP, keeping a copy | Renters and leases: View |
+| 22 | Print a lease, filled with the renter's and unit's details, ready to sign | Renters and leases: View |
+| 23 | View a renter's history (past leases and units, payment punctuality) | Renters and leases: View |
+| 24 | Merge two renters: the same renter entered twice is joined into one | Renters and leases: Update |
+| 25 | Export renters and leases to Excel | Renters and leases: View |
+| 26 | Record items left by a renter: what was left (with photos), where it is kept, when the renter was contacted and the deadline to collect it, and the outcome (returned with date and signature, or given away or thrown out after the deadline). How long items must be kept may depend on the law (to check with the accountant or lawyer) | Renters and leases: Update |
+| 27 | Record a rent request: Someone asks to rent (example: Ines calls: "2-room apartment near Lac 2, maximum 900 TND a month"); the request is recorded with their contact details | Renters and leases: Create |
+| 28 | Record what they are looking for: Budget, number of rooms, area, move-in date | Renters and leases: Update |
+| 29 | Plan or record a viewing for a rent request: Example: "Ines visits A3 on Wednesday at 17:00" | Renters and leases: Create |
+| 30 | Find rent requests that match a free unit: When a unit becomes free, the ERP lists the requests that fit it (simple rules, no AI) | Renters and leases: View |
+| 31 | Turn a rent request into a renter and a lease: When the lease is signed, the person becomes a renter; nothing is retyped | Renters and leases: Create |
 
 **Rent requests** (buttons 27 to 31): a rent request is a person or
 company who wants to rent but has no lease yet. The staff record it, so
@@ -489,7 +489,7 @@ Rent invoices and payments belong to the Finance area.
 
 ### Step 8 --- Employee's buttons: Finance
 
-The Finance area follows all the money: rent the tenants must pay,
+The Finance area follows all the money: rent the renters must pay,
 payments they make (cash, cheque, transfer), who still owes money, and
 costs paid for properties. It also calculates what the company owes each
 owner, after taking its fee, and records when the owner is paid.
@@ -522,7 +522,7 @@ flowchart LR
         F15(["Record a bounced cheque<br/><i>box: Invoices and payments - Update</i>"])
         F16(["Send a payment reminder by hand<br/><i>box: Invoices and payments - View</i>"])
         F17(["Set up a payment plan<br/><i>box: Invoices and payments - Create</i>"])
-        F18(["Refund a tenant<br/><i>box: Invoices and payments - Create</i>"])
+        F18(["Refund a renter<br/><i>box: Invoices and payments - Create</i>"])
         F19(["View deposits held<br/><i>box: Invoices and payments - View</i>"])
         F20(["Choose who pays an expense<br/><i>box: Expenses - Update</i>"])
         F21(["Attach a bill to an expense<br/><i>box: Expenses - Update</i>"])
@@ -567,26 +567,26 @@ flowchart LR
 
 | # | Button | What it does | Box that must be ticked |
 |---|---|---|---|
-| 1 | View invoices, payments and balances | See what each tenant was asked to pay and what they paid | Invoices and payments: View |
+| 1 | View invoices, payments and balances | See what each renter was asked to pay and what they paid | Invoices and payments: View |
 | 2 | Generate the monthly rent invoices | Create all rent invoices of the month in one go, from the active leases | Invoices and payments: Create |
-| 3 | Create an invoice by hand | Example: charge a tenant 150 TND for a lost key | Invoices and payments: Create |
+| 3 | Create an invoice by hand | Example: charge a renter 150 TND for a lost key | Invoices and payments: Create |
 | 4 | Record a payment | Cash, cheque or bank transfer, with the date | Invoices and payments: Create |
 | 5 | Link a payment to invoices | Example: one payment of 2,000 TND pays January and February | Invoices and payments: Update |
-| 6 | Print or send a receipt | Proof of payment for the tenant | Invoices and payments: View |
+| 6 | Print or send a receipt | Proof of payment for the renter | Invoices and payments: View |
 | 7 | Cancel an invoice with a credit note | Mistakes are corrected with a new record, never erased | Invoices and payments: Delete |
-| 8 | View unpaid rent | List of tenants who are late, and by how much | Invoices and payments: View |
+| 8 | View unpaid rent | List of renters who are late, and by how much | Invoices and payments: View |
 | 9 | Record an expense for a property | Example: 300 TND plumber repair in apartment A1 | Expenses: Create |
 | 10 | View expenses | All costs per property, owner or period | Expenses: View |
 | 11 | Prepare an owner statement | Rent collected, minus expenses, minus the company's management fee, gives the amount due to the owner | Owner statements: Create |
 | 12 | Send an owner statement | By email, as a PDF, to the owner (each co-owner gets a copy) | Owner statements: View |
 | 13 | Record a payment to an owner | The company transfers the amount due to the owner | Owner statements: Update |
 | 14 | Follow a cheque | A cheque goes through steps: received, deposited at the bank, then cleared or bounced | Invoices and payments: Update |
-| 15 | Record a bounced cheque | The payment is cancelled, the tenant owes the rent again, and the bank fee can be charged to them | Invoices and payments: Update |
+| 15 | Record a bounced cheque | The payment is cancelled, the renter owes the rent again, and the bank fee can be charged to them | Invoices and payments: Update |
 | 16 | Send a payment reminder by hand | Besides the automatic reminders (example: "Your March rent is 10 days late") | Invoices and payments: View |
-| 17 | Set up a payment plan | Example: a tenant owes 3,000 TND and pays 500 TND extra each month for 6 months | Invoices and payments: Create |
-| 18 | Refund a tenant | Example: the tenant paid twice by mistake | Invoices and payments: Create |
-| 19 | View deposits held | All deposits kept by the company, per tenant and property | Invoices and payments: View |
-| 20 | Choose who pays an expense | Owner, tenant (if they broke it) or the company | Expenses: Update |
+| 17 | Set up a payment plan | Example: a renter owes 3,000 TND and pays 500 TND extra each month for 6 months | Invoices and payments: Create |
+| 18 | Refund a renter | Example: the renter paid twice by mistake | Invoices and payments: Create |
+| 19 | View deposits held | All deposits kept by the company, per renter and property | Invoices and payments: View |
+| 20 | Choose who pays an expense | Owner, renter (if they broke it) or the company | Expenses: Update |
 | 21 | Attach a bill to an expense | Photo or PDF of the supplier's bill, kept as proof | Expenses: Update |
 | 22 | View money in and out per property | Example: apartment A1 this year, 12,000 TND rent in, 900 TND repairs out | Invoices and payments: View |
 | 23 | Close a month | Lock a checked month so nobody can change its figures afterwards | Invoices and payments: Update |
@@ -632,7 +632,7 @@ flowchart LR
         M13(["Create the expense from a finished work order<br/><i>box: Expenses - Create</i>"])
         M14(["Choose the type of job<br/><i>box: Work orders - Update</i>"])
         M15(["Plan recurring jobs<br/><i>box: Work orders - Create</i>"])
-        M16(["Prepare a unit for a new tenant<br/><i>box: Work orders - Create</i>"])
+        M16(["Prepare a unit for a new renter<br/><i>box: Work orders - Create</i>"])
         M17(["Prepare a unit for sale or a viewing<br/><i>box: Work orders - Create</i>"])
         M18(["Use a checklist during a job<br/><i>box: Work orders - Update</i>"])
         M19(["Create checklist templates<br/><i>box: Work orders - Create</i>"])
@@ -667,13 +667,13 @@ flowchart LR
     EM --- M22
     EM --- M23
     EM --- M24
-    M24 -. "added to the list of" .-> L26REF(["Record items left by a tenant<br/><i>(Tenants and leases)</i>"])
+    M24 -. "added to the list of" .-> L26REF(["Record items left by a renter<br/><i>(Renters and leases)</i>"])
 ```
 
 | # | Button | What it does | Box that must be ticked |
 |---|---|---|---|
 | 1 | View maintenance requests | All reported problems and needs, with their status | Maintenance requests: View |
-| 2 | Record a maintenance request | Example: a tenant calls, "water leak in the kitchen of A1" | Maintenance requests: Create |
+| 2 | Record a maintenance request | Example: a renter calls, "water leak in the kitchen of A1" | Maintenance requests: Create |
 | 3 | Edit a request | Change the description or the priority (urgent, normal, low) | Maintenance requests: Update |
 | 4 | Turn a request into a work order | The request becomes a job | Work orders: Create |
 | 5 | Assign a work order | Give the job to an internal technician or a vendor | Work orders: Update |
@@ -687,15 +687,15 @@ flowchart LR
 | 13 | Create the expense from a finished work order | The job cost goes to Finance in one click | Expenses: Create |
 | 14 | Choose the type of job | Repair, cleaning, deep cleaning or detailing, painting, gardening, pest control, inspection | Work orders: Update |
 | 15 | Plan recurring jobs | Example: clean the building stairs every Monday, garden every 2 weeks, elevator check every month; the ERP creates the jobs automatically | Work orders: Create |
-| 16 | Prepare a unit for a new tenant | When a tenant leaves, one click creates the usual jobs (deep cleaning, painting, small repairs, final check); when all are done, the unit becomes "ready to rent" | Work orders: Create |
+| 16 | Prepare a unit for a new renter | When a renter leaves, one click creates the usual jobs (deep cleaning, painting, small repairs, final check); when all are done, the unit becomes "ready to rent" | Work orders: Create |
 | 17 | Prepare a unit for sale or a viewing | Detailing before photos or visits: deep cleaning, windows, small touch-ups | Work orders: Create |
 | 18 | Use a checklist during a job | The cleaner ticks each item on their phone: kitchen, bathroom, windows, floors | Work orders: Update |
-| 19 | Create checklist templates | Write a checklist once and reuse it (example: "standard cleaning", "deep cleaning before a new tenant") | Work orders: Create |
+| 19 | Create checklist templates | Write a checklist once and reuse it (example: "standard cleaning", "deep cleaning before a new renter") | Work orders: Create |
 | 20 | View the maintenance calendar | All planned jobs by day or week, and who does what | Work orders: View |
 | 21 | Reopen a job not well done | The job goes back to the person who did it, with a comment | Work orders: Update |
 | 22 | View a property's maintenance history | Everything done on a unit: repairs, cleanings, dates, costs | Maintenance requests: View |
 | 23 | Export maintenance to Excel | Download the list of jobs | Work orders: View |
-| 24 | Report a found item | During a job (example: cleaning), the worker reports something the former tenant left; it is added to the same list as "Record items left by a tenant" | Work orders: Update |
+| 24 | Report a found item | During a job (example: cleaning), the worker reports something the former renter left; it is added to the same list as "Record items left by a renter" | Work orders: Update |
 
 ### Step 10 --- Employee's buttons: Building security
 
@@ -879,7 +879,7 @@ flowchart LR
         SA24(["Print sale documents<br/><i>box: Sales - View</i>"])
         SA25(["Add a note on a prospect<br/><i>box: Prospects and buyers - Update</i>"])
         SA26(["Merge two prospects<br/><i>box: Prospects and buyers - Update</i>"])
-        SA27(["Sell a unit that has a tenant<br/><i>box: Sales - Update</i>"])
+        SA27(["Sell a unit that has a renter<br/><i>box: Sales - Update</i>"])
         SA28(["Check the buyer's identity<br/><i>box: Prospects and buyers - Update</i>"])
         SA29(["Export sales to Excel<br/><i>box: Sales - View</i>"])
     end
@@ -943,7 +943,7 @@ flowchart LR
 | 24 | Print sale documents | Reservation form and sale agreement, filled with the buyer's and unit's details | Sales: View |
 | 25 | Add a note on a prospect | Example: "called back, wants a second visit" | Prospects and buyers: Update |
 | 26 | Merge two prospects | The same person entered twice is joined into one | Prospects and buyers: Update |
-| 27 | Sell a unit that has a tenant | The lease continues; from the sale date, rent goes to the new owner | Sales: Update |
+| 27 | Sell a unit that has a renter | The lease continues; from the sale date, rent goes to the new owner | Sales: Update |
 | 28 | Check the buyer's identity | Required by the January 2026 anti-money-laundering rule for property sales (to confirm with the accountant) | Prospects and buyers: Update |
 | 29 | Export sales to Excel | Download listings, offers and sales | Sales: View |
 
@@ -1080,23 +1080,23 @@ Notes:
 -   Ownership has **dates**, so the ERP knows who owned a unit on any
     day (needed when a unit is sold).
 
-### Step 4 --- Tenants and leases
+### Step 4 --- Renters and leases
 
 | Class | What it is |
 |---|---|
-| Tenant | A person or company who rents |
+| Renter | A person or company who rents |
 | Lease | The rental contract: dates, rent, status |
-| Guarantor | A person who guarantees the tenant will pay |
+| Guarantor | A person who guarantees the renter will pay |
 | RentChange | Each change of rent, with the date it starts (history kept) |
 | Inspection | The move-in or move-out check, with photos |
 | Deposit | The deposit paid, kept, and returned (fully or partly, with reasons) |
-| LeftItem | Things a tenant left behind, and what happened to them |
+| LeftItem | Things a renter left behind, and what happened to them |
 | RentRequest | Someone who wants to rent, with what they are looking for |
 | Viewing | A visit of a unit; used by rent requests now, reused by Sales later |
 
 ``` mermaid
 classDiagram
-    class Tenant
+    class Renter
     class Lease
     class Guarantor
     class RentChange
@@ -1107,7 +1107,7 @@ classDiagram
     class Viewing
     class Unit
 
-    Lease "*" --> "*" Tenant : rented by
+    Lease "*" --> "*" Renter : rented by
     Lease "*" --> "*" Unit : covers
     Lease "1" --> "*" Guarantor : guaranteed by
     Lease "1" --> "*" RentChange : rent history
@@ -1116,34 +1116,33 @@ classDiagram
     Lease "1" --> "*" LeftItem : items left
     RentRequest "1" --> "*" Viewing : has
     Viewing "*" --> "1" Unit : of
-    RentRequest "0..1" --> "0..1" Tenant : becomes
+    RentRequest "0..1" --> "0..1" Renter : becomes
 ```
 
 Notes:
 
--   One lease can have **several tenants** (flatmates) and cover
+-   One lease can have **several renters** (flatmates) and cover
     **several units** (a company renting 3 offices).
--   A rent request **becomes** a tenant when the lease is signed;
+-   A rent request **becomes** a renter when the lease is signed;
     nothing is retyped.
--   **Naming warning --- "Tenant":** the system is multi-tenant, and in
-    multi-tenancy the word "tenant" usually means the **organization**
-    (the real estate company using the ERP). Here, **Tenant** means the
-    person or company who **rents** a unit. The two meanings will
-    clash later in the database. The name **Tenant** is kept for now;
-    it will be reviewed before the database design.
+-   **Naming --- Renter and tenant:** a **Renter** is the person or
+    company who rents a unit. The word **tenant** is kept for its
+    multi-tenancy meaning: a tenant is an **organization** (the real
+    estate company using the ERP). This avoids a clash in the database
+    (Glossary, naming rule N-01).
 
 ### Step 5 --- Finance
 
 | Class | What it is |
 |---|---|
-| Invoice | What someone is asked to pay: rent to a tenant, or building fees to an owner |
+| Invoice | What someone is asked to pay: rent to a renter, or building fees to an owner |
 | InvoiceLine | One line of an invoice (rent, charges, lost key…) |
 | CreditNote | Cancels all or part of an invoice; nothing is ever erased |
 | Payment | Money received: cash, cheque or transfer; a cheque keeps its status (received, deposited, cleared, bounced) |
 | Allocation | Which part of a payment pays which invoice |
-| PaymentPlan | An agreement for a tenant to pay their debt in parts |
-| Refund | Money given back to a tenant |
-| Expense | A cost paid for a property or unit, and who pays it (owner, tenant or company) |
+| PaymentPlan | An agreement for a renter to pay their debt in parts |
+| Refund | Money given back to a renter |
+| Expense | A cost paid for a property or unit, and who pays it (owner, renter or company) |
 | OwnerStatement | For one owner and one period: rent collected, minus expenses, minus fee = amount due |
 | OwnerPayout | The money transferred to the owner |
 | PeriodClosing | A closed month that can no longer be changed |
@@ -1152,7 +1151,7 @@ Notes:
 classDiagram
     class Organization
     class Lease
-    class Tenant
+    class Renter
     class Owner
     class Unit
     class Invoice
@@ -1168,14 +1167,14 @@ classDiagram
     class PeriodClosing
 
     Lease "1" --> "*" Invoice : generates
-    Invoice "*" --> "0..1" Tenant : billed to
+    Invoice "*" --> "0..1" Renter : billed to
     Invoice "*" --> "0..1" Owner : billed to
     Invoice "1" --> "*" InvoiceLine : contains
     Invoice "1" --> "*" CreditNote : cancelled by
     Payment "1" --> "*" Allocation : split into
     Allocation "*" --> "1" Invoice : pays
-    Tenant "1" --> "*" PaymentPlan : agrees
-    Tenant "1" --> "*" Refund : receives
+    Renter "1" --> "*" PaymentPlan : agrees
+    Renter "1" --> "*" Refund : receives
     Unit "1" --> "*" Expense : costs
     Owner "1" --> "*" OwnerStatement : receives
     OwnerStatement "1" --> "0..1" OwnerPayout : paid by
@@ -1184,7 +1183,7 @@ classDiagram
 
 Notes:
 
--   An invoice is billed to **either** a tenant (rent) **or** an owner
+-   An invoice is billed to **either** a renter (rent) **or** an owner
     (building fees), never both.
 -   Buyer payments come with the Sales group; vendor bills with the
     Vendors group.
@@ -1197,9 +1196,9 @@ Notes:
 | WorkOrder | The job: type (repair, cleaning, detailing…), planned date, status |
 | WorkLog | Progress, notes and before/after photos of a job |
 | MaterialUse | Materials and hours used on a job |
-| ChecklistTemplate | A reusable checklist (example: "deep cleaning before a new tenant") with its items |
+| ChecklistTemplate | A reusable checklist (example: "deep cleaning before a new renter") with its items |
 | RecurringJob | A job that comes back regularly (example: "clean the stairs every Monday"); it creates its work orders |
-| PreparationPlan | A set of jobs to make a unit ready for a new tenant or a sale |
+| PreparationPlan | A set of jobs to make a unit ready for a new renter or a sale |
 | OwnerApproval | An owner's agreement for an expensive job, with the date |
 
 ``` mermaid
@@ -1354,7 +1353,7 @@ Notes:
 | SecurityIncident | Something that happened (broken lock, intrusion), with date, place and photos |
 | VisitorEntry | A visitor: name, which unit they visit, time in and out |
 | GuardShift | Who guards which property, and when (day or night) |
-| KeyHandover | A key given to someone (tenant, plumber…) and when it was returned |
+| KeyHandover | A key given to someone (renter, plumber…) and when it was returned |
 
 ``` mermaid
 classDiagram
@@ -1384,8 +1383,8 @@ Note: a guard shift is covered by **either** an employee of the company
 | Class | What it is |
 |---|---|
 | Document | A file (PDF, photo) with its type, attached to any record: a lease, a vendor, a unit… |
-| Note | A comment attached to any record (example: "tenant called about the heater") |
-| Notification | A message to an employee in the ERP, or an email to a tenant, owner or vendor |
+| Note | A comment attached to any record (example: "renter called about the heater") |
+| Notification | A message to an employee in the ERP, or an email to a renter, owner or vendor |
 | AuditEvent | Who did what, on which record, and when; it can never be changed |
 | Invitation | An invitation for someone to join the company in the ERP |
 | MoveRequest | An employee's request to change department or branch, and the administrator's answer |
@@ -1428,7 +1427,7 @@ notes and audit events can be attached to any record.
 | 1. The company and its people | 7 |
 | 2. The properties | 5 |
 | 3. The owners | 3 |
-| 4. Tenants and leases | 9 |
+| 4. Renters and leases | 9 |
 | 5. Finance | 11 |
 | 6. Maintenance | 8 |
 | 7. Vendors | 10 |
@@ -1461,7 +1460,7 @@ classDiagram
     class Ownership
     class ManagementAgreement
     class Lease
-    class Tenant
+    class Renter
     class Guarantor
     class RentChange
     class Inspection
@@ -1540,7 +1539,7 @@ classDiagram
     Owner "1" --> "*" ManagementAgreement : signs
     ManagementAgreement "*" --> "*" Unit : covers
     Organization "0..1" --> "0..1" Owner : is owner of its own stock
-    Lease "*" --> "*" Tenant : rented by
+    Lease "*" --> "*" Renter : rented by
     Lease "*" --> "*" Unit : covers
     Lease "1" --> "*" Guarantor : guaranteed by
     Lease "1" --> "*" RentChange : rent history
@@ -1549,16 +1548,16 @@ classDiagram
     Lease "1" --> "*" LeftItem : items left
     RentRequest "1" --> "*" Viewing : has
     Viewing "*" --> "1" Unit : of
-    RentRequest "0..1" --> "0..1" Tenant : becomes
+    RentRequest "0..1" --> "0..1" Renter : becomes
     Lease "1" --> "*" Invoice : generates
-    Invoice "*" --> "0..1" Tenant : billed to
+    Invoice "*" --> "0..1" Renter : billed to
     Invoice "*" --> "0..1" Owner : billed to
     Invoice "1" --> "*" InvoiceLine : contains
     Invoice "1" --> "*" CreditNote : cancelled by
     Payment "1" --> "*" Allocation : split into
     Allocation "*" --> "1" Invoice : pays
-    Tenant "1" --> "*" PaymentPlan : agrees
-    Tenant "1" --> "*" Refund : receives
+    Renter "1" --> "*" PaymentPlan : agrees
+    Renter "1" --> "*" Refund : receives
     Unit "1" --> "*" Expense : costs
     Owner "1" --> "*" OwnerStatement : receives
     OwnerStatement "1" --> "0..1" OwnerPayout : paid by
@@ -1665,3 +1664,4 @@ classDiagram
 | 0.32 | 2026-10-09 | Class diagram (MVP), step 9: building security. |
 | 0.33 | 2026-10-09 | Class diagram (MVP), step 10: shared records; summary (74 classes). |
 | 0.34 | 2026-10-09 | Full MVP class diagram (all classes in one view); French version in [Diagrammes UML (version française)](02-diagrammes-uml-fr.md). |
+| 0.35 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). Use case boxes and class names updated. |

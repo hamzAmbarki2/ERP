@@ -3,12 +3,13 @@
 **Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** 00 --- Cahier des Charges Général\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.5\
+**Version:** 0.6\
 **Status:** Draft / Baseline\
 **Date:** 2026-10-08
 
 **Historique**
 
+-   0.6 (2026-10-09) --- « Tenant » (le locataire) renommé « Renter » ; « tenant » désigne l'organisation, comme en multi-tenancy (glossaire N-01).
 -   0.5 (2026-10-09) --- Le client est une société immobilière qui
     possède des biens ; les agences sont exclues (D-012).
 -   0.4 (2026-10-08) --- Départements et rôles définis par chaque
@@ -208,7 +209,7 @@ Property
   ↓
 Unit
   ↓
-Tenant
+Renter
   ↓
 Lease
   ↓
@@ -403,7 +404,7 @@ Exemples :
 ``` text
 Property → titres / documents immobiliers
 Owner → documents d'identité / propriété
-Tenant → identification
+Renter → identification
 Lease → contrat
 Vendor → certificats / contrats
 Work Order → photos / justificatifs
@@ -546,7 +547,7 @@ DRAFT → ISSUED → PARTIALLY_PAID → PAID
 
 ## 16. Matrice d'acteurs --- principe
 
-| Domaine | Admin | Manager | Commercial | Finance | Tech. interne | Owner | Tenant | Vendor | Prospect/Buyer |
+| Domaine | Admin | Manager | Commercial | Finance | Tech. interne | Owner | Renter | Vendor | Prospect/Buyer |
 |---|---|---|---|---|---|---|---|---|---|
 | Organisation | Gérer | Limité | Non | Limité | Non | Non | Non | Non | Non |
 | Propriétés | Gérer | Gérer | Biens en vente | Voir | Voir le nécessaire | Ses biens | Son unité | Contexte assigné | Bien concerné |
@@ -563,7 +564,7 @@ Cette table constitue une orientation. Le cahier « Organisation & Accès
 
 **MVP (D-010) :** seuls les utilisateurs internes (Admin, Manager,
 Commercial, Finance, Technicien interne) se connectent. Les colonnes
-Owner, Tenant, Vendor et Prospect/Buyer décrivent les accès prévus à
+Owner, Renter, Vendor et Prospect/Buyer décrivent les accès prévus à
 partir de la V1.
 
 ------------------------------------------------------------------------

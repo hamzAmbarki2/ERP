@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.9\
+**Version:** 0.10\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -49,7 +49,7 @@ organization's own staff. No external actor logs in before V1.**
 |---|---|---|---|
 | Organization Administrator, Property Manager, Sales Agent, Finance Staff | **Yes** — web application | — | Phase 0 §0.13 |
 | Internal Technician | **Yes** — responsive web, limited to assigned work orders | Mobile app | Phase 0 §0.13, §0.14; responsive web *Proposed* |
-| Tenant | **No** — staff record the requests tenants report by phone, message or in person; tenants receive emails and documents | Tenant portal, then mobile app | D-010 (replaces Phase 0 §0.13 "portal foundation") |
+| Renter | **No** — staff record the requests renters report by phone, message or in person; renters receive emails and documents | Renter portal, then mobile app | D-010 (replaces Phase 0 §0.13 "portal foundation") |
 | Owner | **No** — owners receive their statements and documents by email | Owner portal, including sale progress | D-010 |
 | Vendor | **No** — the property manager records the vendor's work | Vendor portal | Phase 0 §0.29 |
 | Prospect / Buyer | **No** — the sales agent manages the record | Buyer portal | D-009 |
@@ -57,7 +57,7 @@ organization's own staff. No external actor logs in before V1.**
 
 **Consequence for Problem 6** (external actors working with several
 organizations): since no external actor logs in during the MVP,
-tenants, owners, vendors and buyers are simply records inside each
+renters, owners, vendors and buyers are simply records inside each
 organization. How a person or vendor working with several
 organizations logs in is decided in Cahier des Charges 01 before V1. The identity
 model must still be designed so these logins can be added in V1
@@ -69,13 +69,13 @@ without rework.
 
 An organization can set up its users and roles; record its properties,
 units and owners (including itself for its own stock); lease units to
-tenants, generate rent, invoice it, record payments by cash, cheque or
+renters, generate rent, invoice it, record payments by cash, cheque or
 transfer and allocate them; handle maintenance requests through work
 orders assigned to internal technicians or vendors, through to verified
 completion and the resulting expense; sell units from listing to
 closing, with offers, reservations and buyer payments; and produce
 occupancy, arrears, maintenance, sales and owner reports. Only the
-organization's staff log in; tenants and owners receive emails and
+organization's staff log in; renters and owners receive emails and
 documents. Everything is audited, isolated per organization, and available in French, Arabic
 and English.
 
@@ -92,7 +92,7 @@ and English.
 | Five role templates (Admin, Property Manager, Sales Agent, Finance, Technician) | MVP | Phase 0 §0.13, D-008 | |
 | Roles created and edited by the organization (View / Create / Update / Delete grid) | MVP | D-011 | |
 | Departments and hierarchy defined by the organization, limiting visibility | MVP | D-011 | |
-| Roles for external users (tenant, owner, vendor, buyer) | V1 | D-010 | |
+| Roles for external users (renter, owner, vendor, buyer) | V1 | D-010 | |
 | Inviting users by email | MVP | Proposed | Needed to add users. |
 | One user in several organizations | MVP | Proposed | Built into the data model from the start. |
 | Multi-factor authentication for internal users | MVP | Proposed | Security objective, Phase 0 §0.12. |
@@ -132,12 +132,12 @@ and English.
 | Basic management mandate (dates, fee terms) | MVP | Proposed | Needed for the management fee. |
 | Owner portal | V1 | D-010, Phase 0 §0.14 | MVP: statements sent by email (§8). |
 
-### 4.5 Tenants and leasing
+### 4.5 Renters and leasing
 
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
-| Tenant profiles and documents | MVP | Phase 0 §0.13 | |
-| Tenant portal | V1 | D-010 | MVP: staff record requests; documents sent by email. |
+| Renter profiles and documents | MVP | Phase 0 §0.13 | |
+| Renter portal | V1 | D-010 | MVP: staff record requests; documents sent by email. |
 | Leases: parties, dates, rent, deposit, status | MVP | Phase 0 §0.13 | |
 | Lease lifecycle including renewal and termination | MVP | Phase 0 §0.13, Cahier des Charges 00 §7.2 | |
 | Guarantors | MVP | Proposed | As a lease party. |
@@ -148,9 +148,9 @@ and English.
 | Lease-expiration reminders | V1 | Phase 0 §0.14 | |
 | Late fees | V1 | Phase 0 §0.14 | |
 | Structured move-in / move-out inspection | V1 | Proposed | MVP: attach the signed document. |
-| Tenant mobile app | V1 | Phase 0 §0.14 | |
+| Renter mobile app | V1 | Phase 0 §0.14 | |
 | Seasonal / short-term rentals | Open | Problem 16 | See §7. |
-| Rent requests: record people who want to rent, their needs and viewings, match them to free units, turn them into tenants | MVP | Decision 2026-10-09 (UML diagrams, Tenants and leases 27–31) | No interface for the person (D-010). |
+| Rent requests: record people who want to rent, their needs and viewings, match them to free units, turn them into renters | MVP | Decision 2026-10-09 (UML diagrams, Renters and leases 27–31) | No interface for the person (D-010). |
 
 ### 4.6 Sales
 
@@ -183,7 +183,7 @@ and English.
 | Invoices and invoice lines | MVP | Phase 0 §0.13 | |
 | Payments and allocation | MVP | Phase 0 §0.13 | |
 | Receipts | MVP | Phase 0 §0.13 | PDF: see §8. |
-| Tenant, owner and buyer balances | MVP | Phase 0 §0.13 | |
+| Renter, owner and buyer balances | MVP | Phase 0 §0.13 | |
 | Credit notes, reversals, adjustments (no deletion) | MVP | Phase 0 §0.18 | |
 | Payment instruments: cash, cheque, bank transfer | MVP | Proposed | Problem 11. |
 | Cheque follow-up: deposited, cleared, bounced | MVP | Proposed | Problem 11. |
@@ -204,8 +204,8 @@ and English.
 
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
-| Maintenance requests recorded by staff (reported by tenants by phone, message or in person) | MVP | Phase 0 §0.13, D-010 | The channel is recorded on the request. |
-| Tenants submit maintenance requests themselves | V1 | D-010 | Tenant portal. |
+| Maintenance requests recorded by staff (reported by renters by phone, message or in person) | MVP | Phase 0 §0.13, D-010 | The channel is recorded on the request. |
+| Renters submit maintenance requests themselves | V1 | D-010 | Renter portal. |
 | Work orders, assignment, status | MVP | Phase 0 §0.13 | |
 | Internal technician handling | MVP | Phase 0 §0.13 | |
 | Vendor assignment | MVP | Phase 0 §0.13 | |
@@ -255,12 +255,12 @@ and English.
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
 | In-app notifications | MVP | Phase 0 §0.13 | |
-| Email notifications, including to tenants and owners (reminders, receipts, statements) | MVP | Phase 0 §0.13, Cahier des Charges 00 §12 | The only channel to external actors in the MVP (D-010). |
+| Email notifications, including to renters and owners (reminders, receipts, statements) | MVP | Phase 0 §0.13, Cahier des Charges 00 §12 | The only channel to external actors in the MVP (D-010). |
 | Reminders (rent due, rent late, reservation expiring) | MVP | Phase 0 §0.13, Cahier des Charges 00 §12 | |
 | Notification preferences per user | V1 | Proposed | |
 | SMS | V1 | Phase 0 §0.14 | |
 | WhatsApp | Open | Problem 16 | See §7. |
-| Messaging between tenants and the organization | Open | Problem 16 | See §7. |
+| Messaging between renters and the organization | Open | Problem 16 | See §7. |
 
 ### 4.12 Reporting
 
@@ -294,7 +294,7 @@ and English.
 
 | Capability | Tier | Source | Notes |
 |---|---|---|---|
-| Import of properties, units, owners, tenants and leases from Excel / CSV, with an error report | MVP | Proposed | Problem 15. |
+| Import of properties, units, owners, renters and leases from Excel / CSV, with an error report | MVP | Proposed | Problem 15. |
 | Manual entry of opening balances | MVP | Proposed | |
 | Import of opening balances and vendors | V1 | Proposed | |
 | Sample data for a new organization | MVP | Proposed | Same dataset as the acceptance scenarios (Acceptance Scenarios & Reference Dataset). |
@@ -306,7 +306,7 @@ and English.
 | Interface in French, Arabic (right-to-left) and English | MVP | Phase 0 §0.1, §0.12 | |
 | TND with 3 decimals | MVP | Phase 0 §0.1 | |
 | Responsive web usable on phones | MVP | Proposed | |
-| Native mobile apps (tenant, technician) | V1 | Phase 0 §0.14 | |
+| Native mobile apps (renter, technician) | V1 | Phase 0 §0.14 | |
 | Additional currencies | Later | Phase 0 §0.1 | |
 
 ------------------------------------------------------------------------
@@ -341,7 +341,7 @@ These move to the Open Questions Register (Open Questions Register) when it is c
 | Topic | Why it matters | Decide in |
 |---|---|---|
 | Seasonal / short-term rentals | Common locally; changes lease durations, billing and availability. Distinct from the "Airbnb clone" non-goal. | Cahier des Charges 04 |
-| Messaging with tenants; WhatsApp as a channel | Phase 0 lists communication as a tenant need, and WhatsApp is today's channel. | Cahier des Charges 10 |
+| Messaging with renters; WhatsApp as a channel | Phase 0 lists communication as a renter need, and WhatsApp is today's channel. | Cahier des Charges 10 |
 | Taxes and e-invoicing | Affects invoices, receipts, owner statements and vendor bills. | Regulatory & Legal Register, Cahier des Charges 07 |
 | Electronic signature; retention periods | Legal validity and how long documents must be kept. | Regulatory & Legal Register, Cahier des Charges 10 |
 | How the sale price is paid (through the organization, a notary, or directly) | Decides whether sale money passes through the system. | Cahier des Charges 05, Cahier des Charges 07 |
@@ -356,7 +356,7 @@ These move to the Open Questions Register (Open Questions Register) when it is c
 | Purchase orders | Listed in both V1 (§0.14) and V2 (§0.15). | **V2**, as the decision record §0.29 says. |
 | Vendor contracts | Listed in both V1 and V2; §0.29 says "V1 / V2". | Left as V1 / V2; to settle in Cahier des Charges 09. |
 | Payment integrations | "Payment integrations" in V1 and "payment-provider integrations" in V2. | Left as V1 / V2; to settle in Cahier des Charges 07. |
-| Receipts and owner statements vs. PDF | Receipts and owner statements are MVP, but PDF generation is V1, so there would be nothing to hand to a tenant or send to an owner. | **Proposed:** PDF receipt and PDF owner statement in MVP; other PDFs and templates stay in V1. Without portals (D-010), these PDFs are how tenants and owners get their documents. |
+| Receipts and owner statements vs. PDF | Receipts and owner statements are MVP, but PDF generation is V1, so there would be nothing to hand to a renter or send to an owner. | **Proposed:** PDF receipt and PDF owner statement in MVP; other PDFs and templates stay in V1. Without portals (D-010), these PDFs are how renters and owners get their documents. |
 | Owner portal | V1 has an "advanced owner portal", but no basic one exists before it. | Resolved by D-010: the owner portal comes in V1. |
 
 ------------------------------------------------------------------------
@@ -389,4 +389,5 @@ is then updated.
 | 0.7 | 2026-10-09 | Vendor quotes, documents with expiry and contract terms moved to the MVP. |
 | 0.8 | 2026-10-09 | Sales commission, payment schedules and buyer matching moved to the MVP. |
 | 0.9 | 2026-10-09 | Rent requests in the MVP (open topic closed); employees' reports and dashboards in V1. |
+| 0.10 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |

@@ -2,7 +2,7 @@
 
 **Document :** Diagrammes UML --- version française\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 1.0\
+**Version :** 1.1\
 **Statut :** Diagramme de cas d'utilisation et diagramme de classes du MVP\
 **Date :** 2026-10-09\
 **Version anglaise :** [UML Diagrams](01-uml-diagrams.md)
@@ -1017,7 +1017,7 @@ classDiagram
 ``` mermaid
 classDiagram
     class Lease["Bail"]
-    class Tenant["Locataire"]
+    class Renter["Locataire"]
     class Unit["Unité"]
     class Guarantor["Garant"]
     class RentChange["ChangementDeLoyer"]
@@ -1027,7 +1027,7 @@ classDiagram
     class RentRequest["DemandeDeLocation"]
     class Viewing["Visite"]
 
-    Lease "*" --> "*" Tenant : loué par
+    Lease "*" --> "*" Renter : loué par
     Lease "*" --> "*" Unit : couvre
     Lease "1" --> "*" Guarantor : garanti par
     Lease "1" --> "*" RentChange : historique du loyer
@@ -1036,17 +1036,15 @@ classDiagram
     Lease "1" --> "*" LeftItem : objets laissés
     RentRequest "1" --> "*" Viewing : possède
     Viewing "*" --> "1" Unit : de
-    RentRequest "0..1" --> "0..1" Tenant : devient
+    RentRequest "0..1" --> "0..1" Renter : devient
 ```
 
-**Attention au nom « Tenant » :** le système est multi-tenant (plusieurs
-organisations isolées), et en multi-tenancy le mot anglais « tenant »
-désigne en général l'**organisation** (la société immobilière qui
-utilise l'ERP). Ici, la classe **Tenant** (Locataire) désigne la
-personne ou la société qui **loue** une unité. Les deux sens entreront
-en conflit plus tard dans la base de données. Le nom **Tenant** est
-gardé pour l'instant ; il sera revu avant la conception de la base de
-données.
+**Noms anglais « Renter » et « tenant » :** dans le code, le locataire
+(la personne ou la société qui **loue** une unité) s'appelle **Renter**.
+Le mot anglais **tenant** garde son sens de multi-tenancy : un tenant
+est une **organisation** (la société immobilière qui utilise l'ERP).
+Ainsi, les deux sens ne sont pas mélangés dans la base de données
+(Glossaire, règle de nommage N-01).
 
 ### 2.5 Finance
 
@@ -1068,7 +1066,7 @@ données.
 classDiagram
     class Lease["Bail"]
     class Invoice["Facture"]
-    class Tenant["Locataire"]
+    class Renter["Locataire"]
     class Owner["Propriétaire"]
     class InvoiceLine["LigneDeFacture"]
     class CreditNote["Avoir"]
@@ -1084,14 +1082,14 @@ classDiagram
     class PeriodClosing["ClôtureDePériode"]
 
     Lease "1" --> "*" Invoice : génère
-    Invoice "*" --> "0..1" Tenant : facturée à
+    Invoice "*" --> "0..1" Renter : facturée à
     Invoice "*" --> "0..1" Owner : facturée à
     Invoice "1" --> "*" InvoiceLine : contient
     Invoice "1" --> "*" CreditNote : annulée par
     Payment "1" --> "*" Allocation : réparti en
     Allocation "*" --> "1" Invoice : règle
-    Tenant "1" --> "*" PaymentPlan : accepte
-    Tenant "1" --> "*" Refund : reçoit
+    Renter "1" --> "*" PaymentPlan : accepte
+    Renter "1" --> "*" Refund : reçoit
     Unit "1" --> "*" Expense : coûte
     Owner "1" --> "*" OwnerStatement : reçoit
     OwnerStatement "1" --> "0..1" OwnerPayout : payé par
@@ -1348,7 +1346,7 @@ classDiagram
     class Ownership["Détention"]
     class ManagementAgreement["MandatDeGestion"]
     class Lease["Bail"]
-    class Tenant["Locataire"]
+    class Renter["Locataire"]
     class Guarantor["Garant"]
     class RentChange["ChangementDeLoyer"]
     class Inspection["ÉtatDesLieux"]
@@ -1427,7 +1425,7 @@ classDiagram
     Owner "1" --> "*" ManagementAgreement : signe
     ManagementAgreement "*" --> "*" Unit : couvre
     Organization "0..1" --> "0..1" Owner : est propriétaire de son propre stock
-    Lease "*" --> "*" Tenant : loué par
+    Lease "*" --> "*" Renter : loué par
     Lease "*" --> "*" Unit : couvre
     Lease "1" --> "*" Guarantor : garanti par
     Lease "1" --> "*" RentChange : historique du loyer
@@ -1436,16 +1434,16 @@ classDiagram
     Lease "1" --> "*" LeftItem : objets laissés
     RentRequest "1" --> "*" Viewing : possède
     Viewing "*" --> "1" Unit : de
-    RentRequest "0..1" --> "0..1" Tenant : devient
+    RentRequest "0..1" --> "0..1" Renter : devient
     Lease "1" --> "*" Invoice : génère
-    Invoice "*" --> "0..1" Tenant : facturée à
+    Invoice "*" --> "0..1" Renter : facturée à
     Invoice "*" --> "0..1" Owner : facturée à
     Invoice "1" --> "*" InvoiceLine : contient
     Invoice "1" --> "*" CreditNote : annulée par
     Payment "1" --> "*" Allocation : réparti en
     Allocation "*" --> "1" Invoice : règle
-    Tenant "1" --> "*" PaymentPlan : accepte
-    Tenant "1" --> "*" Refund : reçoit
+    Renter "1" --> "*" PaymentPlan : accepte
+    Renter "1" --> "*" Refund : reçoit
     Unit "1" --> "*" Expense : coûte
     Owner "1" --> "*" OwnerStatement : reçoit
     OwnerStatement "1" --> "0..1" OwnerPayout : payé par
@@ -1531,7 +1529,7 @@ classDiagram
 | Propriétaire | Owner | Les propriétaires |
 | Détention | Ownership | Les propriétaires |
 | MandatDeGestion | ManagementAgreement | Les propriétaires |
-| Locataire | Tenant | Locataires et baux |
+| Locataire | Renter | Locataires et baux |
 | Bail | Lease | Locataires et baux |
 | Garant | Guarantor | Locataires et baux |
 | ChangementDeLoyer | RentChange | Locataires et baux |
@@ -1598,3 +1596,4 @@ classDiagram
 | Version | Date | Changement |
 |---|---|---|
 | 1.0 | 2026-10-09 | Première version française : diagramme de cas d'utilisation (MVP) et diagramme de classes (MVP, par groupe et complet). |
+| 1.1 | 2026-10-09 | « Tenant » (le locataire) renommé « Renter » ; « tenant » désigne l'organisation, comme en multi-tenancy (glossaire N-01). |

@@ -15,6 +15,9 @@
     vendors and buyers get no interface before V1 (§0.29).
 -   2026-10-08 --- Departments and roles defined by each
     organization from the MVP (Cahier des Charges Général, D-011).
+-   2026-10-09 --- Tenant (the person or company who rents) renamed
+    **Renter**; "tenant" now means an organization, as in
+    multi-tenancy (glossary N-01).
 
 ------------------------------------------------------------------------
 
@@ -40,7 +43,7 @@ The platform centralizes:
 
 -   properties, buildings, floors and units
 -   owners and ownership relationships
--   tenants and tenant records
+-   renters and renter records
 -   leases and lease lifecycle
 -   recurring rent and billing
 -   sales mandates and units for sale
@@ -164,7 +167,7 @@ Responsible for daily portfolio operations.
 Needs:
 
 -   portfolio visibility
--   tenant and lease management
+-   renter and lease management
 -   rent tracking
 -   maintenance coordination
 -   technician assignment
@@ -224,7 +227,7 @@ Needs:
 Owners must not gain visibility into unrelated owners or organizational
 data.
 
-### 5. Tenant
+### 5. Renter
 
 Occupies a unit under a lease.
 
@@ -257,7 +260,7 @@ Needs:
 -   labor / material information when applicable
 
 A technician should **not** automatically receive access to unrelated
-financial or tenant data.
+financial or renter data.
 
 ### 7. External Vendor
 
@@ -313,7 +316,7 @@ Needs:
 -   sales pipeline dashboard
 
 A sales agent should **not** automatically receive access to rental
-finances, tenant data or unrelated owner information.
+finances, renter data or unrelated owner information.
 
 ### 9. Prospect / Buyer
 
@@ -380,7 +383,7 @@ Maintenance requests can originate from many channels and then become
 disconnected from:
 
 -   the unit
--   tenant
+-   renter
 -   property
 -   lease
 -   work order
@@ -448,7 +451,7 @@ A realistic system needs different access rules for:
 -   property managers
 -   finance staff
 -   owners
--   tenants
+-   renters
 -   internal technicians
 -   external vendors
 -   sales agents
@@ -506,7 +509,7 @@ Core ERP domains:
 
 1.  Property management
 2.  Leasing
-3.  Tenant management
+3.  Renter management
 4.  **Sales**
 5.  **Prospects / buyers**
 6.  Billing
@@ -529,7 +532,7 @@ Property
   ↓
 Unit
   ↓
-Tenant
+Renter
   ↓
 Lease
   ↓
@@ -601,10 +604,10 @@ Unit
 Owner Relationship
 ```
 
-### Workflow B --- Tenant + lease
+### Workflow B --- Renter + lease
 
 ``` text
-Tenant
+Renter
    ↓
 Lease
    ↓
@@ -636,7 +639,7 @@ Remaining Balance
 ### Workflow D --- Maintenance request
 
 ``` text
-Tenant
+Renter
    ↓
 Maintenance Request
    ↓
@@ -758,7 +761,7 @@ Property
   ↓
 Unit
   ↓
-Tenant
+Renter
   ↓
 Lease
   ↓
@@ -907,7 +910,7 @@ Potential local-market advantage through:
 Connect:
 
 ``` text
-Tenant
+Renter
    ↓
 Maintenance Request
    ↓
@@ -972,7 +975,7 @@ engineering concerns.
 Especially useful for:
 
 -   internal technicians
--   tenants
+-   renters
 -   eventually vendor interactions
 
 ### Cloud-native delivery
@@ -1002,7 +1005,7 @@ Do not introduce:
 
 -   predictive maintenance
 -   rent prediction
--   tenant scoring
+-   renter scoring
 -   AI chatbot
 -   computer vision
 -   generative AI
@@ -1112,13 +1115,13 @@ loop without trying to implement every enterprise feature.
 -   ownership relationships
 -   owner portfolio
 
-### Tenants
+### Renters
 
--   tenant profiles
+-   renter profiles
 -   relevant documents
 
-Tenants have no login in the MVP (§0.29): staff record their requests
-and send them documents by email. The tenant portal is V1.
+Renters have no login in the MVP (§0.29): staff record their requests
+and send them documents by email. The renter portal is V1.
 
 ### Leasing
 
@@ -1142,7 +1145,7 @@ and send them documents by email. The tenant portal is V1.
 
 ### Maintenance
 
--   maintenance requests reported by tenants and recorded by staff
+-   maintenance requests reported by renters and recorded by staff
 -   work orders
 -   assignment
 -   internal technician handling
@@ -1229,7 +1232,7 @@ Buyers have no login in the MVP.
 
 Possible V1 capabilities:
 
--   tenant portal and tenant mobile application
+-   renter portal and renter mobile application
 -   technician mobile application
 -   richer vendor interaction
 -   vendor portal
@@ -1391,9 +1394,9 @@ Users must only access data authorized for their organization and role.
 Owners can access only their authorized properties, units, statements
 and documents.
 
-### Tenant access
+### Renter access
 
-Tenants can access only their own relevant information.
+Renters can access only their own relevant information.
 
 ### Technician access
 
@@ -1412,14 +1415,14 @@ External vendors, when portal access is introduced, must see only:
 -   relevant communication
 -   permitted completion evidence
 
-They must never see unrelated tenants, owners, vendors, properties or
+They must never see unrelated renters, owners, vendors, properties or
 company finances.
 
 ### Sales agent access
 
 Sales agents can access units for sale, mandates, listings, prospects,
 buyers and sales within their scope. They should not receive
-unrestricted access to rental finances or tenant data.
+unrestricted access to rental finances or renter data.
 
 ### Buyer access
 
@@ -1492,7 +1495,7 @@ Organization
 ├── Property
 │   └── Unit
 │       ├── Owner Relationship
-│       ├── Tenant
+│       ├── Renter
 │       ├── Lease
 │       └── Sales Listing
 │           ├── Offer
@@ -1545,7 +1548,7 @@ Suggested modules:
 Identity / Access
 Property
 Owner
-Tenant
+Renter
 Lease
 Sales
 Prospects / Buyers
@@ -1678,7 +1681,7 @@ The system must prevent a vendor from:
 -   seeing unrelated work orders
 -   seeing unrelated properties
 -   accessing owner financial information
--   accessing unrelated tenants
+-   accessing unrelated renters
 -   reading internal company notes
 -   modifying management records outside their assigned scope
 
@@ -1822,7 +1825,7 @@ The product can demonstrate:
 1.  onboarding a property
 2.  creating units
 3.  attaching an owner
-4.  creating a tenant
+4.  creating a renter
 5.  creating a lease
 6.  generating rent
 7.  recording a payment
@@ -2089,7 +2092,7 @@ company) becomes an **owner** of it and is recorded in the Owners area.
 
 The MVP is the ERP used by the organization's own staff:
 administrators, property managers, sales agents, finance staff and
-internal technicians. Tenants, rental prospects, owners, vendors and
+internal technicians. Renters, rental prospects, owners, vendors and
 buyers have no interface in the MVP. They exist as records managed by
 staff and receive emails and documents.
 
@@ -2100,9 +2103,9 @@ out and sell properties.
 
 **Consequences**
 
--   staff record maintenance requests that tenants report by phone,
+-   staff record maintenance requests that renters report by phone,
     message or in person
--   receipts and owner statements reach tenants and owners as documents
+-   receipts and owner statements reach renters and owners as documents
     sent by email
 -   authorization in the MVP covers internal roles and organization
     isolation
@@ -2111,7 +2114,7 @@ out and sell properties.
 
 **Scope treatment**
 
--   Tenant portal: **V1**
+-   Renter portal: **V1**
 -   Owner portal: **V1**
 -   Vendor portal: **V1** (unchanged)
 -   Buyer portal: **V1** (unchanged)
