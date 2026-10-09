@@ -928,6 +928,11 @@ flowchart LR
 Buttons 16 (matching), 20 (payment schedule) and 22 (commission) were
 planned for V1 in Phase 0 (D-009); they are now part of the MVP.
 
+### Pending --- Employees' reports and dashboards
+
+Reports and dashboards for employees are added **after the
+administrator's dashboard is developed** (decision 2026-10-09).
+
 ### Note --- Syndic (managing the shared parts of a building)
 
 When the company sells several units of a building, the building has
