@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.10\
+**Version:** 0.11\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -358,6 +358,61 @@ flowchart LR
 Owner statements (what the agency owes each owner) belong to the
 Finance area.
 
+### Step 7 --- Employee's buttons: Tenants and leases
+
+The Tenants and leases area keeps the people and companies who rent
+units, and their lease contracts: who rents which unit, from when to
+when, for how much rent, and with what deposit. It also follows each
+lease through its life: signed, renewed, ended.
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        L1(["View tenants and leases<br/><i>box: Tenants and leases - View</i>"])
+        L2(["Add a tenant<br/><i>box: Tenants and leases - Create</i>"])
+        L3(["Edit a tenant<br/><i>box: Tenants and leases - Update</i>"])
+        L4(["Create a lease<br/><i>box: Tenants and leases - Create</i>"])
+        L5(["Add a guarantor to a lease<br/><i>box: Tenants and leases - Update</i>"])
+        L6(["Activate a lease<br/><i>box: Tenants and leases - Update</i>"])
+        L7(["Change the rent<br/><i>box: Tenants and leases - Update</i>"])
+        L8(["Renew a lease<br/><i>box: Tenants and leases - Update</i>"])
+        L9(["End a lease<br/><i>box: Tenants and leases - Update</i>"])
+        L10(["Attach documents<br/><i>box: Tenants and leases - Update</i>"])
+        L11(["Delete or archive a tenant or lease<br/><i>box: Tenants and leases - Delete</i>"])
+    end
+
+    EM --- L1
+    EM --- L2
+    EM --- L3
+    EM --- L4
+    EM --- L5
+    EM --- L6
+    EM --- L7
+    EM --- L8
+    EM --- L9
+    EM --- L10
+    EM --- L11
+```
+
+| # | Button | Box that must be ticked |
+|---|---|---|
+| 1 | View tenants and leases | Tenants and leases: View |
+| 2 | Add a tenant (person or company) | Tenants and leases: Create |
+| 3 | Edit a tenant (contact details, ID) | Tenants and leases: Update |
+| 4 | Create a lease (tenant, unit, dates, rent, deposit) | Tenants and leases: Create |
+| 5 | Add a guarantor to a lease | Tenants and leases: Update |
+| 6 | Activate a lease once signed: the unit becomes "rented" | Tenants and leases: Update |
+| 7 | Change the rent, with the date it starts | Tenants and leases: Update |
+| 8 | Renew a lease | Tenants and leases: Update |
+| 9 | End a lease when the tenant leaves: the unit becomes "available" | Tenants and leases: Update |
+| 10 | Attach documents (signed lease, ID card) | Tenants and leases: Update |
+| 11 | Delete or archive a tenant or lease (same rule as properties) | Tenants and leases: Delete |
+
+Rent invoices and payments belong to the Finance area.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -374,3 +429,4 @@ Finance area.
 | 0.8 | 2026-10-09 | Step 6: nine Owners buttons for the Employee. |
 | 0.9 | 2026-10-09 | Nine more Owners buttons (search, history, agreements, notes, email, merge, print, export). |
 | 0.10 | 2026-10-09 | Nine advanced Owners buttons (summary, co-owner groups, ownership by date, repair approval limit and approvals, fee per property, bulk transfer, missing information, group message). |
+| 0.11 | 2026-10-09 | Step 7: eleven Tenants and leases buttons for the Employee. |
