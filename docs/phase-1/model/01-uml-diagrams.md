@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.30\
+**Version:** 0.31\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1284,6 +1284,62 @@ classDiagram
     PreferredVendor "*" --> "1" Property : in
 ```
 
+### Step 8 --- Sales
+
+| Class | What it is |
+|---|---|
+| Listing | A unit put up for sale, with its asking price and status |
+| SalesMandate | An owner asks the company to resell their unit, with the commission terms |
+| Prospect | A person or company interested in buying, with what they are looking for; once they make an offer, they are the **buyer** |
+| Offer | A price proposed; a counter-offer is an offer that answers another one |
+| Reservation | The unit held for one buyer, with a deposit and an expiry date |
+| Sale | The deal: agreed price, signing date, closing |
+| PaymentSchedule | The plan of installments (example: 30% at signing, 40% in 6 months, 30% at delivery) |
+| BuyerPayment | Money received from a buyer |
+| Commission | The company's fee on a mandate sale |
+| IdentityCheck | The check of the buyer's identity (anti-money-laundering rule) |
+
+``` mermaid
+classDiagram
+    class Unit
+    class Owner
+    class Ownership
+    class Viewing
+    class Listing
+    class SalesMandate
+    class Prospect
+    class Offer
+    class Reservation
+    class Sale
+    class PaymentSchedule
+    class BuyerPayment
+    class Commission
+    class IdentityCheck
+
+    Unit "1" --> "*" Listing : put up for sale
+    Listing "*" --> "0..1" SalesMandate : under
+    SalesMandate "*" --> "1" Owner : given by
+    Prospect "1" --> "*" Viewing : makes
+    Viewing "*" --> "1" Unit : of
+    Listing "1" --> "*" Offer : receives
+    Offer "*" --> "1" Prospect : made by
+    Offer "0..1" --> "0..1" Offer : answers
+    Offer "1" --> "0..1" Reservation : leads to
+    Reservation "1" --> "0..1" Sale : leads to
+    Sale "1" --> "0..1" PaymentSchedule : paid by
+    Sale "1" --> "*" BuyerPayment : receives
+    Sale "1" --> "0..1" Commission : earns
+    Prospect "1" --> "*" IdentityCheck : checked by
+    Sale "1" --> "1" Ownership : creates
+```
+
+Notes:
+
+-   **Viewing** is the same class used by rent requests (step 4): a
+    viewing is made either by a rent request or by a prospect.
+-   At **closing**, the sale creates a new Ownership: the buyer becomes
+    an owner of the unit.
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1320,3 +1376,4 @@ classDiagram
 | 0.28 | 2026-10-09 | Class diagram (MVP), step 5: finance. |
 | 0.29 | 2026-10-09 | Class diagram (MVP), step 6: maintenance. |
 | 0.30 | 2026-10-09 | Class diagram (MVP), step 7: vendors. |
+| 0.31 | 2026-10-09 | Class diagram (MVP), step 8: sales. |
