@@ -3,12 +3,14 @@
 **Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** 00 --- Cahier des Charges Général\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.4\
+**Version:** 0.5\
 **Status:** Draft / Baseline\
 **Date:** 2026-10-08
 
 **Historique**
 
+-   0.5 (2026-10-09) --- Le client est une société immobilière qui
+    possède des biens ; les agences sont exclues (D-012).
 -   0.4 (2026-10-08) --- Départements et rôles définis par chaque
     organisation (D-011).
 -   0.3 (2026-10-08) --- MVP réservé aux utilisateurs internes (D-010).
@@ -45,8 +47,10 @@ Terraform, CI/CD, etc. seront traités principalement en Phase 2.
 ## 2. Vision du produit
 
 Le produit est un **ERP SaaS B2B cloud-native et multi-tenant** destiné
-aux entreprises qui gèrent des activités immobilières : sociétés de
-gestion locative, agences immobilières et promoteurs immobiliers.
+aux **sociétés immobilières** qui **possèdent** des biens : elles en
+louent la plupart et en vendent certains (promoteurs immobiliers
+compris). Les agences, intermédiaires qui ne possèdent aucun bien, ne
+sont pas des clients (D-012).
 
 Il couvre principalement deux activités :
 
@@ -245,8 +249,8 @@ Deux modèles de vendeur sont couverts par un même workflow (D-008) :
 
 | Vendeur | Exemple | Rôle de l'organisation | Revenu de l'organisation |
 |---|---|---|---|
-| Propriétaire tiers | un propriétaire confie à une agence un mandat de vente | intermédiaire sous mandat | commission |
-| L'organisation elle-même | un promoteur vend les unités de son projet ; une agence revend une unité qu'elle a achetée | vendeur | prix de vente |
+| Propriétaire tiers | un propriétaire (par exemple quelqu'un qui a acheté à la société) lui confie un mandat de vente | intermédiaire sous mandat | commission |
+| L'organisation elle-même | la société vend des unités qu'elle possède (par exemple celles de son propre projet) | vendeur | prix de vente |
 
 Chaque vente a exactement un vendeur. L'organisation peut donc être
 propriétaire d'unités.
@@ -304,7 +308,7 @@ d'abord à l'entreprise pour piloter ses propres opérations commerciales.
     vente, suivi de la vente par le propriétaire, rapprochement
     critères acheteur / unités (par règles).
 -   **V2** : vente sur plan avec échéances liées à l'avancement des
-    travaux, commissions avancées (plusieurs agents, inter-agences),
+    travaux, commissions avancées (plusieurs commerciaux),
     publication vers des portails d'annonces externes.
 
 ------------------------------------------------------------------------
@@ -750,8 +754,8 @@ location et de vente restent distincts et historisés.
 
 Le vendeur d'une vente est soit un propriétaire tiers sous mandat de
 vente (l'organisation est intermédiaire et perçoit une commission),
-soit l'organisation elle-même lorsqu'elle possède l'unité (promoteur,
-ou agence revendant une unité achetée). Un seul workflow de vente
+soit l'organisation elle-même lorsqu'elle possède l'unité (par exemple
+un promoteur qui vend son propre projet). Un seul workflow de vente
 couvre les deux cas.
 
 ### D-009 --- Vente de base dans le MVP
@@ -774,6 +778,15 @@ l'Administrateur de chaque organisation définit ses départements
 à cocher (Voir, Créer, Modifier, Supprimer, ou aucun accès) par domaine.
 Les départements limitent la visibilité des fiches. Cinq rôles modèles
 sont fournis. Détail : Cahier des Charges 01, section 6.
+
+### D-012 --- Le client est une société immobilière qui possède des biens
+
+Le client de l'ERP (l'Organisation) est une **société immobilière** qui
+**possède** des biens : elle en loue la plupart et en vend certains. Les
+**agences**, intermédiaires qui ne possèdent aucun bien, ne sont **pas**
+des clients. Quand la société vend un bien ou une unité, l'**acheteur**
+(personne ou entreprise) en devient **propriétaire** et figure dans les
+propriétaires de l'ERP.
 
 ------------------------------------------------------------------------
 

@@ -168,8 +168,8 @@ contain any company's hierarchy. Instead:
     ("Create a lease", "Record a payment", "Assign a repair", "Close a
     sale"…). Every company gets the same buttons.
 2.  **Each company decides who presses which button.** The
-    administrator ticks boxes for each role. Example: at Agence Médina,
-    the "Gestionnaire" can press "Create a lease"; at Agence Carthage,
+    administrator ticks boxes for each role. Example: at Médina Immobilier,
+    the "Gestionnaire" can press "Create a lease"; at Carthage Immobilier,
     the "Chargé de location" can press the same button.
 3.  **The hierarchy only decides who sees what.** The administrator
     draws their own branches and departments. The software then checks
@@ -257,9 +257,10 @@ flowchart LR
 ### Step 6 --- Employee's buttons: Owners
 
 The Owners area keeps the people and companies who own the properties
-the agency manages or sells, which properties each one owns (and what
-share, when several people own one property), and the agreement between
-the owner and the agency.
+bought from the company or whose properties the company manages or
+sells, which properties each one owns (and what share, when several
+people own one property), and the agreement between the owner and the
+company.
 
 ``` mermaid
 flowchart LR
@@ -332,7 +333,7 @@ flowchart LR
 | 3 | Edit an owner (contact details, bank account) | Owners: Update |
 | 4 | Link an owner to a property or unit, with their share (example: 50%) | Owners: Update |
 | 5 | Record a change of owner with its date (sold, inherited) | Owners: Update |
-| 6 | Add a management agreement (what the agency manages, dates, fee) | Owners: Create |
+| 6 | Add a management agreement (what the company manages for the owner, dates, fee) | Owners: Create |
 | 7 | Attach documents (ID card, ownership title, signed agreement) | Owners: Update |
 | 8 | View an owner's properties | Owners: View |
 | 9 | Delete or archive an owner (same rule as properties) | Owners: Delete |
@@ -355,7 +356,7 @@ flowchart LR
 | 26 | List owners with missing information (no bank account, ID card or signed agreement) | Owners: View |
 | 27 | Send a message to several owners at once (example: new office address) | Owners: View |
 
-Owner statements (what the agency owes each owner) belong to the
+Owner statements (what the company owes each owner) belong to the
 Finance area.
 
 ### Step 7 --- Employee's buttons: Tenants and leases
@@ -462,7 +463,7 @@ Rent invoices and payments belong to the Finance area.
 
 The Finance area follows all the money: rent the tenants must pay,
 payments they make (cash, cheque, transfer), who still owes money, and
-costs paid for properties. It also calculates what the agency owes each
+costs paid for properties. It also calculates what the company owes each
 owner, after taking its fee, and records when the owner is paid.
 
 Finance uses **three boxes**, so that money access can be given
@@ -500,7 +501,7 @@ flowchart LR
         F22(["View money in and out per property<br/><i>box: Invoices and payments - View</i>"])
         F23(["Close a month<br/><i>box: Invoices and payments - Update</i>"])
         F24(["Check payments against the bank statement<br/><i>box: Invoices and payments - Update</i>"])
-        F25(["View the agency's own income<br/><i>box: Invoices and payments - View</i>"])
+        F25(["View the company's own income<br/><i>box: Invoices and payments - View</i>"])
         F26(["Export for the accountant<br/><i>box: Invoices and payments - View</i>"])
     end
 
@@ -544,21 +545,21 @@ flowchart LR
 | 8 | View unpaid rent | List of tenants who are late, and by how much | Invoices and payments: View |
 | 9 | Record an expense for a property | Example: 300 TND plumber repair in apartment A1 | Expenses: Create |
 | 10 | View expenses | All costs per property, owner or period | Expenses: View |
-| 11 | Prepare an owner statement | Rent collected, minus expenses, minus agency fee, gives the amount due to the owner | Owner statements: Create |
+| 11 | Prepare an owner statement | Rent collected, minus expenses, minus the company's management fee, gives the amount due to the owner | Owner statements: Create |
 | 12 | Send an owner statement | By email, as a PDF, to the owner (each co-owner gets a copy) | Owner statements: View |
-| 13 | Record a payment to an owner | The agency transfers the amount due to the owner | Owner statements: Update |
+| 13 | Record a payment to an owner | The company transfers the amount due to the owner | Owner statements: Update |
 | 14 | Follow a cheque | A cheque goes through steps: received, deposited at the bank, then cleared or bounced | Invoices and payments: Update |
 | 15 | Record a bounced cheque | The payment is cancelled, the tenant owes the rent again, and the bank fee can be charged to them | Invoices and payments: Update |
 | 16 | Send a payment reminder by hand | Besides the automatic reminders (example: "Your March rent is 10 days late") | Invoices and payments: View |
 | 17 | Set up a payment plan | Example: a tenant owes 3,000 TND and pays 500 TND extra each month for 6 months | Invoices and payments: Create |
 | 18 | Refund a tenant | Example: the tenant paid twice by mistake | Invoices and payments: Create |
-| 19 | View deposits held | All deposits kept by the agency, per tenant and property | Invoices and payments: View |
-| 20 | Choose who pays an expense | Owner, tenant (if they broke it) or agency | Expenses: Update |
+| 19 | View deposits held | All deposits kept by the company, per tenant and property | Invoices and payments: View |
+| 20 | Choose who pays an expense | Owner, tenant (if they broke it) or the company | Expenses: Update |
 | 21 | Attach a bill to an expense | Photo or PDF of the supplier's bill, kept as proof | Expenses: Update |
 | 22 | View money in and out per property | Example: apartment A1 this year, 12,000 TND rent in, 900 TND repairs out | Invoices and payments: View |
 | 23 | Close a month | Lock a checked month so nobody can change its figures afterwards | Invoices and payments: Update |
 | 24 | Check payments against the bank statement | Compare the bank statement with recorded payments and find what is missing | Invoices and payments: Update |
-| 25 | View the agency's own income | Management fees and sales commissions earned by the agency | Invoices and payments: View |
+| 25 | View the company's own income | Management fees and sales commissions earned by the company | Invoices and payments: View |
 | 26 | Export for the accountant | Download invoices, payments and expenses of a period to Excel | Invoices and payments: View |
 
 Taxes (VAT, withholding tax, electronic invoicing) are left for the
@@ -681,7 +682,7 @@ flowchart LR
 | 0.11 | 2026-10-09 | Step 7: eleven Tenants and leases buttons for the Employee. |
 | 0.12 | 2026-10-09 | Fourteen more Tenants and leases buttons (move-in and move-out checks, deposit return, several tenants or units per lease, lease registration, notes, email, print, history, merge, export). |
 | 0.13 | 2026-10-09 | Step 8: Finance with three boxes and thirteen buttons. |
-| 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, agency income, accountant export). |
+| 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, company income, accountant export). |
 | 0.15 | 2026-10-09 | Step 9: Maintenance with two boxes and thirteen buttons; maintenance includes repairs, cleaning and detailing. |
 | 0.16 | 2026-10-09 | Ten more Maintenance buttons (job types, recurring jobs, unit preparation for a new tenant or a sale, checklists, calendar, reopen, history, export). |
 | 0.17 | 2026-10-09 | Items left by a former tenant: "Record items left by a tenant" (Tenants and leases) and "Report a found item" (Maintenance). |

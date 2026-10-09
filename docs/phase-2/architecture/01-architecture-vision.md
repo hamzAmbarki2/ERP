@@ -37,7 +37,8 @@ section 10).
 
 ## 1. What the system is
 
-A web application used by the staff of real-estate companies
+A web application used by the staff of real estate companies that own
+real estate
 (organizations) to run rentals, sales, maintenance, vendors and
 finance. Many organizations use the same running system; each sees only
 its own data.
@@ -53,7 +54,7 @@ project, each customer company is called an **Organization** (see the
 ``` text
 Platform (one running system)
 │
-├── Organization: Agence Médina
+├── Organization: Médina Immobilier
 │   ├── Sonia    — Administrator
 │   ├── Karim    — Property Manager
 │   ├── Amira    — Sales Agent
@@ -61,7 +62,7 @@ Platform (one running system)
 │   └── Ali      — Internal Technician
 │        (each user has an interface dedicated to their role)
 │
-├── Organization: Agence Carthage
+├── Organization: Carthage Immobilier
 │   └── its own users, its own data, its own interfaces
 │
 └── … more organizations
@@ -77,10 +78,10 @@ Platform (one running system)
                      ┌─────────────────────────────────────┐
   FIRST VERSION      │      Real Estate Operations ERP     │
   (MVP)              │                                     │
-  Staff of           │   one system, many organizations,   │ ───► Email service
-  Agence Médina ───► │   each strictly separated           │      (invitations, reminders,
-  Staff of           │                                     │       receipts, statements)
-  Agence Carthage ─► │                                     │
+  Staff of Médina    │   one system, many organizations,   │ ───► Email service
+  Immobilier ──────► │   each strictly separated           │      (invitations, reminders,
+  Staff of Carthage  │                                     │       receipts, statements)
+  Immobilier ──────► │                                     │
   Platform operator ►│                                     │ ───► File storage
                      │                                     │      (documents, photos)
   VERSION 1 (V1)     │                                     │

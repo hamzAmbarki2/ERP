@@ -23,16 +23,18 @@
 ### Product
 
 A **cloud-native, multi-tenant Real Estate Operations ERP** delivered as
-a SaaS platform for small and mid-sized companies that manage and sell
-real estate: property-management companies, real-estate agencies and
-property developers (promoteurs immobiliers).
+a SaaS platform for small and mid-sized **real estate companies**
+(sociétés immobilières) that **own** real estate: they mainly rent their
+properties and also sell some of them. This includes property developers
+(promoteurs immobiliers). Agencies --- intermediaries that own no real
+estate --- are not customers (§0.29).
 
 It covers two business activities on one shared property base:
 
-1.  **rental management** --- managing rented properties on behalf of
-    owners;
-2.  **property sales** --- selling properties and units, either on
-    behalf of owners or from the company's own stock.
+1.  **rental** --- renting out the company's properties (the main
+    activity);
+2.  **property sales** --- selling properties and units. A buyer (a
+    person or a company) becomes an **owner** of what they bought.
 
 The platform centralizes:
 
@@ -106,18 +108,22 @@ Initial supported property types may include:
 
 ### Primary customers
 
-Small and mid-sized companies running real-estate operations:
+Small and mid-sized **real estate companies** (sociétés immobilières)
+that **own** real estate:
 
--   **property-management companies** managing rental assets on behalf
-    of property owners;
--   **real-estate agencies** renting and / or selling properties on
-    behalf of owners (individuals or companies) under a mandate;
--   **property developers (promoteurs immobiliers)** selling the units
-    of their own projects, and sometimes renting the unsold ones.
+-   they **mainly rent** their properties (apartments, houses, offices,
+    shops, parking spaces…);
+-   they **also sell** some properties or units --- property developers
+    (promoteurs immobiliers) selling the units of their own projects are
+    included.
 
-Many companies combine these activities: an agency may manage rentals
-for some owners and sell properties for others, and may also buy units
-to resell them.
+When the company sells a unit, the **buyer becomes an owner**. Examples:
+Mr. X buys an apartment from company Y; a software company buys a
+property with five offices from company A. Mr. X and the software
+company are then **owners** in the ERP.
+
+**Not customers:** agencies --- intermediaries that own no real estate
+(§0.29, decision D-012).
 
 Initial target profile:
 
@@ -334,7 +340,8 @@ Every sale has one selling party. This is a role, not a new persona:
     company a sales mandate --- the company acts as intermediary and
     earns a commission;
 -   the **organization itself**, when it owns the unit --- a developer
-    selling its own project, or an agency reselling a unit it bought.
+    selling its own project, or a real estate company selling a unit
+    it owns.
 
 ------------------------------------------------------------------------
 
@@ -729,8 +736,8 @@ and how the company earns money:
 
 | Seller | Example | Company's role | Company's revenue |
 |---|---|---|---|
-| Third-party owner | an owner gives an agency a mandate to sell their apartment | intermediary under a sales mandate | commission |
-| The organization itself | a developer sells units of its own project; an agency resells a unit it bought | seller | sale price |
+| Third-party owner | an owner (for example someone who bought from the company) gives the company a mandate to sell their apartment | intermediary under a sales mandate | commission |
+| The organization itself | the company sells units it owns (for example units of its own project) | seller | sale price |
 
 How the sale price is paid (through the company, through a notary, or
 directly between the parties) must be clarified in Phase 1, together
@@ -831,11 +838,11 @@ reviewed.
 
 Since sales is in scope, the research must also cover sales-side tools:
 
--   real-estate agency software and CRMs used in the French-speaking
+-   real-estate sales software and CRMs used in the French-speaking
     and Maghreb markets (candidates to verify, e.g. Apimo, Hektor)
 -   tools used by property developers to manage unit stock,
     reservations and buyer payments
--   general CRMs that agencies adapt for real-estate sales
+-   general CRMs adapted for real-estate sales
 
 ### Rental + sales research question
 
@@ -1312,7 +1319,7 @@ Potential V2 features:
 -   more extensive integrations
 -   off-plan sales (vente sur plan) with installments tied to
     construction milestones
--   advanced commission rules (several agents, co-agency)
+-   advanced commission rules (several sales agents)
 -   publishing listings to external listing portals
 
 ------------------------------------------------------------------------
@@ -2001,8 +2008,8 @@ ERP".
 
 **Reason**
 
-Target companies --- agencies, developers and property managers ---
-often both rent and sell. The same properties, owners and documents are
+Target companies --- real estate companies and developers --- often
+both rent and sell. The same properties, owners and documents are
 involved, so one shared property base avoids duplicated data and gives
 owners a single view.
 
@@ -2012,9 +2019,8 @@ Both are supported with one workflow:
 
 -   **owner seller** --- a third-party owner gives the company a sales
     mandate; the company is the intermediary and earns a commission;
--   **organization seller** --- the company owns the unit (a
-    developer's own project, or a unit an agency bought) and sells it
-    directly.
+-   **organization seller** --- the company owns the unit (for example
+    a developer's own project) and sells it directly.
 
 **Consequences**
 
@@ -2053,6 +2059,27 @@ Both are supported with one workflow:
 
 This decision replaces the earlier non-goal "a real-estate agency CRM"
 (§0.17), which is reworded accordingly.
+
+### Decision: The customer is a real estate company that owns real estate
+
+**Date:** 2026-10-09
+
+**Decision**
+
+The ERP's customer (the Organization) is a **real estate company**
+(société immobilière) that **owns** real estate. It mainly rents its
+properties and also sells some. **Agencies** --- intermediaries that own
+no real estate --- are **not** customers.
+
+When the company sells a property or unit, the **buyer** (a person or a
+company) becomes an **owner** of it and is recorded in the Owners area.
+
+**Consequences**
+
+-   the target customer (§0.2) and the product definition (§0.1) are
+    reworded;
+-   examples use names such as "Médina Immobilier", never "Agence";
+-   the word "agency" is not used for the customer in any document.
 
 ### Decision: Only internal users log in to the MVP
 

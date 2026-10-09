@@ -171,7 +171,7 @@ and English.
 | Owner view of sale progress | V1 | D-009 | |
 | Rule-based matching of buyer criteria to units | V1 | Phase 0 §0.14 | |
 | Off-plan sales tied to construction milestones | V2 | D-009 | |
-| Advanced commission rules (several agents, co-agency) | V2 | Phase 0 §0.15 | |
+| Advanced commission rules (several sales agents) | V2 | Phase 0 §0.15 | |
 | Publishing listings to external portals | V2 | D-009 | |
 
 ### 4.7 Billing, payments and finance

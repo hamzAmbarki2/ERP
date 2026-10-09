@@ -3,7 +3,7 @@
 **Projet :** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document :** Cahier des Charges 01 --- Organisation & Accès\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 0.3\
+**Version :** 0.4\
 **Statut :** Brouillon --- les points marqués *(proposition)* sont à
 valider\
 **Date :** 2026-10-08\
@@ -35,9 +35,10 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 
 ## 1. Un exemple pour comprendre
 
-> L'**Agence Médina** (exemple fictif) gère 300 logements et bureaux à
-> Tunis et vend aussi des appartements. Elle s'abonne au logiciel. Dans
-> le logiciel, l'Agence Médina est une **Organisation**.
+> **Médina Immobilier** (exemple fictif) est une société immobilière. Elle
+> possède 300 logements et bureaux à Tunis : elle en loue la plupart et
+> en vend certains. Elle s'abonne au logiciel. Dans
+> le logiciel, Médina Immobilier est une **Organisation**.
 >
 > Elle a cinq employés :
 >
@@ -55,7 +56,7 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 > son métier : menus, tableau de bord et écrans ne sont pas les mêmes
 > pour Karim, Amira, Hédi ou Ali.
 >
-> Avant d'inviter, Sonia décrit l'organisation de son agence : un
+> Avant d'inviter, Sonia décrit l'organisation de sa société : un
 > département Location, un département Vente, etc. Elle ajuste les
 > rôles avec des cases à cocher (Voir, Créer, Modifier, Supprimer).
 >
@@ -67,11 +68,11 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 > -   Ali ne voit que les interventions qui lui sont affectées, avec
 >     l'adresse et l'unité concernées. Il ne voit aucun montant.
 >
-> Une autre agence, l'**Agence Carthage**, utilise le même logiciel :
+> Une autre société immobilière, **Carthage Immobilier**, utilise le même logiciel :
 > c'est une deuxième **Organisation**, avec ses propres employés et
 > leurs propres interfaces.
-> Personne à l'Agence Médina ne peut voir quoi que ce soit de l'Agence
-> Carthage, et inversement --- même en tapant une adresse web ou un
+> Personne à Médina Immobilier ne peut voir quoi que ce soit de Carthage
+> Immobilier, et inversement --- même en tapant une adresse web ou un
 > numéro de dossier au hasard.
 
 ------------------------------------------------------------------------
@@ -125,7 +126,7 @@ plusieurs entreprises.
 
 | Notion | Définition simple | Dans l'image de l'immeuble |
 |---|---|---|
-| **Organisation** | Une entreprise cliente qui utilise le logiciel (agence, gestionnaire, promoteur). | Une entreprise locataire d'un étage. |
+| **Organisation** | Une entreprise cliente qui utilise le logiciel (société immobilière qui possède des biens, promoteur compris). | Une entreprise locataire d'un étage. |
 | **Utilisateur** | Une personne qui peut se connecter. Une personne = un compte, identifié par son email. | Une personne avec une carte d'accès. |
 | **Appartenance** | Le lien entre un utilisateur et une organisation. C'est elle qui porte les rôles. | La carte d'accès donne accès à un étage précis. |
 | **Département** | Une équipe de l'organisation (Location, Vente, Tunis Nord…), définie par l'Administrateur. Les départements forment un arbre. | Un service de l'entreprise, avec ses bureaux. |
@@ -170,7 +171,7 @@ technique sera défini en Phase 2.
 
 | Information | Exemple | Obligatoire |
 |---|---|---|
-| Nom commercial | Agence Médina | Oui |
+| Nom commercial | Médina Immobilier | Oui |
 | Raison sociale | Médina Immobilier SARL | Oui |
 | Matricule fiscal | 1234567/A/M/000 | Non *(à valider : obligatoire pour la facturation ?)* |
 | Adresse | 12 rue de Marseille, Tunis | Oui |
@@ -191,7 +192,7 @@ Elle peut l'activer plus tard.
 | Information | Exemple | Obligatoire |
 |---|---|---|
 | Prénom, nom | Karim Ben Salah | Oui |
-| Email | karim@agence-medina.tn | Oui, unique sur toute la plateforme |
+| Email | karim@medina-immobilier.tn | Oui, unique sur toute la plateforme |
 | Téléphone mobile | | Non |
 | Langue de l'interface | Arabe | Oui (par défaut : celle de l'organisation) |
 | Double authentification activée | Oui / Non | Oui |
@@ -205,7 +206,7 @@ l'opérateur.
 | Information | Exemple |
 |---|---|
 | Utilisateur | Karim Ben Salah |
-| Organisation | Agence Médina |
+| Organisation | Médina Immobilier |
 | Rôles | Gestionnaire (une personne peut en avoir plusieurs) |
 | Département | Location --- Tunis Nord |
 | Périmètre | Son département, ou toute l'organisation |
@@ -217,8 +218,8 @@ l'opérateur.
 
 | Information | Exemple |
 |---|---|
-| Email invité | karim@agence-medina.tn |
-| Organisation | Agence Médina |
+| Email invité | karim@medina-immobilier.tn |
+| Organisation | Médina Immobilier |
 | Rôles proposés | Gestionnaire |
 | Périmètre proposé | Toute l'organisation |
 | Envoyée par, date d'envoi | Sonia, 2026-10-08 |
@@ -252,7 +253,7 @@ l'opérateur.
 -   Une organisation a **un ou plusieurs** membres, dont au moins un
     Administrateur actif.
 -   Un utilisateur a **une ou plusieurs** appartenances (exemple : un
-    comptable indépendant qui travaille pour deux agences).
+    comptable indépendant qui travaille pour deux sociétés immobilières).
 -   Une appartenance a **un ou plusieurs** rôles.
 -   Une organisation a **zéro ou plusieurs** départements ; un
     département a **zéro ou plusieurs** sous-départements.
@@ -267,7 +268,8 @@ l'opérateur.
 
 ### 6.1 Principe
 
-Chaque agence est organisée différemment : une petite agence a trois
+Chaque société immobilière est organisée différemment : une petite
+société a trois
 personnes polyvalentes, une grande a des départements et des chefs
 d'équipe. Le logiciel ne peut donc pas imposer une seule organisation
 interne (décision D-011).
@@ -378,11 +380,11 @@ action par action.
 
 ### 6.4 Départements
 
-L'Administrateur décrit l'organisation interne de son agence sous forme
+L'Administrateur décrit l'organisation interne de sa société sous forme
 d'**arbre de départements**, avec autant de niveaux qu'il veut.
 
 ``` text
-Agence Médina
+Médina Immobilier
 ├── Direction            (responsable : Sonia)
 ├── Location
 │   ├── Tunis Nord       (responsable : Karim)
@@ -428,7 +430,7 @@ Le logiciel a trois niveaux :
 
 ``` text
 Plateforme (le logiciel)
-└── Organisations (les entreprises clientes : Agence Médina, Agence Carthage…)
+└── Organisations (les entreprises clientes : Médina Immobilier, Carthage Immobilier…)
     └── Employés de chaque organisation
         └── Interface dédiée à chaque employé, selon son ou ses rôles
 ```
@@ -793,11 +795,11 @@ Charges 01, règle 3 ».
 ## 11. Séparation entre organisations
 
 C'est l'exigence la plus importante du produit. Si elle échoue, une
-agence voit les locataires et les montants d'une agence concurrente.
+société voit les locataires et les montants d'une société concurrente.
 
 ### 11.1 Ce qui doit être garanti
 
-Pour un membre de l'Agence Médina, **rien** de l'Agence Carthage ne doit
+Pour un membre de Médina Immobilier, **rien** de Carthage Immobilier ne doit
 être visible ou modifiable, nulle part :
 
 -   écrans et listes ;
@@ -806,7 +808,7 @@ Pour un membre de l'Agence Médina, **rien** de l'Agence Carthage ne doit
 -   documents et photos, y compris par lien direct ;
 -   notifications et emails ;
 -   traitements automatiques (génération des loyers, relances) ;
--   numéros de dossier : demander la fiche n°45 de l'Agence Carthage
+-   numéros de dossier : demander la fiche n°45 de Carthage Immobilier
     répond « introuvable », pas « accès refusé », pour ne pas révéler
     qu'elle existe.
 
@@ -843,7 +845,7 @@ Principes déjà fixés :
 -   ils utiliseront le **même mécanisme** (utilisateur, appartenance,
     rôle, périmètre) que le personnel ;
 -   leur périmètre sera toujours « leurs propres fiches » ;
--   une personne pourra être à la fois employée d'une agence et
+-   une personne pourra être à la fois employée d'une société immobilière et
     propriétaire chez une autre, avec un seul compte.
 
 ------------------------------------------------------------------------
@@ -904,15 +906,15 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 
 **Séparation entre organisations**
 
--   **Critère 1** --- Étant donné Karim, membre de l'Agence Médina
-    seulement · Quand il demande la fiche d'un bail de l'Agence
-    Carthage (par son numéro ou par un lien direct) · Alors il obtient
+-   **Critère 1** --- Étant donné Karim, membre de Médina Immobilier
+    seulement · Quand il demande la fiche d'un bail de Carthage
+    Immobilier (par son numéro ou par un lien direct) · Alors il obtient
     « introuvable ».
 -   **Critère 2** --- Étant donné Karim · Quand il fait une recherche
-    « Ben Ali » · Alors seuls les résultats de l'Agence Médina
-    apparaissent, même si l'Agence Carthage a un locataire de ce nom.
+    « Ben Ali » · Alors seuls les résultats de Médina Immobilier
+    apparaissent, même si Carthage Immobilier a un locataire de ce nom.
 -   **Critère 3** --- Étant donné un lien de téléchargement d'un document
-    de l'Agence Carthage · Quand Karim l'ouvre · Alors le document
+    de Carthage Immobilier · Quand Karim l'ouvre · Alors le document
     n'est pas téléchargé.
 -   **Critère 4** --- Étant donné la génération automatique des loyers du
     mois · Quand elle s'exécute · Alors chaque facture est créée dans
@@ -941,10 +943,10 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 -   **Critère 10** --- Étant donné Ali connecté sur son téléphone · Quand
     Sonia désactive son appartenance · Alors Ali perd l'accès en moins
     de 1 minute.
--   **Critère 11** --- Étant donné un comptable membre de l'Agence Médina et
-    de l'Agence Carthage · Quand il passe de l'une à l'autre · Alors
+-   **Critère 11** --- Étant donné un comptable membre de Médina Immobilier et
+    de Carthage Immobilier · Quand il passe de l'une à l'autre · Alors
     aucune donnée de la première ne reste affichée.
--   **Critère 12** --- Étant donné l'Agence Médina suspendue · Quand Karim
+-   **Critère 12** --- Étant donné Médina Immobilier suspendue · Quand Karim
     essaie de se connecter · Alors l'accès est refusé avec le message
     prévu.
 
@@ -992,5 +994,6 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | Version | Date | Changement |
 |---|---|---|
 | 0.1 | 2026-10-08 | Première version. |
-| 0.2 | 2026-10-08 | Section 6.4 : une interface dédiée à chaque employé ; exemple précisé (chaque agence est une organisation avec ses propres employés). |
+| 0.2 | 2026-10-08 | Section 6.4 : une interface dédiée à chaque employé ; exemple précisé (chaque société immobilière est une organisation avec ses propres employés). |
 | 0.3 | 2026-10-08 | D-011 : départements et rôles définis par chaque organisation dès le MVP ; grille de privilèges Voir / Créer / Modifier / Supprimer ; sections 6 renumérotées (6.4 Départements, 6.5 Périmètre, 6.6 Interface) ; règles 19 à 25 ; UC-027 et UC-028. |
+| 0.4 | 2026-10-09 | D-012 : exemples renommés (Médina Immobilier, Carthage Immobilier) ; le client est une société immobilière qui possède des biens. |
