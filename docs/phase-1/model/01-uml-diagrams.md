@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.31\
+**Version:** 0.32\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1340,6 +1340,38 @@ Notes:
 -   At **closing**, the sale creates a new Ownership: the buyer becomes
     an owner of the unit.
 
+### Step 9 --- Building security
+
+| Class | What it is |
+|---|---|
+| SecurityIncident | Something that happened (broken lock, intrusion), with date, place and photos |
+| VisitorEntry | A visitor: name, which unit they visit, time in and out |
+| GuardShift | Who guards which property, and when (day or night) |
+| KeyHandover | A key given to someone (tenant, plumber…) and when it was returned |
+
+``` mermaid
+classDiagram
+    class Property
+    class Unit
+    class Membership
+    class Vendor
+    class SecurityIncident
+    class VisitorEntry
+    class GuardShift
+    class KeyHandover
+
+    Property "1" --> "*" SecurityIncident : records
+    Property "1" --> "*" VisitorEntry : records
+    VisitorEntry "*" --> "0..1" Unit : visits
+    GuardShift "*" --> "1" Property : guards
+    GuardShift "*" --> "0..1" Membership : guard employed by the company
+    GuardShift "*" --> "0..1" Vendor : guard from a security company
+    KeyHandover "*" --> "1" Unit : key of
+```
+
+Note: a guard shift is covered by **either** an employee of the company
+**or** a security company (vendor).
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1377,3 +1409,4 @@ Notes:
 | 0.29 | 2026-10-09 | Class diagram (MVP), step 6: maintenance. |
 | 0.30 | 2026-10-09 | Class diagram (MVP), step 7: vendors. |
 | 0.31 | 2026-10-09 | Class diagram (MVP), step 8: sales. |
+| 0.32 | 2026-10-09 | Class diagram (MVP), step 9: building security. |
