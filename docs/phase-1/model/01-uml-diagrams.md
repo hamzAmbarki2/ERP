@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.20\
+**Version:** 0.21\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -814,6 +814,69 @@ Assigning a job to a vendor is done in Maintenance (button 5).
 Contracts, compliance documents and quotes were planned for V1 in
 Phase 0; they are now part of the MVP.
 
+### Step 12 --- Employee's buttons: Sales
+
+The Sales area follows the selling of a property or unit, from putting it
+up for sale to the day the **buyer becomes the owner**. Most of the time
+the company sells its **own** units; sometimes an owner asks the company
+to resell their unit (sales mandate).
+
+Sales uses **three boxes**: **Sales** (listings, offers, reservations,
+closing), **Prospects and buyers** (people interested, viewings) and
+**Buyer payments** (money received from buyers).
+
+``` mermaid
+flowchart LR
+    EM["👤 Employee"]
+
+    subgraph ERP["Real Estate Operations ERP"]
+        direction TB
+        SA1(["View units for sale<br/><i>box: Sales - View</i>"])
+        SA2(["Put a unit up for sale<br/><i>box: Sales - Create</i>"])
+        SA3(["Record a sales mandate<br/><i>box: Sales - Create</i>"])
+        SA4(["Edit a listing<br/><i>box: Sales - Update</i>"])
+        SA5(["Add a prospect<br/><i>box: Prospects and buyers - Create</i>"])
+        SA6(["Plan or record a viewing<br/><i>box: Prospects and buyers - Create</i>"])
+        SA7(["Record an offer<br/><i>box: Sales - Create</i>"])
+        SA8(["Accept or refuse an offer<br/><i>box: Sales - Update</i>"])
+        SA9(["Reserve the unit for the buyer<br/><i>box: Sales - Update</i>"])
+        SA10(["Record a buyer payment<br/><i>box: Buyer payments - Create</i>"])
+        SA11(["Close the sale<br/><i>box: Sales - Update</i>"])
+        SA12(["Cancel a reservation or sale<br/><i>box: Sales - Delete</i>"])
+        SA13(["Attach documents<br/><i>box: Sales - Update</i>"])
+    end
+
+    EM --- SA1
+    EM --- SA2
+    EM --- SA3
+    EM --- SA4
+    EM --- SA5
+    EM --- SA6
+    EM --- SA7
+    EM --- SA8
+    EM --- SA9
+    EM --- SA10
+    EM --- SA11
+    EM --- SA12
+    EM --- SA13
+```
+
+| # | Button | What it does | Box that must be ticked |
+|---|---|---|---|
+| 1 | View units for sale | All listings and their status | Sales: View |
+| 2 | Put a unit up for sale | Example: apartment B4, asking price 320,000 TND | Sales: Create |
+| 3 | Record a sales mandate | An owner (for example someone who bought from the company) asks the company to resell their unit | Sales: Create |
+| 4 | Edit a listing | Example: lower the price to 305,000 TND | Sales: Update |
+| 5 | Add a prospect | A person or company interested in buying | Prospects and buyers: Create |
+| 6 | Plan or record a viewing | Example: "Mrs. Y visits B4 on Saturday at 10:00" | Prospects and buyers: Create |
+| 7 | Record an offer | Example: Mrs. Y offers 300,000 TND | Sales: Create |
+| 8 | Accept or refuse an offer | Accepting leads to the reservation | Sales: Update |
+| 9 | Reserve the unit for the buyer | With a deposit (arbon) and an expiry date, so nobody else can buy it meanwhile | Sales: Update |
+| 10 | Record a buyer payment | Deposit, installment or final payment | Buyer payments: Create |
+| 11 | Close the sale | Final deed signed: the buyer becomes the owner in the Owners area | Sales: Update |
+| 12 | Cancel a reservation or sale | Record the reason and what happens to the deposit | Sales: Delete |
+| 13 | Attach documents | Sale agreement, buyer's ID, final deed | Sales: Update |
+
 ### Note --- Syndic (managing the shared parts of a building)
 
 When the company sells several units of a building, the building has
@@ -859,3 +922,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.18 | 2026-10-09 | Syndic: four buttons in existing areas (shared parts, owner share, building fees, building money); dedicated syndic interface after the MVP. |
 | 0.19 | 2026-10-09 | Step 10: Building security with one box and five buttons (incidents, visitors, guard shifts, keys). |
 | 0.20 | 2026-10-09 | Step 11: Vendors with 24 buttons (documents with validity dates and alerts, contract terms, ratings, comparison, quotes, vendor bills and payments) and rule 7d. |
+| 0.21 | 2026-10-09 | Step 12: Sales with three boxes and thirteen buttons. |
