@@ -2,7 +2,7 @@
 
 **Document :** Diagrammes UML --- version française\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 1.1\
+**Version :** 1.2\
 **Statut :** Diagramme de cas d'utilisation et diagramme de classes du MVP\
 **Date :** 2026-10-09\
 **Version anglaise :** [UML Diagrams](01-uml-diagrams.md)
@@ -925,7 +925,7 @@ signifie « zéro ou un » ; `"0..*"` signifie « zéro ou plusieurs ».
 | Organisation | La société immobilière (exemple : Médina Immobilier) |
 | Succursale | Une succursale de la société (exemple : Tunis Nord, Sousse) |
 | Département | Un département d'une succursale (exemple : Location, Vente) |
-| Utilisateur | Une personne qui se connecte (un seul compte par personne) |
+| Utilisateur | Une personne qui se connecte (un compte par organisation) |
 | Appartenance | Le lien entre un utilisateur et une société |
 | Rôle | Un rôle défini par la société (exemple : « Gestionnaire ») |
 | Privilège | Une case cochée : un domaine et une action (exemple : Baux / Créer) |
@@ -944,7 +944,7 @@ classDiagram
     Branch "1" --> "*" Department : possède
     Organization "1" --> "*" Role : définit
     Role "1" --> "*" Privilege : accorde
-    User "1" --> "*" Membership : possède
+    User "1" --> "1" Membership : possède
     Organization "1" --> "*" Membership : possède
     Membership "*" --> "*" Role : détient
     Membership "*" --> "1" Department : travaille dans
@@ -1410,7 +1410,7 @@ classDiagram
     Branch "1" --> "*" Department : possède
     Organization "1" --> "*" Role : définit
     Role "1" --> "*" Privilege : accorde
-    User "1" --> "*" Membership : possède
+    User "1" --> "1" Membership : possède
     Organization "1" --> "*" Membership : possède
     Membership "*" --> "*" Role : détient
     Membership "*" --> "1" Department : travaille dans
@@ -1597,3 +1597,4 @@ classDiagram
 |---|---|---|
 | 1.0 | 2026-10-09 | Première version française : diagramme de cas d'utilisation (MVP) et diagramme de classes (MVP, par groupe et complet). |
 | 1.1 | 2026-10-09 | « Tenant » (le locataire) renommé « Renter » ; « tenant » désigne l'organisation, comme en multi-tenancy (glossaire N-01). |
+| 1.2 | 2026-10-09 | Un utilisateur a une seule appartenance : un compte par organisation, rien n'est partagé entre organisations. |

@@ -1,7 +1,7 @@
 # Scope & Roadmap Matrix
 
 **Document:** Scope & Roadmap Matrix\
-**Version:** 0.10\
+**Version:** 0.11\
 **Status:** Draft — items marked *Proposed* to be confirmed\
 **Date:** 2026-10-08\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md) §0.13–0.17
@@ -94,7 +94,7 @@ and English.
 | Departments and hierarchy defined by the organization, limiting visibility | MVP | D-011 | |
 | Roles for external users (renter, owner, vendor, buyer) | V1 | D-010 | |
 | Inviting users by email | MVP | Proposed | Needed to add users. |
-| One user in several organizations | MVP | Proposed | Built into the data model from the start. |
+| One account per organization: nothing is shared between organizations | MVP | Decision 2026-10-09 | A person who works for two organizations has two accounts. |
 | Multi-factor authentication for internal users | MVP | Proposed | Security objective, Phase 0 §0.12. |
 | Single sign-on with the customer's identity provider | Later | Proposed | |
 
@@ -390,4 +390,5 @@ is then updated.
 | 0.8 | 2026-10-09 | Sales commission, payment schedules and buyer matching moved to the MVP. |
 | 0.9 | 2026-10-09 | Rent requests in the MVP (open topic closed); employees' reports and dashboards in V1. |
 | 0.10 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). |
+| 0.11 | 2026-10-09 | One account per organization: nothing is shared between organizations. |
 | 0.4 | 2026-10-08 | Feature-level proposals deferred to the cahiers that own them (§9). |

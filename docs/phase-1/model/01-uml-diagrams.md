@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.35\
+**Version:** 0.36\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -988,7 +988,7 @@ fixes the classes and how they are linked.
 | Organization | The real estate company (example: Médina Immobilier) |
 | Branch | A branch of the company (example: Tunis Nord, Sousse) |
 | Department | A department inside a branch (example: Location, Vente) |
-| User | A person who logs in (one account per person) |
+| User | A person who logs in (one account per organization) |
 | Membership | The link between a user and a company |
 | Role | A job role defined by the company (example: "Gestionnaire") |
 | Privilege | One ticked box: a domain and an action (example: Leases / Create) |
@@ -1007,15 +1007,14 @@ classDiagram
     Branch "1" --> "*" Department : has
     Organization "1" --> "*" Role : defines
     Role "1" --> "*" Privilege : grants
-    User "1" --> "*" Membership : has
+    User "1" --> "1" Membership : has
     Organization "1" --> "*" Membership : has
     Membership "*" --> "*" Role : holds
     Membership "*" --> "1" Department : works in
 ```
 
 How to read it: `"1" --> "*"` means "one … has many …". Example: one
-organization has many branches; one user can have several memberships
-(one per company they work for).
+organization has many branches; one user has one membership, in the one company they work for.
 
 ### Step 2 --- The properties
 
@@ -1524,7 +1523,7 @@ classDiagram
     Branch "1" --> "*" Department : has
     Organization "1" --> "*" Role : defines
     Role "1" --> "*" Privilege : grants
-    User "1" --> "*" Membership : has
+    User "1" --> "1" Membership : has
     Organization "1" --> "*" Membership : has
     Membership "*" --> "*" Role : holds
     Membership "*" --> "1" Department : works in
@@ -1665,3 +1664,4 @@ classDiagram
 | 0.33 | 2026-10-09 | Class diagram (MVP), step 10: shared records; summary (74 classes). |
 | 0.34 | 2026-10-09 | Full MVP class diagram (all classes in one view); French version in [Diagrammes UML (version française)](02-diagrammes-uml-fr.md). |
 | 0.35 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). Use case boxes and class names updated. |
+| 0.36 | 2026-10-09 | A user has one membership: one account per organization, nothing is shared between organizations. |

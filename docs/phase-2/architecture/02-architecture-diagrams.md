@@ -2,7 +2,7 @@
 
 **Document:** Architecture Diagrams\
 **Phase:** Phase 2 --- Architecture\
-**Version:** 0.4\
+**Version:** 0.5\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-09\
 **Depends on:** [Architecture Vision & Principles](01-architecture-vision.md),
@@ -14,9 +14,8 @@ Diagrams in this document:
 1.  Big picture --- *step 1 done*
 2.  Building blocks inside the platform --- *step 2 done*
 3.  How organizations are kept apart --- *step 3 done*
-4.  What is shared and what belongs to one organization
-5.  Where it runs (no cloud provider named)
-6.  Keeping it running: releases, backups, monitoring
+4.  Where it runs (no cloud provider named)
+5.  Keeping it running: releases, backups, monitoring
 
 Diagrams are written in Mermaid so GitHub displays them, in the same way
 as the [UML Diagrams](../../phase-1/model/01-uml-diagrams.md).
@@ -123,8 +122,7 @@ Notes:
 -   Modules talk to each other through public interfaces or business
     events, never by reading each other's tables (Architecture Vision
     §3.3). This is not drawn here.
--   No cloud provider, server size or network is drawn. That comes in
-    step 5.
+-   No cloud provider, server size or network is drawn. That comes in step 4.
 
 ------------------------------------------------------------------------
 
@@ -164,6 +162,7 @@ flowchart LR
 
 Notes:
 
+-   **Nothing is shared** between organizations: each organization has its own accounts, records and lists.
 -   If Karim asks for Lease B7 by its number, the server answers "not
     found", not "access denied" (Cahier des Charges 01, section 11.1).
 -   The Architecture Vision (§5.2) also adds a second check inside the
@@ -180,3 +179,4 @@ Notes:
 | 0.2 | 2026-10-09 | Isolation decision withdrawn: the first version uses one database for all organizations (Architecture Vision §5). New customers and payment provider removed from step 1; self-service sign-up stays "Later" in the scope matrix. |
 | 0.3 | 2026-10-09 | Step 2: the building blocks inside the platform. |
 | 0.4 | 2026-10-09 | Step 3: how organizations are kept apart (organization IDs). |
+| 0.5 | 2026-10-09 | Step 4 ("what is shared") removed: nothing is shared between organizations. Steps renumbered. |

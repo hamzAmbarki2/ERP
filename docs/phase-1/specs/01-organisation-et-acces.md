@@ -3,10 +3,10 @@
 **Projet :** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document :** Cahier des Charges 01 --- Organisation & Accès\
 **Phase :** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version :** 0.4\
+**Version :** 0.5\
 **Statut :** Brouillon --- les points marqués *(proposition)* sont à
 valider\
-**Date :** 2026-10-08\
+**Date :** 2026-10-09\
 **Dépend de :** [Cahier des Charges Général](00-cahier-des-charges-general.md),
 [Phase 0](../../phase-0/01-product-definition.md),
 [Glossaire](../../reference/01-glossary.md),
@@ -109,7 +109,7 @@ propriétaires, fournisseurs et acheteurs n'ont pas d'accès avant la V1.
 | Départements et hiérarchie définis par l'Administrateur | MVP (D-011) |
 | Plusieurs rôles pour une même personne | MVP |
 | Périmètre par département | MVP (D-011) |
-| Une même personne dans plusieurs organisations | MVP |
+| Un compte par organisation : rien n'est partagé entre organisations | MVP |
 | Double authentification (code en plus du mot de passe) | MVP *(proposition)* |
 | Journal d'audit des accès | MVP |
 | Comptes pour locataires, propriétaires, fournisseurs, acheteurs | V1 (D-010) |
@@ -127,7 +127,7 @@ plusieurs entreprises.
 | Notion | Définition simple | Dans l'image de l'immeuble |
 |---|---|---|
 | **Organisation** | Une entreprise cliente qui utilise le logiciel (société immobilière qui possède des biens, promoteur compris). | Une entreprise locataire d'un étage. |
-| **Utilisateur** | Une personne qui peut se connecter. Une personne = un compte, identifié par son email. | Une personne avec une carte d'accès. |
+| **Utilisateur** | Une personne qui peut se connecter. Un compte appartient à une seule organisation et est identifié par son email. | Une personne avec une carte d'accès. |
 | **Appartenance** | Le lien entre un utilisateur et une organisation. C'est elle qui porte les rôles. | La carte d'accès donne accès à un étage précis. |
 | **Département** | Une équipe de l'organisation (Location, Vente, Tunis Nord…), définie par l'Administrateur. Les départements forment un arbre. | Un service de l'entreprise, avec ses bureaux. |
 | **Rôle** | Un ensemble de privilèges défini par l'Administrateur (cinq modèles fournis). | Le type de carte : employé, comptable, technicien. |
@@ -252,8 +252,7 @@ l'opérateur.
 
 -   Une organisation a **un ou plusieurs** membres, dont au moins un
     Administrateur actif.
--   Un utilisateur a **une ou plusieurs** appartenances (exemple : un
-    comptable indépendant qui travaille pour deux sociétés immobilières).
+-   Un utilisateur a **une seule** appartenance : son compte appartient à une seule organisation. Une personne qui travaille pour deux sociétés immobilières a deux comptes séparés.
 -   Une appartenance a **un ou plusieurs** rôles.
 -   Une organisation a **zéro ou plusieurs** départements ; un
     département a **zéro ou plusieurs** sous-départements.
@@ -482,8 +481,7 @@ L'Administrateur saisit l'email, le rôle et le périmètre
 Le logiciel envoie une invitation par email (valable 7 jours)
         ↓
 L'employé clique sur le lien
-   ├── il n'a pas encore de compte → il crée son mot de passe
-   └── il a déjà un compte (autre organisation) → il se connecte
+   └── il crée son mot de passe : le compte n'existe que dans cette organisation
         ↓
 L'appartenance devient active
         ↓
@@ -497,10 +495,9 @@ Email + mot de passe
         ↓
 Code de double authentification (si activée ou obligatoire)
         ↓
-Une seule organisation ? → elle s'ouvre directement
-Plusieurs organisations ? → la personne choisit
+L'organisation du compte s'ouvre directement
         ↓
-Toutes les données affichées appartiennent à l'organisation choisie
+Toutes les données affichées appartiennent à l'organisation du compte
 ```
 
 ### 7.4 Faire sortir un employé
@@ -528,7 +525,7 @@ UC-018). Les nouveaux cas commencent à UC-019.
 | Version | MVP |
 | Avant | Le client a signé ; son nom et l'email de son responsable sont connus. |
 | Déroulement | 1. L'opérateur saisit le nom, la raison sociale, l'adresse, la langue, les activités. 2. Il saisit l'email du premier Administrateur. 3. Le logiciel crée l'organisation au statut `ACTIVE` et envoie l'invitation. |
-| Cas particuliers | L'email appartient déjà à un utilisateur : l'invitation lui est envoyée normalement ; il se connecte avec son compte existant. |
+| Cas particuliers | L'email appartient déjà à un compte d'une autre organisation : le logiciel le refuse ; la personne doit utiliser un autre email (question 10). |
 | Après | L'organisation existe, vide, avec une invitation Administrateur en attente. |
 | Règles | 1, 5 |
 | Événement | `OrganizationCreated` |
@@ -604,15 +601,9 @@ UC-018). Les nouveaux cas commencent à UC-019.
 | Règles | 11 |
 | Événements | `OrganizationSuspended`, `OrganizationReactivated` |
 
-### UC-025 --- Changer d'organisation
+### UC-025 --- Changer d'organisation (supprimé)
 
-| | |
-|---|---|
-| Acteur | Utilisateur membre de plusieurs organisations |
-| Version | MVP |
-| Déroulement | 1. Il choisit une autre organisation dans un menu. 2. L'écran se recharge entièrement avec les données de la nouvelle organisation. |
-| Règles | 3 |
-| Événement | `ActiveOrganizationSwitched` |
+Supprimé le 2026-10-09 : un compte appartient à une seule organisation, il n'y a donc rien à changer. Le numéro UC-025 n'est pas réutilisé.
 
 ### UC-026 --- Mot de passe oublié
 
@@ -721,9 +712,7 @@ Charges 01, règle 3 ».
 3.  À un instant donné, un utilisateur travaille dans **une seule
     organisation**. Aucun écran, rapport, recherche ou export ne mélange
     les données de deux organisations.
-4.  Une personne a **un seul compte** sur toute la plateforme,
-    identifié par son email, même si elle travaille pour plusieurs
-    organisations.
+4.  Un compte appartient à **une seule organisation** et est identifié par son email, unique sur toute la plateforme *(proposition, voir question 10)*. Une personne qui travaille pour deux sociétés a deux comptes séparés, avec deux emails.
 5.  Une organisation a **toujours au moins un Administrateur actif**.
     Le logiciel refuse de retirer ou désactiver le dernier.
 
@@ -812,13 +801,9 @@ Pour un membre de Médina Immobilier, **rien** de Carthage Immobilier ne doit
     répond « introuvable », pas « accès refusé », pour ne pas révéler
     qu'elle existe.
 
-### 11.2 Ce qui est partagé
+### 11.2 Rien n'est partagé
 
-Seuls sont partagés entre organisations :
-
--   le compte d'une personne (son email, son mot de passe, sa langue) ;
--   les listes de référence identiques pour tous (pays, devises, types
-    de biens).
+Rien n'est partagé entre organisations : chaque organisation a ses propres comptes, ses propres fiches et ses propres listes.
 
 ### 11.3 Comment c'est vérifié
 
@@ -845,8 +830,7 @@ Principes déjà fixés :
 -   ils utiliseront le **même mécanisme** (utilisateur, appartenance,
     rôle, périmètre) que le personnel ;
 -   leur périmètre sera toujours « leurs propres fiches » ;
--   une personne pourra être à la fois employée d'une société immobilière et
-    propriétaire chez une autre, avec un seul compte.
+-   un compte appartient toujours à une seule organisation : une personne employée d'une société immobilière et propriétaire chez une autre a deux comptes séparés.
 
 ------------------------------------------------------------------------
 
@@ -865,7 +849,6 @@ Principes déjà fixés :
 | `LoginFailed` | --- | Oui |
 | `UserLocked` | Email à l'utilisateur | Oui |
 | `PasswordReset` | Email de confirmation à l'utilisateur | Oui |
-| `ActiveOrganizationSwitched` | --- | Oui |
 | `DepartmentCreated`, `DepartmentUpdated` | --- | Oui |
 | `RoleCreated`, `RoleUpdated`, `RoleDeleted` | --- | Oui |
 
@@ -943,9 +926,7 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 -   **Critère 10** --- Étant donné Ali connecté sur son téléphone · Quand
     Sonia désactive son appartenance · Alors Ali perd l'accès en moins
     de 1 minute.
--   **Critère 11** --- Étant donné un comptable membre de Médina Immobilier et
-    de Carthage Immobilier · Quand il passe de l'une à l'autre · Alors
-    aucune donnée de la première ne reste affichée.
+-   **Critère 11** --- Étant donné un comptable qui a un compte chez Médina Immobilier et un autre compte chez Carthage Immobilier · Quand il se connecte avec l'un des deux · Alors il ne voit que les données de cette organisation.
 -   **Critère 12** --- Étant donné Médina Immobilier suspendue · Quand Karim
     essaie de se connecter · Alors l'accès est refusé avec le message
     prévu.
@@ -971,6 +952,7 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | Question 7 | Une fiche peut-elle n'appartenir à aucun département ? Si oui, qui la voit ? | Exemple : un fournisseur, un prospect sans bien précis. |
 | Question 8 | Un bien géré par Location et mis en vente par Vente : à quel département appartient-il ? | Deux équipes doivent le voir. |
 | Question 9 | Un membre peut-il appartenir à plusieurs départements ? | Exemple : un employé qui travaille pour Tunis Nord et Tunis Sud. |
+| Question 10 | Comment la connexion trouve-t-elle l'organisation du compte ? Email unique sur toute la plateforme (une personne qui travaille pour deux sociétés utilise deux emails), ou code d'organisation à saisir à la connexion ? | Sans partage entre organisations, un compte n'existe que dans une organisation. |
 
 ------------------------------------------------------------------------
 
@@ -997,3 +979,4 @@ Format : **Étant donné** (situation) · **Quand** (action) · **Alors**
 | 0.2 | 2026-10-08 | Section 6.4 : une interface dédiée à chaque employé ; exemple précisé (chaque société immobilière est une organisation avec ses propres employés). |
 | 0.3 | 2026-10-08 | D-011 : départements et rôles définis par chaque organisation dès le MVP ; grille de privilèges Voir / Créer / Modifier / Supprimer ; sections 6 renumérotées (6.4 Départements, 6.5 Périmètre, 6.6 Interface) ; règles 19 à 25 ; UC-027 et UC-028. |
 | 0.4 | 2026-10-09 | D-012 : exemples renommés (Médina Immobilier, Carthage Immobilier) ; le client est une société immobilière qui possède des biens. |
+| 0.5 | 2026-10-09 | Rien n'est partagé entre organisations : un compte appartient à une seule organisation (règle 4, section 11.2, UC-025 supprimé, critère 11, question 10). |

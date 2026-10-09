@@ -3,12 +3,13 @@
 **Projet:** Cloud-Native Multi-Tenant Real Estate Operations ERP\
 **Document:** 00 --- Cahier des Charges Général\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.6\
+**Version:** 0.7\
 **Status:** Draft / Baseline\
 **Date:** 2026-10-08
 
 **Historique**
 
+-   0.7 (2026-10-09) --- Rien n'est partagé entre organisations : un compte par organisation (Cahier des Charges 01, v0.5).
 -   0.6 (2026-10-09) --- « Tenant » (le locataire) renommé « Renter » ; « tenant » désigne l'organisation, comme en multi-tenancy (glossaire N-01).
 -   0.5 (2026-10-09) --- Le client est une société immobilière qui
     possède des biens ; les agences sont exclues (D-012).
@@ -795,7 +796,7 @@ propriétaires de l'ERP.
 
 ### Organisation & Accès
 
--   multi-organisation par utilisateur ;
+-   un compte par organisation (réglé : rien n'est partagé entre organisations) ;
 -   rôles ;
 -   permissions ;
 -   scopes ;

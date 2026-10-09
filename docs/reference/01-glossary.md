@@ -1,7 +1,7 @@
 # Glossary / Lexique
 
 **Document:** Glossary\
-**Version:** 0.6\
+**Version:** 0.7\
 **Status:** Draft — naming decisions in §2 to be confirmed\
 **Date:** 2026-10-09\
 **Depends on:** [Phase 0](../phase-0/01-product-definition.md),
@@ -64,7 +64,7 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | Platform Operator | Opérateur de la plateforme | مشغّل المنصة | The company running the platform, and its staff with platform-level administration rights. | Not a member of any organization by default. |
 | Organization | Organisation | المؤسسة | A **real estate company** (société immobilière) that subscribes to the platform and **owns** real estate: it mainly rents its properties **out** and also sells some (property developers included). Agencies --- intermediaries that own no real estate --- are not customers (D-012). Every business record belongs to exactly one organization. | Not a company that rents **in**: that is a Renter. In architecture and database documents, an organization is a **tenant** (N-01). Avoid: client, account, company. |
 | User | Utilisateur | المستخدم | A person who can log in. | A user is a login, not a business role. |
-| Membership | Appartenance | العضوية | The link between a user and an organization, carrying the user's roles there. A user may have several memberships. | |
+| Membership | Appartenance | العضوية | The link between a user and an organization, carrying the user's roles there. A user belongs to one organization only: nothing is shared between organizations. | |
 | Department | Département | القسم | A team inside an organization (Rental, Sales, Tunis North…), defined by the Organization Administrator. Departments form a tree and limit which records members see. | Defined per organization (D-011). |
 | Role | Rôle | الدور | A named grid of privileges defined by the Organization Administrator. Five templates are provided (Administrator, Property Manager, Sales Agent, Finance, Internal Technician). | Defined per organization (D-011). |
 | Privilege | Privilège | الصلاحية | One of View, Create, Update, Delete on one domain (type of record). No privilege ticked means no access. | Also called permission. |
@@ -206,5 +206,6 @@ map, Problem 4 and Problem 12). **Status: proposed — to confirm.**
 | 0.4 | 2026-10-09 | Rent Request added. |
 | 0.5 | 2026-10-09 | N-01: open point on the "Tenant" name clashing with multi-tenancy in the database; name kept for now. |
 | 0.6 | 2026-10-09 | Tenant (the person or company who rents) renamed **Renter**; "tenant" now means an organization, as in multi-tenancy (glossary N-01). |
+| 0.7 | 2026-10-09 | Membership: a user belongs to one organization only; nothing is shared between organizations. |
 | 0.3 | 2026-10-08 | Department and Privilege added; Role and Scope updated for D-011. |
 | 0.2 | 2026-10-08 | Tenant: made explicit that a tenant can be an individual or a company, renting one or more units. Organization: rents out / sells, as opposed to a Tenant, who rents in. |
