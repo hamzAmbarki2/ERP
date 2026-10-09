@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.13\
+**Version:** 0.14\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -486,6 +486,19 @@ flowchart LR
         F11(["Prepare an owner statement<br/><i>box: Owner statements - Create</i>"])
         F12(["Send an owner statement<br/><i>box: Owner statements - View</i>"])
         F13(["Record a payment to an owner<br/><i>box: Owner statements - Update</i>"])
+        F14(["Follow a cheque<br/><i>box: Invoices and payments - Update</i>"])
+        F15(["Record a bounced cheque<br/><i>box: Invoices and payments - Update</i>"])
+        F16(["Send a payment reminder by hand<br/><i>box: Invoices and payments - View</i>"])
+        F17(["Set up a payment plan<br/><i>box: Invoices and payments - Create</i>"])
+        F18(["Refund a tenant<br/><i>box: Invoices and payments - Create</i>"])
+        F19(["View deposits held<br/><i>box: Invoices and payments - View</i>"])
+        F20(["Choose who pays an expense<br/><i>box: Expenses - Update</i>"])
+        F21(["Attach a bill to an expense<br/><i>box: Expenses - Update</i>"])
+        F22(["View money in and out per property<br/><i>box: Invoices and payments - View</i>"])
+        F23(["Close a month<br/><i>box: Invoices and payments - Update</i>"])
+        F24(["Check payments against the bank statement<br/><i>box: Invoices and payments - Update</i>"])
+        F25(["View the agency's own income<br/><i>box: Invoices and payments - View</i>"])
+        F26(["Export for the accountant<br/><i>box: Invoices and payments - View</i>"])
     end
 
     EM --- F1
@@ -501,6 +514,19 @@ flowchart LR
     EM --- F11
     EM --- F12
     EM --- F13
+    EM --- F14
+    EM --- F15
+    EM --- F16
+    EM --- F17
+    EM --- F18
+    EM --- F19
+    EM --- F20
+    EM --- F21
+    EM --- F22
+    EM --- F23
+    EM --- F24
+    EM --- F25
+    EM --- F26
 ```
 
 | # | Button | What it does | Box that must be ticked |
@@ -518,6 +544,19 @@ flowchart LR
 | 11 | Prepare an owner statement | Rent collected, minus expenses, minus agency fee, gives the amount due to the owner | Owner statements: Create |
 | 12 | Send an owner statement | By email, as a PDF, to the owner (each co-owner gets a copy) | Owner statements: View |
 | 13 | Record a payment to an owner | The agency transfers the amount due to the owner | Owner statements: Update |
+| 14 | Follow a cheque | A cheque goes through steps: received, deposited at the bank, then cleared or bounced | Invoices and payments: Update |
+| 15 | Record a bounced cheque | The payment is cancelled, the tenant owes the rent again, and the bank fee can be charged to them | Invoices and payments: Update |
+| 16 | Send a payment reminder by hand | Besides the automatic reminders (example: "Your March rent is 10 days late") | Invoices and payments: View |
+| 17 | Set up a payment plan | Example: a tenant owes 3,000 TND and pays 500 TND extra each month for 6 months | Invoices and payments: Create |
+| 18 | Refund a tenant | Example: the tenant paid twice by mistake | Invoices and payments: Create |
+| 19 | View deposits held | All deposits kept by the agency, per tenant and property | Invoices and payments: View |
+| 20 | Choose who pays an expense | Owner, tenant (if they broke it) or agency | Expenses: Update |
+| 21 | Attach a bill to an expense | Photo or PDF of the supplier's bill, kept as proof | Expenses: Update |
+| 22 | View money in and out per property | Example: apartment A1 this year, 12,000 TND rent in, 900 TND repairs out | Invoices and payments: View |
+| 23 | Close a month | Lock a checked month so nobody can change its figures afterwards | Invoices and payments: Update |
+| 24 | Check payments against the bank statement | Compare the bank statement with recorded payments and find what is missing | Invoices and payments: Update |
+| 25 | View the agency's own income | Management fees and sales commissions earned by the agency | Invoices and payments: View |
+| 26 | Export for the accountant | Download invoices, payments and expenses of a period to Excel | Invoices and payments: View |
 
 Taxes (VAT, withholding tax, electronic invoicing) are left for the
 accountant's review (see the legal points discussed on 2026-10-09).
@@ -541,3 +580,4 @@ accountant's review (see the legal points discussed on 2026-10-09).
 | 0.11 | 2026-10-09 | Step 7: eleven Tenants and leases buttons for the Employee. |
 | 0.12 | 2026-10-09 | Fourteen more Tenants and leases buttons (move-in and move-out checks, deposit return, several tenants or units per lease, lease registration, notes, email, print, history, merge, export). |
 | 0.13 | 2026-10-09 | Step 8: Finance with three boxes and thirteen buttons. |
+| 0.14 | 2026-10-09 | Thirteen more Finance buttons (cheques, reminders, payment plans, refunds, deposits, who pays, bills, money per property, month closing, bank check, agency income, accountant export). |
