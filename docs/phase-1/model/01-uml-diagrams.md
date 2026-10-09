@@ -2,7 +2,7 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.25\
+**Version:** 0.26\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
@@ -1049,6 +1049,36 @@ Notes:
     unit and no building or floor.
 -   `"0..*"` means "zero or many"; `"0..1"` means "zero or one".
 
+### Step 3 --- The owners
+
+| Class | What it is |
+|---|---|
+| Owner | A person or company who owns units: a buyer, or the company itself for its own stock |
+| Ownership | Which owner holds which unit, with their share (example: 50%) and the dates (from when, until when) |
+| ManagementAgreement | What the company manages for an owner, with the dates and the fee per property |
+
+``` mermaid
+classDiagram
+    class Organization
+    class Owner
+    class Ownership
+    class ManagementAgreement
+    class Unit
+
+    Owner "1" --> "*" Ownership : holds
+    Ownership "*" --> "1" Unit : on
+    Owner "1" --> "*" ManagementAgreement : signs
+    ManagementAgreement "*" --> "*" Unit : covers
+    Organization "0..1" --> "0..1" Owner : is owner of its own stock
+```
+
+Notes:
+
+-   **Co-owners** (example: 3 brothers) are several Ownerships on the
+    same unit, adding up to 100%.
+-   Ownership has **dates**, so the ERP knows who owned a unit on any
+    day (needed when a unit is sold).
+
 ------------------------------------------------------------------------
 
 ## Change log
@@ -1080,3 +1110,4 @@ Notes:
 | 0.23 | 2026-10-09 | Rent requests: five buttons in Tenants and leases (MVP). Employees' reports and dashboards planned for V1. |
 | 0.24 | 2026-10-09 | Class diagram (MVP), step 1: the company and its people. |
 | 0.25 | 2026-10-09 | Class diagram (MVP), step 2: the properties. |
+| 0.26 | 2026-10-09 | Class diagram (MVP), step 3: the owners. |
