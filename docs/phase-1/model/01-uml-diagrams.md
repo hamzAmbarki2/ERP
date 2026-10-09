@@ -2,17 +2,18 @@
 
 **Document:** UML Diagrams\
 **Phase:** Phase 1 --- Cahier des Charges + Domain Modeling\
-**Version:** 0.23\
+**Version:** 0.24\
 **Status:** In progress --- built step by step, one question at a time\
 **Date:** 2026-10-08
 
 Diagrams in this document:
 
-1.  Use case diagram --- *in progress*
-2.  Class diagram
-3.  Activity diagrams
-4.  Sequence diagrams
-5.  State diagrams
+1.  Use case diagram --- *done for the MVP*
+2.  Class diagram, MVP --- *in progress*
+3.  Class diagram, V1
+4.  Activity diagrams
+5.  Sequence diagrams
+6.  State diagrams
 
 Diagrams are written in Mermaid so GitHub displays them. Mermaid has no
 dedicated use case notation, so the use case diagram uses the usual
@@ -974,6 +975,49 @@ A **dedicated syndic interface** comes **after the MVP**.
 
 ------------------------------------------------------------------------
 
+## 2. Class diagram --- MVP
+
+Built group by group. Attributes are added in a later step; this step
+fixes the classes and how they are linked.
+
+### Step 1 --- The company and its people
+
+| Class | What it is |
+|---|---|
+| Organization | The real estate company (example: Médina Immobilier) |
+| Branch | A branch of the company (example: Tunis Nord, Sousse) |
+| Department | A department inside a branch (example: Location, Vente) |
+| User | A person who logs in (one account per person) |
+| Membership | The link between a user and a company |
+| Role | A job role defined by the company (example: "Gestionnaire") |
+| Privilege | One ticked box: a domain and an action (example: Leases / Create) |
+
+``` mermaid
+classDiagram
+    class Organization
+    class Branch
+    class Department
+    class User
+    class Membership
+    class Role
+    class Privilege
+
+    Organization "1" --> "*" Branch : has
+    Branch "1" --> "*" Department : has
+    Organization "1" --> "*" Role : defines
+    Role "1" --> "*" Privilege : grants
+    User "1" --> "*" Membership : has
+    Organization "1" --> "*" Membership : has
+    Membership "*" --> "*" Role : holds
+    Membership "*" --> "1" Department : works in
+```
+
+How to read it: `"1" --> "*"` means "one … has many …". Example: one
+organization has many branches; one user can have several memberships
+(one per company they work for).
+
+------------------------------------------------------------------------
+
 ## Change log
 
 | Version | Date | Change |
@@ -1001,3 +1045,4 @@ A **dedicated syndic interface** comes **after the MVP**.
 | 0.21 | 2026-10-09 | Step 12: Sales with three boxes and thirteen buttons. |
 | 0.22 | 2026-10-09 | Sixteen more Sales buttons (search, needs and matching, counter-offers, reservation alerts, payment schedules, commission, pipeline, documents, notes, merge, sale of a rented unit, buyer identity check, export). |
 | 0.23 | 2026-10-09 | Rent requests: five buttons in Tenants and leases (MVP). Employees' reports and dashboards planned for V1. |
+| 0.24 | 2026-10-09 | Class diagram (MVP), step 1: the company and its people. |
